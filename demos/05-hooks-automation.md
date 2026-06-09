@@ -1,3 +1,12 @@
+---
+title: Hooks — auto-lint + guard your data
+track: 3b-hooks
+discipline: both
+department: reference
+use_case: automation
+kind: seed
+---
+
 # Demo 05 — Hooks: auto-lint on edit + guard your data
 
 **Track:** 3b (Hooks & settings) · **Time:** ~15 min live

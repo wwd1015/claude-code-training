@@ -2,7 +2,7 @@
 
 The audience (DSQ) spans two disciplines — **Quants** (econometric/economic modeling,
 regression) and **Data Scientists** (ML, big data) — across many departments with varied use
-cases and skill levels.
+cases and experience levels.
 
 We teach **one discipline-agnostic Spine** (the five Tracks + the Claude Code building blocks:
 skill creation, hooks, subagents, MCP) rather than forking per-discipline programs. The in-repo

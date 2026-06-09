@@ -1,33 +1,36 @@
-# Facilitator guide — running a cohort
+# Facilitator guide — running a Cohort
 
-End-to-end runbook for delivering one cohort. Pairs with the [session decks](sessions/) and the
-[operating model](operating-model.md).
+Runbook for whoever runs a **Cohort** — usually a department **Champion** or volunteer, sometimes
+central staff in a big department. A Cohort is **one** delivery mode; most Learners adopt via
+**self-serve** (the [entry site](../site/index.html)) plus a Champion's office hours. See the
+[operating model](operating-model.md). Pairs with the [session decks](sessions/).
 
 ## Cohort at a glance (2–3 weeks)
 | When | What | Owner |
 |------|------|-------|
 | T-1 week | Send invite + pre-work; everyone installs | Facilitator |
 | Week 1 | Workshop A (fundamentals) | Facilitator |
-| Week 1–2 | Office hours (drop-in) | OH host |
+| Week 1–2 | Office hours (drop-in) | Champion |
 | Week 2 | Workshop B (config + first builds) | Facilitator |
 | Week 2 | Workshop C (agents + MCP) | Facilitator |
-| Week 2–3 | Capstone build + office hours | OH host |
+| Week 2–3 | Capstone build + office hours | Champion |
 | Week 3 | Capstone demo day | Facilitator |
-| T+30 days | Active-use check + metrics roll-up | Curriculum owner |
+| T+30 days | Active-use check + metrics roll-up | Central owner |
 
 ## Prep checklist (before Workshop A)
 - [ ] Cohort list finalized (8–15 is a good size for one facilitator).
 - [ ] Pre-work email sent (template below).
 - [ ] Demo data generated: `cd demos/setup && pip install -r requirements.txt && python gen_sample_dataset.py && python gen_backtest_results.py && python gen_series.py`.
+- [ ] For a **quant** cohort: `pip install statsmodels && python gen_regression_data.py` (for the `/regression-diagnostics` anchor).
 - [ ] For Workshop C: `pip install duckdb && python gen_warehouse.py`, and a DuckDB MCP server installed + tested ([examples/mcp](../examples/mcp/)).
 - [ ] A throwaway sandbox repo ready for anyone without their own.
 - [ ] Metrics sheet ready ([metrics template](metrics-template.md)).
 
 ## Running the live sessions
-- Keep it hands-on: attendees typing into Claude Code by ~minute 20.
-- Demo from the [scripts](../demos/), don't improvise — they're timed and de-risked.
+- Keep it hands-on: Learners typing into Claude Code by ~minute 20.
+- Demo from the [scripts](../demos/INDEX.md), don't improvise — they're timed and de-risked. Pick the quant or DS anchor to match the cohort.
 - Float during hands-on; collect 2–3 real stumbles to address in office hours.
-- End every session with a take-home tied to the attendee's *own* work.
+- End every session with a take-home tied to the Learner's *own* work.
 
 ## Comms templates
 

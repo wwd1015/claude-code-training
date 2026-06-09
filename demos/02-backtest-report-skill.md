@@ -1,3 +1,12 @@
+---
+title: Build a /backtest-report skill
+track: 3a-skills
+discipline: both
+department: reference
+use_case: strategy-evaluation
+kind: seed
+---
+
 # Demo 02 — Build a `/backtest-report` skill, live
 
 **Track:** 3a (Skill creation) · **Time:** ~20 min live

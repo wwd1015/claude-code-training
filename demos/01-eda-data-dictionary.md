@@ -1,3 +1,12 @@
+---
+title: EDA + data dictionary
+track: 1-fundamentals
+discipline: both
+department: reference
+use_case: data-profiling
+kind: seed
+---
+
 # Demo 01 — EDA + data dictionary on an unfamiliar dataset
 
 > **Demo script template** (all demos follow this): Objective · Setup · Live script ·

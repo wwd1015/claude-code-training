@@ -1,3 +1,12 @@
+---
+title: Anomaly-triage subagent
+track: 3c-agents
+discipline: ds
+department: reference
+use_case: data-qa
+kind: seed
+---
+
 # Demo 03 — Anomaly-triage subagent that fans out over many series
 
 **Track:** 3c (Building agents) · **Time:** ~20 min live

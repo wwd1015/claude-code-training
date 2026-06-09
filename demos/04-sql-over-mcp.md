@@ -1,3 +1,12 @@
+---
+title: Answer a data question over MCP
+track: 3d-mcp
+discipline: both
+department: reference
+use_case: data-access
+kind: seed
+---
+
 # Demo 04 — Answer a data question end-to-end over MCP
 
 **Track:** 3d (MCP & integrations) · **Time:** ~20 min live

@@ -1,32 +1,45 @@
 # Operating model
 
-How we actually run the program (hybrid delivery).
+How the program runs at ~1000 DSQ across 15–20 departments. Delivery is **federated**: a central
+program supplies the Spine, the self-serve site, the official-course reading lists, the Demo
+library, and Champion enablement — and **delivery is decentralized**. See
+[ADR 0002](adr/0002-federated-delivery-champions-and-self-serve.md).
 
-## Cohort shape (2–3 weeks)
-- **Week 0 (self-paced):** Track 0 + Track 1 official pre-work (Claude Code 101, Quickstart). Everyone installs and runs a first task before any live session.
-- **Live Workshop A:** Tracks 0–1 recap + the EDA/data-dictionary demo + hands-on on their own notebook.
-- **Live Workshop B:** Track 2 (CLAUDE.md, slash commands, settings) + Track 3a/3b (skills, hooks).
-- **Live Workshop C:** Track 3c/3d (subagents, MCP) with the anomaly-triage and SQL-over-MCP demos.
-- **Capstone demo day:** each participant demos a real task they automated.
+## Three delivery modes
+
+1. **Self-serve (baseline, everyone).** The [entry site](../site/index.html), the progress
+   checklist, and the self-paced official courses. No instructor. This is how the long tail of
+   small departments adopts.
+2. **Champion-led (per department).** A [Champion](../CONTEXT.md) runs office hours, shepherds
+   Contributed demos, and sustains adoption locally. The engine of the federated model.
+3. **Cohort (one mode, not the default).** A time-boxed group through the Spine — instructor-led
+   in big departments, Champion-/volunteer-led elsewhere.
+
+## Cohort shape (when a department runs one, 2–3 weeks)
+- **Week 0 (self-paced):** Track 0 + Track 1 official pre-work (Claude Code 101, Quickstart).
+- **Live Workshop A:** Tracks 0–1 recap + an anchor demo (pick the quant or DS variant for the cohort).
+- **Live Workshop B:** Track 2 (CLAUDE.md, slash commands, settings) + Track 3a/3b (Skills, hooks).
+- **Live Workshop C:** Track 3c/3d (subagents, MCP).
+- **Capstone demo day:** each Learner demos a real task they automated — the best become Contributed demos.
 
 ## Office hours
-Weekly drop-in to unblock real work. Lean on the existing `/office-hours` pattern. This is
-where adoption actually happens — the live sessions teach, office hours convert.
+Weekly drop-in to unblock real work, run by the department **Champion**. This is where adoption
+actually converts — the sessions teach, office hours make it stick.
 
-## Shared assets
-This repo is the shared asset: `CLAUDE.md` templates, starter skills, hook samples, demo
-scripts. Learners contribute capstones back under `demos/`, growing the demo bank.
+## Shared assets & the contribution loop
+This repo is the shared asset: `CLAUDE.md` templates, starter Skills, hook samples, the
+[Demo library](../demos/INDEX.md). Capstones flow back as **Contributed demos** (governance in
+[CONTRIBUTING](../CONTRIBUTING.md)), so the library compounds across departments.
 
-## Metrics (the ROI story)
-Track per learner:
-- **Time saved per recurring task automated** (self-reported before/after).
-- **Number of skills / agents / hooks shipped.**
-- **Active-use rate** 30 days after the cohort.
-
-Roll these up per cohort for leadership. "12 quants shipped 28 skills; median 3 hrs/week
-saved" beats any satisfaction survey.
+## Metrics
+Steer by **one North Star**, not a basket — see [metrics-template](metrics-template.md). North
+Star is active-use rate (if usage data exists) or federation health (if not); leading indicators
+are champion coverage and Contributed-demos-per-quarter; time-saved is the executive headline.
 
 ## Roles
-- **Facilitator** — runs live sessions, owns the demo scripts.
-- **Office-hours host** — unblocks real work (can rotate).
-- **Curriculum owner** — keeps `reading-lists.md` links current, merges capstones.
+- **Champion** — standing per-department lead: runs office hours, curates Contributed demos, often
+  acts as Facilitator. The linchpin.
+- **Facilitator** — whoever runs a given Cohort (a Champion, a department volunteer, or central
+  staff in big departments). A per-cohort function, not a title.
+- **Central program owner** — maintains the Spine + Seed demos, keeps `reading-lists.md` current,
+  enables Champions, does the light merge review on Contributed demos.
