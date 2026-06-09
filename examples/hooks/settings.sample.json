@@ -1,0 +1,27 @@
+{
+  "//": "Sample Claude Code hooks. Copy the 'hooks' block into .claude/settings.json (project) or ~/.claude/settings.json (user), and copy the two .sh files into .claude/hooks/. Schema: https://code.claude.com/docs/en/hooks",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-data.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-checks.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -4,6 +4,7 @@ Writes data/series/<id>.csv for the anomaly-triage subagent demo. Most series ar
 AR(1)-ish noise; a known subset gets a level shift or a spike. Prints the ground-truth
 anomalous ids so the facilitator can verify the agent found them. Deterministic.
 """
+
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -41,12 +42,16 @@ def main() -> None:
                 kind = f"spike@{spike}"
         truth[f"s{i:03d}"] = kind
 
-        pd.DataFrame({"date": dates, "value": x}).to_csv(OUT / f"s{i:03d}.csv", index=False)
+        pd.DataFrame({"date": dates, "value": x}).to_csv(
+            OUT / f"s{i:03d}.csv", index=False
+        )
 
     pd.Series(truth).to_csv("data/series_truth.csv", header=["kind"])
     print(f"wrote {N_SERIES} series to {OUT}/  (len={LEN})")
     print(f"ground truth -> data/series_truth.csv  ({N_ANOMALOUS} anomalous)")
-    print("anomalous ids:", ", ".join(sorted(k for k, v in truth.items() if v != "clean")))
+    print(
+        "anomalous ids:", ", ".join(sorted(k for k, v in truth.items() if v != "clean"))
+    )
 
 
 if __name__ == "__main__":

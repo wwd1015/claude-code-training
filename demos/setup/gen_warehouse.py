@@ -3,6 +3,7 @@
 Builds data/warehouse.duckdb with a couple of tables a quant would actually query, so the
 MCP demo (NL -> SQL -> result -> chart) has real structure. Zero credentials. Deterministic.
 """
+
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -41,7 +42,9 @@ def main() -> None:
     )
     con.close()
     print(f"wrote {db}  (tables: trades [{len(trades)} rows], view: daily_volume)")
-    print("demo question to try: 'top 10 days by total volume in Q4, and plot the daily series'")
+    print(
+        "demo question to try: 'top 10 days by total volume in Q4, and plot the daily series'"
+    )
 
 
 if __name__ == "__main__":

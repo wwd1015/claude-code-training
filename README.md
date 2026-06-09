@@ -13,12 +13,17 @@ module points to an official course or doc as the source of truth.
 | Path | What it is |
 |------|------------|
 | [`site/index.html`](site/index.html) | The **entry site** — the training portal (GitHub Pages). Open it locally or host it. |
-| [`docs/curriculum.md`](docs/curriculum.md) | Full curriculum: 5 tracks, structure, build roadmap. |
+| [`docs/curriculum.md`](docs/curriculum.md) | Full curriculum: 5 tracks, structure, build roadmap, links to everything. |
 | [`docs/reading-lists.md`](docs/reading-lists.md) | The official Anthropic asset map (verified links) per module. |
-| [`docs/operating-model.md`](docs/operating-model.md) | How we run cohorts: cadence, office hours, metrics. |
-| [`demos/`](demos/) | Facilitator-ready demo scripts (the reusable core). |
-| [`templates/`](templates/) | Drop-in `CLAUDE.md` templates for research repos. |
-| [`skills/`](skills/) | Starter skills learners can install today (e.g. `/eda`). |
+| [`docs/sessions/`](docs/sessions/) | Facilitator slide outlines: 3 workshops + capstone demo day. |
+| [`docs/facilitator-guide.md`](docs/facilitator-guide.md) | Cohort runbook + comms templates. |
+| [`docs/cheatsheet.md`](docs/cheatsheet.md) · [`glossary.md`](docs/glossary.md) · [`faq.md`](docs/faq.md) · [`data-handling.md`](docs/data-handling.md) | Learner reference. |
+| [`docs/operating-model.md`](docs/operating-model.md) · [`metrics-template.md`](docs/metrics-template.md) · [`capstone-ideas.md`](docs/capstone-ideas.md) | Program ops, ROI tracking, project ideas. |
+| [`demos/`](demos/) | 5 facilitator-ready demo scripts + [`demos/setup/`](demos/setup/) runnable seeded data generators. |
+| [`examples/`](examples/) | Copy-paste [hooks](examples/hooks/) and [MCP](examples/mcp/) configs. |
+| [`templates/`](templates/) | Drop-in `CLAUDE.md` template for research repos. |
+| [`skills/`](skills/) | Starter skills to install today: `/eda`, `/backtest-report`, `/triage-data`. |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to add demos, skills, and capstones. |
 
 ## Start here (as a learner)
 

@@ -53,9 +53,9 @@ The four priority topics. Each: official course pre-work → live demo → take-
 | Module | Reuse (official) | Demo | Apply |
 |--------|------------------|------|-------|
 | 3a Skill creation | [Intro to Agent Skills](https://anthropic.skilljar.com/introduction-to-agent-skills) · [Skills docs](https://code.claude.com/docs/en/skills) | [02 — /backtest-report skill](../demos/02-backtest-report-skill.md) | ship one skill for a recurring task |
-| 3b Hooks & settings | [Hooks docs](https://code.claude.com/docs/en/hooks) · [Settings](https://code.claude.com/docs/en/settings) | pytest/ruff PostToolUse hook + write-guard | add one hook to your repo |
+| 3b Hooks & settings | [Hooks docs](https://code.claude.com/docs/en/hooks) · [Settings](https://code.claude.com/docs/en/settings) | [05 — hooks automation](../demos/05-hooks-automation.md) · [examples/hooks](../examples/hooks/) | add one hook to your repo |
 | 3c Building agents | [Intro to Subagents](https://anthropic.skilljar.com/introduction-to-subagents) · [Subagents docs](https://code.claude.com/docs/en/sub-agents) · [Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview) | [03 — anomaly-triage agent](../demos/03-anomaly-triage-agent.md) | design a subagent for your workflow |
-| 3d MCP & integrations | [Intro to MCP](https://anthropic.skilljar.com/introduction-to-model-context-protocol) · [MCP advanced](https://anthropic.skilljar.com/model-context-protocol-advanced-topics) · [MCP docs](https://code.claude.com/docs/en/mcp) | [04 — SQL/data over MCP](../demos/04-sql-over-mcp.md) | scope an MCP server for one data source |
+| 3d MCP & integrations | [Intro to MCP](https://anthropic.skilljar.com/introduction-to-model-context-protocol) · [MCP advanced](https://anthropic.skilljar.com/model-context-protocol-advanced-topics) · [MCP docs](https://code.claude.com/docs/en/mcp) | [04 — SQL/data over MCP](../demos/04-sql-over-mcp.md) · [examples/mcp](../examples/mcp/) | scope an MCP server for one data source |
 
 ### Track 4 — Capstone: automate your own work
 Each participant automates a real recurring task (skill / agent / hook / MCP) and demos it.
@@ -72,6 +72,12 @@ Doubles as proof of time saved + the demo bank for the next cohort.
 | 3. Build pilot | Reading lists + decks + demo scripts + starter repo | this repo | in progress |
 | 4. Pilot & measure | Run one small cohort; collect time-saved data | iterated v1 + metrics | 2–3 wks |
 | 5. Scale | Record demos, internal portal, recurring cohorts | self-serve | ongoing |
+
+## Supporting material
+- **Learner reference:** [cheatsheet](cheatsheet.md) · [glossary](glossary.md) · [FAQ](faq.md) · [data handling & safety](data-handling.md)
+- **Facilitator:** [facilitator guide + comms templates](facilitator-guide.md) · [session decks](sessions/) · [metrics template](metrics-template.md) · [capstone ideas](capstone-ideas.md)
+- **Templates & examples:** [research-repo CLAUDE.md](../templates/CLAUDE.research-repo.md) · [hooks](../examples/hooks/) · [MCP](../examples/mcp/) · starter skills ([eda](../skills/eda/SKILL.md), [backtest-report](../skills/backtest-report/SKILL.md), [triage-data](../skills/triage-data/SKILL.md))
+- **Contributing:** [how to add demos/skills/capstones](../CONTRIBUTING.md)
 
 ## Open questions
 - Cohort size & number of cohorts (self-paced vs live ratio)?

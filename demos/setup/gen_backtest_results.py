@@ -3,6 +3,7 @@
 A daily strategy with modest positive drift, vol clustering, and a drawdown period so the
 report has something to show (Sharpe, Sortino, max drawdown, monthly heatmap). Deterministic.
 """
+
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -35,9 +36,11 @@ def main() -> None:
     cagr = eq.iloc[-1] ** (252 / n) - 1
     sharpe = df["returns"].mean() / df["returns"].std() * np.sqrt(252)
     mdd = (eq / eq.cummax() - 1).min()
-    print(f"wrote {OUT/'results.parquet'}  rows={n}")
+    print(f"wrote {OUT / 'results.parquet'}  rows={n}")
     print(f"facilitator sanity: CAGR~{cagr:.1%}  Sharpe~{sharpe:.2f}  maxDD~{mdd:.1%}")
-    print(f"  drawdown window injected around {dates[dd_start].date()}..{dates[dd_end].date()}")
+    print(
+        f"  drawdown window injected around {dates[dd_start].date()}..{dates[dd_end].date()}"
+    )
 
 
 if __name__ == "__main__":
