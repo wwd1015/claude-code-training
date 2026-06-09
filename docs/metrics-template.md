@@ -3,6 +3,23 @@
 The ROI story for leadership. Track these per cohort; roll up across cohorts. Copy the tables
 into a sheet, or keep them here.
 
+## North Star (steer by one, not the basket)
+
+The program steers by **one** North Star, with two leading indicators and one executive headline.
+Which North Star applies depends on a measurement fact — **do we have central usage/license
+visibility?**
+
+- **If usage data exists → North Star = 30-day active-use rate** among activated DSQ (truest
+  behavior-change signal).
+- **If not → North Star = federation health** — # departments with an active Champion *and* a
+  growing contributed library (directly observable without telemetry).
+- **Leading indicators (either case):** champion coverage (departments with an active Champion);
+  Contributed demos merged / quarter.
+- **Executive headline:** aggregate self-reported time saved.
+
+> _Open decision:_ confirm usage-data availability, then commit to active-use (A) or federation
+> health (B). The tables below are the supporting dashboard, not the steering metric.
+
 ## Per-participant log
 | Person | Track reached | Artifacts shipped (skill/agent/hook/MCP) | Recurring task automated | Est. time saved/wk | Active at T+30? |
 |--------|---------------|------------------------------------------|--------------------------|--------------------|-----------------|

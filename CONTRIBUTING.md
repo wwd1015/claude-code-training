@@ -1,6 +1,24 @@
 # Contributing
 
-This repo grows with each cohort. The best capstones become the next cohort's demos.
+The Demo library grows from real work: a DSQ automates a recurring task (a Capstone) and the
+good ones become **Contributed demos** for their department's niche. Seed demos (`demos/01–05`)
+are program-maintained references; Contributed demos are owned by their author/department.
+
+## Governance — how a contribution gets in
+
+Two-tier, deliberately low bar (easy to contribute, but the library stays trustworthy):
+
+1. **Champion vets locally and sponsors the PR.** A four-point checklist, not a code review:
+   - it automates a **real recurring task**,
+   - it **runs end-to-end** on seeded/sanitized data,
+   - it has the **front-matter tags** (`track`, `discipline`, `department`, `use_case`, `kind: contributed`),
+   - **no internal data or secrets** are committed.
+2. **A central maintainer does a light merge review** — tags present, links resolve, no secrets.
+   Not a quality audit. Merge fast.
+
+**Ownership:** Contributed demos are stamped with author + department and owned by them. Central
+won't polish or maintain them. **Rough and niche is fine** — the tags tell others if it's
+relevant. A Contributed demo that goes stale is **archived, not fixed**.
 
 ## Add your capstone (most common)
 1. Fork / branch.
