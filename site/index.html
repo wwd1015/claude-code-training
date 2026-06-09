@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Claude Code Training — Data Scientists &amp; Quants</title>
+<meta name="description" content="Internal Claude Code enablement program for data scientists and quants. Hybrid, hands-on, built on official Anthropic training." />
+<style>
+  :root{
+    --bg:#14110f; --bg2:#1c1815; --card:#211c19; --line:#352d27;
+    --ink:#f2ece6; --muted:#a89a8e; --faint:#7c6f64;
+    --clay:#d97757; --clay2:#e8a487; --good:#7fb069; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--clay);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:10;background:rgba(20,17,15,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  header.nav .wrap{display:flex;align-items:center;gap:24px;height:60px}
+  .brand{font-weight:600;letter-spacing:-.01em}
+  .brand .dot{color:var(--clay)}
+  header.nav nav{margin-left:auto;display:flex;gap:22px;font-size:14px}
+  header.nav nav a{color:var(--muted)}
+  header.nav nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:720px){header.nav nav{display:none}}
+
+  /* hero */
+  .hero{padding:84px 0 64px;border-bottom:1px solid var(--line);background:
+     radial-gradient(900px 360px at 78% -10%, rgba(217,119,87,.16), transparent 60%)}
+  .hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.04;letter-spacing:-.025em;margin:14px 0 18px;font-weight:680}
+  .hero h1 em{font-style:normal;color:var(--clay)}
+  .hero p.lead{font-size:clamp(17px,2.1vw,21px);color:var(--muted);max-width:62ch;margin:0 0 30px}
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--clay);color:#1a1310;font-weight:600;
+       padding:12px 20px;border-radius:9px;font-size:15px}
+  .cta:hover{text-decoration:none;filter:brightness(1.06)}
+  .cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:6px 0 8px;font-weight:660}
+  .sub{color:var(--muted);max-width:64ch;margin:0 0 30px}
+
+  /* start path */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:720px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;position:relative}
+  .step .n{font-family:var(--mono);font-size:13px;color:var(--clay);font-weight:600}
+  .step h3{margin:8px 0 6px;font-size:17px}
+  .step p{margin:0;color:var(--muted);font-size:14.5px}
+
+  /* tracks */
+  .tracks{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:720px){.tracks{grid-template-columns:1fr}}
+  .track{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s}
+  .track:hover{border-color:var(--clay)}
+  .track .top{display:flex;align-items:center;justify-content:space-between}
+  .track .lvl{font-family:var(--mono);font-size:11px;color:var(--faint);border:1px solid var(--line);border-radius:99px;padding:3px 9px}
+  .track h3{margin:0;font-size:18px;letter-spacing:-.01em}
+  .track h3 .num{color:var(--clay);font-family:var(--mono);margin-right:8px}
+  .track p{margin:0;color:var(--muted);font-size:14.5px}
+  .track .meta{display:flex;gap:14px;font-size:12.5px;color:var(--faint);margin-top:auto;padding-top:6px}
+
+  /* module grid */
+  .mods{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:720px){.mods{grid-template-columns:1fr}}
+  .mod{background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--clay);border-radius:10px;padding:20px}
+  .mod h3{margin:0 0 6px;font-size:16.5px}
+  .mod p{margin:0 0 12px;color:var(--muted);font-size:14px}
+  .mod .links{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{font-size:12.5px;font-family:var(--mono);border:1px solid var(--line);border-radius:7px;padding:5px 10px;color:var(--muted);background:var(--card)}
+  .pill:hover{border-color:var(--clay);color:var(--ink);text-decoration:none}
+  .pill.course{border-color:rgba(217,119,87,.4);color:var(--clay2)}
+
+  /* reading list */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  @media(max-width:720px){.cols{grid-template-columns:1fr}}
+  .cols h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin:0 0 12px;font-family:var(--mono)}
+  .cols ul{list-style:none;padding:0;margin:0}
+  .cols li{padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .cols li a{color:var(--ink)}
+  .cols li a:hover{color:var(--clay)}
+  .cols li span{color:var(--faint);font-size:12px;float:right;font-family:var(--mono)}
+
+  /* demos */
+  .demos{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:720px){.demos{grid-template-columns:1fr}}
+  .demo{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .demo:hover{border-color:var(--clay);text-decoration:none}
+  .demo .k{font-family:var(--mono);font-size:12px;color:var(--clay)}
+  .demo h3{margin:6px 0 4px;font-size:16px;color:var(--ink)}
+  .demo p{margin:0;color:var(--muted);font-size:13.5px}
+
+  .note{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;color:var(--muted);font-size:14px}
+  footer{padding:44px 0;color:var(--faint);font-size:13.5px}
+  footer a{color:var(--muted)}
+  .principle{font-size:clamp(18px,2.4vw,24px);line-height:1.45;letter-spacing:-.01em;color:var(--ink);max-width:60ch}
+  .principle b{color:var(--clay);font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <span class="brand">Claude Code <span class="dot">/</span> Training</span>
+    <nav>
+      <a href="#start">Start</a>
+      <a href="#tracks">Tracks</a>
+      <a href="#advanced">Advanced</a>
+      <a href="#material">Material</a>
+      <a href="#demos">Demos</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="tag">Internal enablement · Data Science &amp; Quant</div>
+    <h1>Claude Code, for people who<br><em>live in notebooks.</em></h1>
+    <p class="lead">A hybrid, hands-on program that takes you from first install to building your
+      own skills, agents, hooks, and data integrations — using your real research work as the
+      training set. Built on the official Anthropic curriculum, so you learn the canonical way.</p>
+    <div class="ctas">
+      <a class="cta" href="#start">Start here →</a>
+      <a class="cta ghost" href="../docs/curriculum.md">Full curriculum</a>
+    </div>
+  </div>
+</div>
+
+<section id="start">
+  <div class="wrap">
+    <div class="tag">Day one</div>
+    <h2>Get running in three steps</h2>
+    <p class="sub">No software-engineering background assumed. If you can write a pandas script,
+      you're ready.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>Install &amp; authenticate</h3>
+        <p>Follow the <a href="https://code.claude.com/docs/en/quickstart">Quickstart</a>.
+           ~5 minutes in your terminal.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>Take Claude Code 101</h3>
+        <p>The official self-paced course:
+           <a href="https://anthropic.skilljar.com/claude-code-101">Claude Code 101</a>.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>Do one real task</h3>
+        <p>Open one of your own notebooks and ask Claude Code to explain it and add a docstring.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tracks">
+  <div class="wrap">
+    <div class="tag">The path</div>
+    <h2>Five tracks, multiple entry points</h2>
+    <p class="sub">Beginners finish Track 1. Power users jump to Track 3. Every module is
+      <span class="mono">reuse → demo → apply</span>: official pre-work, a live demo, then you do
+      it on your own work.</p>
+    <div class="tracks">
+      <div class="track">
+        <div class="top"><h3><span class="num">0</span>Orientation</h3><span class="lvl">all</span></div>
+        <p>The agentic loop, install, the permission/safety model. "A pair-researcher in your
+           terminal — not autocomplete."</p>
+        <div class="meta"><span>Self-paced</span><span>~30 min</span></div>
+      </div>
+      <div class="track">
+        <div class="top"><h3><span class="num">1</span>Daily-driver fundamentals</h3><span class="lvl">onboarding</span></div>
+        <p>Navigate a repo, explain code, edit files, run notebooks, plan mode, basic git.
+           Demo: EDA + data dictionary on an unfamiliar dataset.</p>
+        <div class="meta"><span>Self-paced + live</span><span>~2 hrs</span></div>
+      </div>
+      <div class="track">
+        <div class="top"><h3><span class="num">2</span>Make it yours</h3><span class="lvl">intermediate</span></div>
+        <p>CLAUDE.md memory, settings, custom slash commands, permissions. Build a research-repo
+           CLAUDE.md and an <span class="mono">/eda</span> command.</p>
+        <div class="meta"><span>Hybrid</span><span>~2 hrs</span></div>
+      </div>
+      <div class="track">
+        <div class="top"><h3><span class="num">3</span>Advanced builder</h3><span class="lvl">advanced</span></div>
+        <p>Skills, hooks, subagents, and MCP — the four building blocks. See the modules below.</p>
+        <div class="meta"><span>Live + office hours</span><span>~3–4 hrs</span></div>
+      </div>
+      <div class="track">
+        <div class="top"><h3><span class="num">4</span>Capstone</h3><span class="lvl">all</span></div>
+        <p>Automate one real recurring task with Claude Code and demo it. Your capstone becomes
+           the demo bank for the next cohort.</p>
+        <div class="meta"><span>Project</span><span>self-directed</span></div>
+      </div>
+      <div class="track" style="border-style:dashed">
+        <div class="top"><h3><span class="num">+</span>Office hours</h3><span class="lvl">weekly</span></div>
+        <p>Drop-in to unblock your real work. The live sessions teach; office hours convert it
+           into daily habit.</p>
+        <div class="meta"><span>Ongoing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="advanced">
+  <div class="wrap">
+    <div class="tag">Track 3 · build anything</div>
+    <h2>The four building blocks</h2>
+    <p class="sub">Each has a dedicated official Anthropic course (the pre-work) plus a
+      quant-flavored demo you'll build live.</p>
+    <div class="mods">
+      <div class="mod">
+        <h3>Skill creation</h3>
+        <p>Turn a task you keep retyping into a reusable, shareable skill (SKILL.md).</p>
+        <div class="links">
+          <a class="pill course" href="https://anthropic.skilljar.com/introduction-to-agent-skills">course: Agent Skills</a>
+          <a class="pill" href="https://code.claude.com/docs/en/skills">docs</a>
+          <a class="pill" href="../demos/02-backtest-report-skill.md">demo: /backtest-report</a>
+        </div>
+      </div>
+      <div class="mod">
+        <h3>Hooks &amp; settings</h3>
+        <p>Auto-run pytest/ruff on edit; guardrail dangerous actions; configure via settings.json.</p>
+        <div class="links">
+          <a class="pill" href="https://code.claude.com/docs/en/hooks">docs: hooks</a>
+          <a class="pill" href="https://code.claude.com/docs/en/settings">docs: settings</a>
+        </div>
+      </div>
+      <div class="mod">
+        <h3>Building agents</h3>
+        <p>Subagents and fan-out. One orchestrator, many parallel checkers — applied to data QA.</p>
+        <div class="links">
+          <a class="pill course" href="https://anthropic.skilljar.com/introduction-to-subagents">course: Subagents</a>
+          <a class="pill" href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK</a>
+          <a class="pill" href="../demos/03-anomaly-triage-agent.md">demo: anomaly triage</a>
+        </div>
+      </div>
+      <div class="mod">
+        <h3>MCP &amp; integrations</h3>
+        <p>Connect Claude to your data. Natural language → query → result → chart, read-only.</p>
+        <div class="links">
+          <a class="pill course" href="https://anthropic.skilljar.com/introduction-to-model-context-protocol">course: MCP</a>
+          <a class="pill" href="https://code.claude.com/docs/en/mcp">docs</a>
+          <a class="pill" href="../demos/04-sql-over-mcp.md">demo: SQL over MCP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="material">
+  <div class="wrap">
+    <div class="tag">Leverage what exists</div>
+    <h2>Built on the official Anthropic curriculum</h2>
+    <p class="sub">We don't reinvent the wheel. Official courses and docs carry the concepts; we
+      add the quant demos and exercises. Full map in
+      <a href="../docs/reading-lists.md">reading-lists.md</a>.</p>
+    <div class="cols">
+      <div>
+        <h4>Courses (Anthropic Academy)</h4>
+        <ul>
+          <li><a href="https://anthropic.skilljar.com/claude-code-101">Claude Code 101</a><span>T0</span></li>
+          <li><a href="https://anthropic.skilljar.com/claude-code-in-action">Claude Code in Action</a><span>T1</span></li>
+          <li><a href="https://anthropic.skilljar.com/introduction-to-agent-skills">Introduction to Agent Skills</a><span>T3a</span></li>
+          <li><a href="https://anthropic.skilljar.com/introduction-to-subagents">Introduction to Subagents</a><span>T3c</span></li>
+          <li><a href="https://anthropic.skilljar.com/introduction-to-model-context-protocol">Introduction to MCP</a><span>T3d</span></li>
+          <li><a href="https://anthropic.skilljar.com/model-context-protocol-advanced-topics">MCP: Advanced Topics</a><span>T3d</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Docs (code.claude.com)</h4>
+        <ul>
+          <li><a href="https://code.claude.com/docs/en/quickstart">Quickstart</a><span>T0</span></li>
+          <li><a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a><span>T1</span></li>
+          <li><a href="https://code.claude.com/docs/en/memory">Memory / CLAUDE.md</a><span>T2</span></li>
+          <li><a href="https://code.claude.com/docs/en/settings">Settings</a><span>T2</span></li>
+          <li><a href="https://code.claude.com/docs/en/best-practices">Best practices</a><span>T2</span></li>
+          <li><a href="https://code.claude.com/docs/en/sub-agents">Sub-agents</a><span>T3c</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demos">
+  <div class="wrap">
+    <div class="tag">Reusable core</div>
+    <h2>Demo bank</h2>
+    <p class="sub">Facilitator-ready scripts. Quant-native, zero-infra by default (local
+      files/parquet), and each is real work you can take home.</p>
+    <div class="demos">
+      <a class="demo" href="../demos/01-eda-data-dictionary.md">
+        <div class="k">demo 01 · track 1</div>
+        <h3>EDA + data dictionary</h3>
+        <p>Turn an unfamiliar dataset into a documented, profiled, reproducible one.</p>
+      </a>
+      <a class="demo" href="../demos/02-backtest-report-skill.md">
+        <div class="k">demo 02 · track 3a</div>
+        <h3>Build a /backtest-report skill</h3>
+        <p>Author a reusable skill live: metrics, equity curve, monthly heatmap.</p>
+      </a>
+      <a class="demo" href="../demos/03-anomaly-triage-agent.md">
+        <div class="k">demo 03 · track 3c</div>
+        <h3>Anomaly-triage subagent</h3>
+        <p>Fan out over hundreds of series; only anomalies bubble up.</p>
+      </a>
+      <a class="demo" href="../demos/04-sql-over-mcp.md">
+        <div class="k">demo 04 · track 3d</div>
+        <h3>Answer a data question over MCP</h3>
+        <p>NL → query → result → chart, without leaving the terminal.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="principle">The principle: <b>reuse first.</b> Every module names an official
+      Anthropic course or doc as the source of truth. We build only the thin layer that makes it
+      land for quants — the demos on your data, the exercises on your work.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Claude Code Training · internal enablement for data scientists &amp; quants ·
+    <a href="../docs/curriculum.md">curriculum</a> ·
+    <a href="../docs/reading-lists.md">reading lists</a> ·
+    <a href="../docs/operating-model.md">operating model</a> ·
+    <a href="../README.md">repo</a>
+  </div>
+</footer>
+
+</body>
+</html>
