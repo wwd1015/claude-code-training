@@ -9,8 +9,7 @@ independently, only anomalies bubble up. Teach subagents, when fan-out beats one
 and headless/batch use for unattended jobs.
 
 ## Setup (zero infra)
-- A local `series/` dir of many small CSV/parquet series (synthetic with a few injected
-  anomalies so the demo has signal). Default generator script provided in the session repo.
+- **Generate the data:** `cd demos/setup && python gen_series.py` → writes `data/series/*.csv` (200 series, 12 with injected level-shifts/spikes) and `data/series_truth.csv` (ground truth, so you can confirm the agent found them).
 - A simple anomaly check the audience trusts (z-score / rolling-IQR is fine; or reference the
   LENS `/triage-data` TabPFN-TS approach if that's the internal standard).
 

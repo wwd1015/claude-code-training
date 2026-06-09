@@ -9,9 +9,9 @@ chart, without leaving the terminal. Teach what MCP is, how to add a server, and
 one for an internal source.
 
 ## Setup — source-agnostic, pick one
-**Default (zero infra):** a local DuckDB/SQLite file or a folder of parquet, exposed via a
-local MCP server (e.g. a DuckDB MCP server from `modelcontextprotocol/servers` or community).
-Runs on a laptop, no credentials.
+**Default (zero infra):** `cd demos/setup && pip install duckdb && python gen_warehouse.py` →
+writes `data/warehouse.duckdb` (a `trades` table + `daily_volume` view). Expose it via a local
+DuckDB MCP server (from `modelcontextprotocol/servers` or community). Runs on a laptop, no creds.
 
 **Internal (decide later):** the real warehouse (Snowflake/BigQuery/Postgres) or a market-data
 API via its MCP server. Requires read-only creds + sign-off. Keep this for a follow-up once the

@@ -10,8 +10,7 @@ Show that Claude Code reads a whole dataset/repo and runs your code — it's a p
 not autocomplete. Turn a messy unfamiliar CSV/parquet into a documented, profiled dataset.
 
 ## Setup (zero infra)
-- Any local dataset the audience doesn't know. Default: a single `data/sample.parquet` or
-  `.csv` (a public dataset, or a de-identified internal extract). Data is not committed.
+- **Generate the data:** `cd demos/setup && pip install -r requirements.txt && python gen_sample_dataset.py` → writes `data/sample.parquet` (a messy dataset with seeded nulls, outliers, a high-cardinality column, and a leaked target). Or bring a real de-identified extract.
 - Open Claude Code in a fresh empty folder containing only that file.
 - A Python env with `pandas` (and `pyarrow` for parquet). That's it.
 

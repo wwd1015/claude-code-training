@@ -29,7 +29,15 @@
   header.nav nav{margin-left:auto;display:flex;gap:22px;font-size:14px}
   header.nav nav a{color:var(--muted)}
   header.nav nav a:hover{color:var(--ink);text-decoration:none}
-  @media(max-width:720px){header.nav nav{display:none}}
+  .menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--ink);
+    font-size:18px;line-height:1;padding:6px 10px;border-radius:8px;cursor:pointer}
+  @media(max-width:720px){
+    .menu-btn{display:block}
+    header.nav nav{position:absolute;top:60px;right:0;left:0;flex-direction:column;gap:0;
+      background:var(--bg2);border-bottom:1px solid var(--line);padding:6px 0;display:none}
+    header.nav nav.open{display:flex}
+    header.nav nav a{padding:11px 24px}
+  }
 
   /* hero */
   .hero{padding:84px 0 64px;border-bottom:1px solid var(--line);background:
@@ -98,6 +106,27 @@
   .demo p{margin:0;color:var(--muted);font-size:13.5px}
 
   .note{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;color:var(--muted);font-size:14px}
+
+  /* checklist */
+  .check{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+  @media(max-width:720px){.check{grid-template-columns:1fr}}
+  .check label{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:13px 15px;cursor:pointer;font-size:14.5px;transition:border-color .15s}
+  .check label:hover{border-color:var(--clay)}
+  .check input{margin-top:3px;width:16px;height:16px;accent-color:var(--clay);flex:none}
+  .check label .t{color:var(--ink)}
+  .check label .s{color:var(--faint);font-family:var(--mono);font-size:11px;display:block;margin-top:2px}
+  .check input:checked + .t{color:var(--faint);text-decoration:line-through}
+  .progress{margin:0 0 22px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .progress b{color:var(--good)}
+
+  /* facilitator kit */
+  .kit{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:720px){.kit{grid-template-columns:1fr 1fr}}
+  .kit a{display:block;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:15px;font-size:13.5px}
+  .kit a:hover{border-color:var(--clay);text-decoration:none}
+  .kit a .k{font-family:var(--mono);font-size:11px;color:var(--clay);display:block;margin-bottom:5px}
+  .kit a .t{color:var(--ink)}
   footer{padding:44px 0;color:var(--faint);font-size:13.5px}
   footer a{color:var(--muted)}
   .principle{font-size:clamp(18px,2.4vw,24px);line-height:1.45;letter-spacing:-.01em;color:var(--ink);max-width:60ch}
@@ -109,12 +138,14 @@
 <header class="nav">
   <div class="wrap">
     <span class="brand">Claude Code <span class="dot">/</span> Training</span>
-    <nav>
+    <button class="menu-btn" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+    <nav id="nav">
       <a href="#start">Start</a>
       <a href="#tracks">Tracks</a>
       <a href="#advanced">Advanced</a>
       <a href="#material">Material</a>
       <a href="#demos">Demos</a>
+      <a href="#checklist">Checklist</a>
     </nav>
   </div>
 </header>
@@ -128,7 +159,7 @@
       training set. Built on the official Anthropic curriculum, so you learn the canonical way.</p>
     <div class="ctas">
       <a class="cta" href="#start">Start here →</a>
-      <a class="cta ghost" href="../docs/curriculum.md">Full curriculum</a>
+      <a class="cta ghost" href="https://github.com/wwd1015/claude-code-training/blob/main/docs/curriculum.md">Full curriculum</a>
     </div>
   </div>
 </div>
@@ -221,7 +252,7 @@
         <div class="links">
           <a class="pill course" href="https://anthropic.skilljar.com/introduction-to-agent-skills">course: Agent Skills</a>
           <a class="pill" href="https://code.claude.com/docs/en/skills">docs</a>
-          <a class="pill" href="../demos/02-backtest-report-skill.md">demo: /backtest-report</a>
+          <a class="pill" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/02-backtest-report-skill.md">demo: /backtest-report</a>
         </div>
       </div>
       <div class="mod">
@@ -238,7 +269,7 @@
         <div class="links">
           <a class="pill course" href="https://anthropic.skilljar.com/introduction-to-subagents">course: Subagents</a>
           <a class="pill" href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK</a>
-          <a class="pill" href="../demos/03-anomaly-triage-agent.md">demo: anomaly triage</a>
+          <a class="pill" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/03-anomaly-triage-agent.md">demo: anomaly triage</a>
         </div>
       </div>
       <div class="mod">
@@ -247,7 +278,7 @@
         <div class="links">
           <a class="pill course" href="https://anthropic.skilljar.com/introduction-to-model-context-protocol">course: MCP</a>
           <a class="pill" href="https://code.claude.com/docs/en/mcp">docs</a>
-          <a class="pill" href="../demos/04-sql-over-mcp.md">demo: SQL over MCP</a>
+          <a class="pill" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/04-sql-over-mcp.md">demo: SQL over MCP</a>
         </div>
       </div>
     </div>
@@ -260,7 +291,7 @@
     <h2>Built on the official Anthropic curriculum</h2>
     <p class="sub">We don't reinvent the wheel. Official courses and docs carry the concepts; we
       add the quant demos and exercises. Full map in
-      <a href="../docs/reading-lists.md">reading-lists.md</a>.</p>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/reading-lists.md">reading-lists.md</a>.</p>
     <div class="cols">
       <div>
         <h4>Courses (Anthropic Academy)</h4>
@@ -295,26 +326,65 @@
     <p class="sub">Facilitator-ready scripts. Quant-native, zero-infra by default (local
       files/parquet), and each is real work you can take home.</p>
     <div class="demos">
-      <a class="demo" href="../demos/01-eda-data-dictionary.md">
+      <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/01-eda-data-dictionary.md">
         <div class="k">demo 01 · track 1</div>
         <h3>EDA + data dictionary</h3>
         <p>Turn an unfamiliar dataset into a documented, profiled, reproducible one.</p>
       </a>
-      <a class="demo" href="../demos/02-backtest-report-skill.md">
+      <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/02-backtest-report-skill.md">
         <div class="k">demo 02 · track 3a</div>
         <h3>Build a /backtest-report skill</h3>
         <p>Author a reusable skill live: metrics, equity curve, monthly heatmap.</p>
       </a>
-      <a class="demo" href="../demos/03-anomaly-triage-agent.md">
+      <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/03-anomaly-triage-agent.md">
         <div class="k">demo 03 · track 3c</div>
         <h3>Anomaly-triage subagent</h3>
         <p>Fan out over hundreds of series; only anomalies bubble up.</p>
       </a>
-      <a class="demo" href="../demos/04-sql-over-mcp.md">
+      <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/04-sql-over-mcp.md">
         <div class="k">demo 04 · track 3d</div>
         <h3>Answer a data question over MCP</h3>
         <p>NL → query → result → chart, without leaving the terminal.</p>
       </a>
+    </div>
+  </div>
+</section>
+
+<section id="checklist">
+  <div class="wrap">
+    <div class="tag">Track your progress</div>
+    <h2>Your path checklist</h2>
+    <p class="sub">Ticks are saved in your browser. Work top to bottom, or jump to Track 3 if
+      you're already fluent.</p>
+    <p class="progress" id="progress">0 of 12 done</p>
+    <div class="check" id="checks">
+      <label><input type="checkbox" data-k="install"><span><span class="t">Install &amp; authenticate Claude Code</span><span class="s">track 0</span></span></label>
+      <label><input type="checkbox" data-k="cc101"><span><span class="t">Finish Claude Code 101</span><span class="s">track 0</span></span></label>
+      <label><input type="checkbox" data-k="firsttask"><span><span class="t">Explain one of your own notebooks</span><span class="s">track 1</span></span></label>
+      <label><input type="checkbox" data-k="eda"><span><span class="t">Run an EDA pass + data dictionary</span><span class="s">track 1</span></span></label>
+      <label><input type="checkbox" data-k="cwf"><span><span class="t">Read Common workflows</span><span class="s">track 1</span></span></label>
+      <label><input type="checkbox" data-k="claudemd"><span><span class="t">Write a CLAUDE.md for one repo</span><span class="s">track 2</span></span></label>
+      <label><input type="checkbox" data-k="slash"><span><span class="t">Build one custom slash command</span><span class="s">track 2</span></span></label>
+      <label><input type="checkbox" data-k="skill"><span><span class="t">Author your first skill</span><span class="s">track 3a</span></span></label>
+      <label><input type="checkbox" data-k="hook"><span><span class="t">Add a pytest/ruff hook</span><span class="s">track 3b</span></span></label>
+      <label><input type="checkbox" data-k="agent"><span><span class="t">Build a fan-out subagent</span><span class="s">track 3c</span></span></label>
+      <label><input type="checkbox" data-k="mcp"><span><span class="t">Connect a data source over MCP</span><span class="s">track 3d</span></span></label>
+      <label><input type="checkbox" data-k="capstone"><span><span class="t">Ship + demo your capstone</span><span class="s">track 4</span></span></label>
+    </div>
+  </div>
+</section>
+
+<section id="facilitators">
+  <div class="wrap">
+    <div class="tag">For facilitators</div>
+    <h2>Facilitator kit</h2>
+    <p class="sub">Slide-by-slide outlines for the live sessions, plus the operating model.
+      Demo data generators live in <span class="mono">demos/setup/</span>.</p>
+    <div class="kit">
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/workshop-a.md"><span class="k">workshop A</span><span class="t">Fundamentals (Tracks 0–1)</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/workshop-b.md"><span class="k">workshop B</span><span class="t">Config + first builds</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/workshop-c.md"><span class="k">workshop C</span><span class="t">Agents + integrations</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/capstone-demo-day.md"><span class="k">demo day</span><span class="t">Capstone demos</span></a>
     </div>
   </div>
 </section>
@@ -330,12 +400,41 @@
 <footer>
   <div class="wrap">
     Claude Code Training · internal enablement for data scientists &amp; quants ·
-    <a href="../docs/curriculum.md">curriculum</a> ·
-    <a href="../docs/reading-lists.md">reading lists</a> ·
-    <a href="../docs/operating-model.md">operating model</a> ·
-    <a href="../README.md">repo</a>
+    <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/curriculum.md">curriculum</a> ·
+    <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/reading-lists.md">reading lists</a> ·
+    <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/operating-model.md">operating model</a> ·
+    <a href="https://github.com/wwd1015/claude-code-training/blob/main/README.md">repo</a>
   </div>
 </footer>
+
+<script>
+(function(){
+  var KEY='cct-progress-v1';
+  var boxes=[].slice.call(document.querySelectorAll('#checks input'));
+  var prog=document.getElementById('progress');
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+  function render(){
+    var done=boxes.filter(function(b){return b.checked}).length;
+    prog.innerHTML=done===boxes.length
+      ? '<b>All '+boxes.length+' done</b> — go teach someone else.'
+      : '<b>'+done+'</b> of '+boxes.length+' done';
+  }
+  boxes.forEach(function(b){
+    b.checked=!!saved[b.dataset.k];
+    b.addEventListener('change',function(){
+      saved[b.dataset.k]=b.checked;
+      try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){}
+      render();
+    });
+  });
+  render();
+  // close mobile menu after tapping a link
+  document.querySelectorAll('#nav a').forEach(function(a){
+    a.addEventListener('click',function(){document.getElementById('nav').classList.remove('open')});
+  });
+})();
+</script>
 
 </body>
 </html>

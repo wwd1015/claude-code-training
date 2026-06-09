@@ -9,8 +9,7 @@ skill. Teach skill authoring (`SKILL.md`), when a skill beats a one-off prompt, 
 disclosure.
 
 ## Setup (zero infra)
-- A local `results.parquet` (or CSV) with at least: `date`, `returns` (or `pnl`), optional `position`.
-  Default: a synthetic random-walk strategy result so it runs anywhere.
+- **Generate the data:** `cd demos/setup && python gen_backtest_results.py` → writes `data/results.parquet` (`date`, `returns`, `position`, `pnl`) with a seeded drawdown so the report has signal.
 - Claude Code open in a repo where `.claude/skills/` can live.
 
 ## Live script
