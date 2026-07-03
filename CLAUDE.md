@@ -16,6 +16,13 @@ Every module names an official Anthropic course/doc as the source of truth (see
 `docs/reading-lists.md`). We author only the thin delta: a quant demo + a take-home
 exercise + templates. When adding a module, find the official asset first.
 
+## The backbone layer
+`backbone/` holds the versioned course catalog (CC 101–501) — canonical modules per
+course, provenance in `sources.yaml`, rendered outputs in `generated/` (never hand-edit;
+regenerate via templates in `templates/formats/`). Operate it with the project skills
+`/backbone-sync` (ingest + rebuild) and `/lob-overlay` (team editions). Design doc:
+`BACKBONE.md`. Track-based docs in `docs/curriculum.md` remain as source material.
+
 ## Conventions
 - The entry site is a single self-contained `site/index.html` — no build step, no external
   assets, inline CSS. Keep it that way so it works on GitHub Pages and via `open`.

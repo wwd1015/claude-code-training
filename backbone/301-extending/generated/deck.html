@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CC 301 — Extending Claude Code: Skills, Hooks & MCP · Instructor deck</title>
+<style>
+  :root{
+    --bg:#141210; --ink:#e8e2da; --muted:#9a917f; --clay:#c96f4a;
+    --clay-soft:#e0956f; --line:#332e28; --ok:#7fb069; --code:#26221d;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:#000;color:var(--ink);
+    font:24px/1.5 -apple-system,system-ui,'Segoe UI',sans-serif;overflow:hidden}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;
+    justify-content:center;padding:6vh 8vw;background:var(--bg)}
+  .slide.active{display:flex}
+  .kicker{font-size:.55em;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.8em}
+  h1{font:700 2.6em/1.15 Georgia,serif;margin:0 0 .3em}
+  h2{font:700 1.8em/1.2 Georgia,serif;margin:0 0 .6em}
+  h3{font-size:1.1em;color:var(--clay-soft);margin:0 0 .5em}
+  ul{margin:.2em 0;padding-left:1.1em}
+  li{margin:.45em 0}
+  li::marker{color:var(--clay)}
+  .sub{color:var(--muted);font-size:.75em}
+  code{font:.8em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);
+    padding:.15em .4em;border-radius:6px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:12px;
+    padding:.8em 1em;font-size:.65em;overflow-x:auto;max-height:55vh}
+  pre code{background:none;padding:0}
+  a{color:var(--clay-soft)}
+  .slide.title-slide{align-items:flex-start;background:
+    radial-gradient(120% 90% at 80% 0%,#241d17 0%,var(--bg) 60%)}
+  .slide.section-slide{background:
+    linear-gradient(135deg,#1e1712 0%,var(--bg) 55%);border-left:10px solid var(--clay)}
+  .slide.lab-slide{border-left:10px solid var(--ok)}
+  .slide.lab-slide .kicker{color:var(--ok)}
+  .objectives{border-left:3px solid var(--clay);padding:.2em 0 .2em .9em;
+    color:var(--muted);font-size:.8em}
+  .notes{display:none}
+  body.show-notes .notes{display:block;position:absolute;left:0;right:0;bottom:0;
+    background:#000d;color:#cbc4b6;font-size:.55em;padding:.8em 8vw;
+    border-top:1px solid var(--line);max-height:30vh;overflow:auto}
+  .hud{position:fixed;right:1.2rem;bottom:1rem;color:var(--muted);
+    font-size:.55rem;letter-spacing:.05em;z-index:9}
+  .pager{position:fixed;left:0;bottom:0;height:4px;background:var(--clay);
+    width:0;transition:width .25s;z-index:9}
+</style>
+</head>
+<body>
+
+<section class="slide title-slide active">
+  <div class="kicker">Backbone · Instructor-led</div>
+  <h1>CC 301<br>Extending Claude Code: Skills, Hooks &amp; MCP</h1>
+  <p class="sub">6 modules · ~2 hrs 55 min · v1.0.0 · 2026-07-02</p>
+  <div class="notes">Welcome; introduce yourself; logistics. Prereq check: everyone should have finished CC 201 (CLAUDE.md, settings, permissions). Press N to toggle these speaker notes, arrows/space to navigate, F for fullscreen.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Agenda</div>
+  <h2>Today</h2>
+  <ul>
+    <li>Skill Creation I: Anatomy of a Skill <span class="sub">· 30 min</span></li>
+    <li>Skill Creation II: Design Patterns &amp; Testing <span class="sub">· 30 min</span></li>
+    <li>Hooks: Guards &amp; Automation <span class="sub">· 30 min</span></li>
+    <li>MCP I: Concepts &amp; Connecting Servers <span class="sub">· 30 min</span></li>
+    <li>MCP II: Your Data over MCP <span class="sub">· 30 min</span></li>
+    <li>Packaging &amp; Sharing What You Build <span class="sub">· 25 min</span></li>
+  </ul>
+  <div class="notes">Arc of the day: teach Claude your workflows (skills) → enforce your rules (hooks) → reach your data (MCP) → share it all (packaging). Each module ends hands-on; by end of day everyone has shipped a skill, a hook, and an MCP connection.</div>
+</section>
+
+<!-- Module 1 -->
+<section class="slide section-slide">
+  <div class="kicker">Module 1 · 30 min</div>
+  <h2>Skill Creation I: Anatomy of a Skill</h2>
+  <div class="objectives"><ul>
+    <li>Explain what a skill is and when Claude Code loads one</li>
+    <li>Read and write the SKILL.md structure</li>
+    <li>Decide when a task deserves a skill vs a one-off prompt</li>
+  </ul></div>
+  <div class="notes">Framing: everyone has re-explained the same workflow to Claude five times. A skill is writing the runbook once.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 1 · Anatomy of a Skill</div>
+  <h2>A skill is a runbook Claude picks up itself</h2>
+  <ul>
+    <li>A folder with a <code>SKILL.md</code> — reusable workflow instructions</li>
+    <li><code>.claude/skills/&lt;name&gt;/</code> in a repo → shared with the team</li>
+    <li><code>~/.claude/skills/&lt;name&gt;/</code> → personal, follows you</li>
+    <li>Loaded automatically when your request matches its description</li>
+  </ul>
+  <div class="notes">Contrast with re-prompting: telling a new teammate how to run the weekly report every week vs writing the runbook once. Project-level skills ship with the repo — clone = installed.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 1 · Anatomy of a Skill</div>
+  <h2>Two parts, two jobs</h2>
+<pre><code>---
+name: data-dictionary
+description: >
+  Profile a dataset and produce a standardized data dictionary.
+  Use when asked to "profile this data" or "make a data dictionary".
+---
+## Steps
+1. Load the data; infer types, ranges, null rates per column.
+2. Flag columns needing human description; never invent meanings.
+3. Write dictionary.md using the table format below.</code></pre>
+  <div class="notes">Frontmatter drives DISCOVERY — name + description are all Claude sees before deciding to load. Description must contain the phrases people actually say. Body loads only when triggered = progressive disclosure: 100 installed skills cost ~nothing until needed. Detail goes in the body, never crammed into the description.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 1 · Anatomy of a Skill</div>
+  <h2>Skill, or just a prompt?</h2>
+  <ul>
+    <li>Typed the same instructions twice → skill</li>
+    <li>Steps or rules that must not drift → skill</li>
+    <li>Teammates need identical behavior → skill</li>
+    <li>Genuinely one-off → just prompt</li>
+    <li>Text shortcut you invoke by name → slash command (CC 201)</li>
+  </ul>
+  <div class="notes">Key distinction vs slash commands: commands are invoked by name; skills can trigger automatically on matching requests and carry full workflows.</div>
+</section>
+<section class="slide lab-slide">
+  <div class="kicker">Lab · Module 1</div>
+  <h2>Hands-on: read one, stub yours</h2>
+  <ul>
+    <li>Read <code>skills/eda/SKILL.md</code> in the training repo</li>
+    <li>Find: trigger phrases · steps that would drift · one thing you'd change</li>
+    <li>Stub your own: frontmatter only, for your recurring task from CC 101</li>
+    <li>Real trigger phrases — the words you'd actually say</li>
+  </ul>
+  <div class="notes">~10 min. Common failure: descriptions that say what the skill does but not WHEN to use it — no trigger phrases. Pairs fine. The stub gets finished in module 2's lab.</div>
+</section>
+
+<!-- Module 2 -->
+<section class="slide section-slide">
+  <div class="kicker">Module 2 · 30 min</div>
+  <h2>Skill Creation II: Design Patterns &amp; Testing</h2>
+  <div class="objectives"><ul>
+    <li>Structure a skill as phases with hard rules so results don't drift</li>
+    <li>Make a skill self-contained enough to survive sharing</li>
+    <li>Test a skill like code — known input, expected output</li>
+  </ul></div>
+  <div class="notes">Theme: the skill file IS a program; treat it with code discipline.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 2 · Patterns &amp; Testing</div>
+  <h2>Durable skills read like runbooks</h2>
+  <ul>
+    <li><strong>Phases in order</strong> — numbered steps beat prose</li>
+    <li><strong>Hard rules</strong> — "never modify raw data files"</li>
+    <li><strong>Output contracts</strong> — show the exact format; example beats description</li>
+    <li><strong>Escape hatches</strong> — missing input? "ask one question, then proceed"</li>
+  </ul>
+  <div class="notes">Worked examples to open live: skills/eda (phased profiling + output contract), skills/backtest-report (hard rules about what may not be recomputed). Without escape hatches, the skill guesses confidently on bad input.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 2 · Patterns &amp; Testing</div>
+  <h2>The four tests</h2>
+  <ul>
+    <li><strong>Known input</strong> → expected output; diff the result</li>
+    <li><strong>Trigger test</strong> — your natural words load it (not its name)</li>
+    <li><strong>Fresh session</strong> — <code>/clear</code>, run again; no conversation dependence</li>
+    <li><strong>Break it once</strong> — bad input should hit the escape hatch</li>
+  </ul>
+  <div class="notes">Also: self-contained or it breaks — no machine-specific paths, dependencies declared at top. Iterate on wording exactly like failing code. Trigger-test failures = description missing the user's phrasing, fix the frontmatter not the body.</div>
+</section>
+<section class="slide lab-slide">
+  <div class="kicker">Lab · Module 2</div>
+  <h2>Hands-on: finish and ship it</h2>
+  <ul>
+    <li>Finish module 1's stub: phases + 2 hard rules + output contract</li>
+    <li>Run all four tests on a small known input</li>
+    <li>Ship to <code>.claude/skills/</code> in one of your real repos</li>
+  </ul>
+  <div class="notes">~15 min. This is the course's central artifact — everything later (sharing, LOB overlay, contributed library) builds on this skill existing. Circulate and check output contracts: most people write descriptions instead of examples.</div>
+</section>
+
+<!-- Module 3 -->
+<section class="slide section-slide">
+  <div class="kicker">Module 3 · 30 min</div>
+  <h2>Hooks: Guards &amp; Automation</h2>
+  <div class="objectives"><ul>
+    <li>Explain what hooks are and where they fire in the loop</li>
+    <li>Use PreToolUse as a guard, PostToolUse as automation</li>
+    <li>Choose hooks over instructions when a rule must hold every time</li>
+  </ul></div>
+  <div class="notes">The one-liner for this module: skills ask nicely, hooks enforce.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 3 · Hooks</div>
+  <h2>Asking nicely vs enforcement</h2>
+  <ul>
+    <li>CLAUDE.md &amp; skills = instructions the model <em>almost always</em> follows</li>
+    <li>A hook = a shell command <em>the harness itself</em> runs</li>
+    <li>Can't be skipped, forgotten, or talked around</li>
+    <li><strong>PreToolUse</strong> — inspects a tool call, can <strong>block</strong> it</li>
+    <li><strong>PostToolUse</strong> — reacts after success; can't block</li>
+  </ul>
+  <div class="notes">Configured in settings.json against lifecycle events. Others exist (session start, prompt submit, on-stop) — point to docs. Emphasize: deterministic, fires every time regardless of conversation state.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 3 · Hooks</div>
+  <h2>Two canonical patterns, both in the repo</h2>
+  <ul>
+    <li><strong>Guard</strong>: <code>examples/hooks/guard-data.sh</code> — blocks writes to protected data paths</li>
+    <li><strong>Automation</strong>: <code>examples/hooks/run-checks.sh</code> — lints after every edit; Claude fixes its own output</li>
+    <li>Wiring: <code>examples/hooks/settings.sample.json</code> — copy, adapt paths, done</li>
+  </ul>
+  <div class="notes">Demo live if time: install guard in a scratch repo, ask Claude to edit a protected file, watch the block. Walkthrough is demos/05-hooks-automation.md. Safety note: hooks run with YOUR permissions — read hook scripts before installing, like any code you didn't write.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 3 · Hooks</div>
+  <h2>The decision rule</h2>
+  <ul>
+    <li>Preference ("prefer pandas idioms") → <strong>CLAUDE.md</strong></li>
+    <li>Workflow ("how we build reports") → <strong>skill</strong></li>
+    <li>Must-never / must-always → <strong>hook</strong></li>
+  </ul>
+  <div class="notes">Quiz the room with examples: "never write to prod_configs/" (hook), "our plots use this style" (CLAUDE.md), "monthly risk memo format" (skill). This table is the module's take-home.</div>
+</section>
+<section class="slide lab-slide">
+  <div class="kicker">Lab · Module 3</div>
+  <h2>Hands-on: make a rule unbreakable</h2>
+  <ul>
+    <li>Install the sample guard hook in a scratch repo</li>
+    <li>Ask Claude to edit a protected file — watch it block</li>
+    <li>Adapt the guard to a path that matters in <em>your</em> work</li>
+    <li>(or) wire <code>run-checks.sh</code> to your linter; confirm it fires</li>
+  </ul>
+  <div class="notes">~12 min. Common trip-up: hook script not executable (chmod +x), or settings path wrong. The "watch it block" moment is the payoff — don't let anyone skip it.</div>
+</section>
+
+<!-- Module 4 -->
+<section class="slide section-slide">
+  <div class="kicker">Module 4 · 30 min</div>
+  <h2>MCP I: Concepts &amp; Connecting Servers</h2>
+  <div class="objectives"><ul>
+    <li>Explain what MCP is and what a server provides</li>
+    <li>Connect a server via .mcp.json and choose the right scope</li>
+    <li>Decide when MCP beats a shell command</li>
+  </ul></div>
+  <div class="notes">Shift of scene: skills/hooks extended Claude's behavior; MCP extends its REACH.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 4 · MCP Concepts</div>
+  <h2>MCP: plug external systems in, on your terms</h2>
+  <ul>
+    <li>Open standard; Claude Code is the <em>client</em></li>
+    <li>A <strong>server</strong> exposes a system as typed <strong>tools</strong> + <strong>resources</strong></li>
+    <li>Warehouse server = <code>run_query</code> + schema catalog, not a shell</li>
+    <li>You decide which servers it may talk to</li>
+  </ul>
+  <div class="notes">Contrast with the status quo: without MCP, Claude reaches systems via shell commands. MCP gives a purpose-built, permission-scoped interface. Tool calls flow through the same permission model from CC 101.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 4 · MCP Concepts</div>
+  <h2>Connecting: .mcp.json + scope</h2>
+<pre><code>{
+  "mcpServers": {
+    "warehouse": {
+      "command": "npx",
+      "args": ["-y", "some-sql-mcp-server", "--db", "analytics.duckdb"]
+    }
+  }
+}</code></pre>
+  <ul>
+    <li><strong>Project scope</strong> (in repo) → team data sources, ships with clone</li>
+    <li><strong>User scope</strong> → personal tooling, follows you</li>
+  </ul>
+  <div class="notes">Also: claude mcp add. First use of a project's servers prompts for trust. Auth: OAuth or env-var token — NEVER hard-code credentials in .mcp.json. Org-approved server list is an LOB/verify item.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 4 · MCP Concepts</div>
+  <h2>MCP or shell?</h2>
+  <ul>
+    <li>One-off on a local file → shell</li>
+    <li>Recurring, structured ("query the warehouse") → MCP</li>
+    <li>Needs auth / scoping / an API → MCP</li>
+    <li>Rule of thumb: would you write a wrapper library? → wrap it as MCP</li>
+  </ul>
+  <div class="notes">Keep this pragmatic — MCP is not a religion; a trusted local script via shell is fine. The wrapper-library heuristic lands well with this audience.</div>
+</section>
+<section class="slide lab-slide">
+  <div class="kicker">Lab · Module 4</div>
+  <h2>Hands-on: first connection</h2>
+  <ul>
+    <li>Connect the DuckDB demo server (<code>examples/mcp/</code>)</li>
+    <li>Confirm Claude lists the server's tools</li>
+    <li>Natural question → MCP tool call (watch the permission prompt)</li>
+    <li>Remove the entry → capability gone</li>
+  </ul>
+  <div class="notes">~10 min. The three confirmations teach the mental model: declared → discovered → permissioned. Removal step matters — capabilities are config, not magic.</div>
+</section>
+
+<!-- Module 5 -->
+<section class="slide section-slide">
+  <div class="kicker">Module 5 · 30 min</div>
+  <h2>MCP II: Your Data over MCP</h2>
+  <div class="objectives"><ul>
+    <li>Run the schema-first querying pattern over MCP</li>
+    <li>Apply safety defaults: read-only, scoped, result-limited</li>
+    <li>Scope an MCP integration for a data source your team uses</li>
+  </ul></div>
+  <div class="notes">This is the module that changes daily work for a data audience — budget demo time accordingly.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 5 · Data over MCP</div>
+  <h2>The schema-first pattern</h2>
+  <ul>
+    <li><strong>1 Orient</strong> — "what tables exist? what's in <code>trades</code>?"</li>
+    <li><strong>2 Query in plain language</strong> — review the SQL it shows</li>
+    <li><strong>3 Iterate</strong> — each result informs the next question</li>
+    <li><strong>4 Land the artifact</strong> — saved query + output file in the repo</li>
+  </ul>
+  <div class="notes">Live demo: demos/04-sql-over-mcp.md against the DuckDB sandbox. It's the CC 101 agentic loop pointed at data instead of files. Step 4 is what makes sessions reproducible — the end product is a reviewable, rerunnable file, not a chat transcript.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 5 · Data over MCP</div>
+  <h2>Safety defaults — non-negotiable</h2>
+  <ul>
+    <li><strong>Read-only credentials</strong> — agent mistakes get a ceiling</li>
+    <li><strong>Scope the surface</strong> — needed schemas/views, not the warehouse</li>
+    <li><strong>Limit result sizes</strong> — truncate, don't flood the context</li>
+    <li>Data-handling policy still applies: the model sees returned rows</li>
+  </ul>
+  <div class="notes">Views are where row-level policy lives. Result limits tie back to CC 201's context lesson. Org policy link + approved endpoints are verify/LOB items — tell the room who their champion is.</div>
+</section>
+<section class="slide lab-slide">
+  <div class="kicker">Lab · Module 5</div>
+  <h2>Hands-on: end to end, then scope the real thing</h2>
+  <ul>
+    <li>Run the 4-step pattern on a question you care about (DuckDB sandbox)</li>
+    <li>Land the artifact: saved query + output file</li>
+    <li>Write a 5-line scoping memo: source · schemas/views · who issues the read-only credential · first 3 questions</li>
+  </ul>
+  <div class="notes">~15 min. The scoping memo is the bridge to real adoption — collect them; they're the pipeline of future MCP integrations (and 501 capstone candidates).</div>
+</section>
+
+<!-- Module 6 -->
+<section class="slide section-slide">
+  <div class="kicker">Module 6 · 25 min</div>
+  <h2>Packaging &amp; Sharing What You Build</h2>
+  <div class="objectives"><ul>
+    <li>Share skills, commands, hooks through the project repo</li>
+    <li>Describe what plugins add on top</li>
+    <li>Use the contributed-library promotion path</li>
+  </ul></div>
+  <div class="notes">Closing arc: today's artifacts shouldn't die on one laptop.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 6 · Packaging &amp; Sharing</div>
+  <h2>The repo is the distribution channel</h2>
+  <ul>
+    <li><code>.claude/skills/</code> · <code>.claude/commands/</code> · <code>settings.json</code> + hooks · <code>.mcp.json</code></li>
+    <li>Clone = installed; no setup step</li>
+    <li>Credentials via env — never committed</li>
+    <li>Plugins: bundles for many unrelated repos — know they exist</li>
+  </ul>
+  <div class="notes">Pre-commit checklist for a shared skill: four tests pass, no machine-specific paths, secrets via env, one README line. Plugins/marketplaces: verify current mechanism against the skills docs before teaching in depth.</div>
+</section>
+<section class="slide">
+  <div class="kicker">Module 6 · Packaging &amp; Sharing</div>
+  <h2>Seed vs Contributed — how the library grows</h2>
+  <ul>
+    <li><strong>Seed</strong> — program-maintained references (this repo's <code>skills/</code>, <code>demos/</code>)</li>
+    <li><strong>Contributed</strong> — team-authored, author-owned, promoted from real work</li>
+    <li>Stale → archived, not silently fixed</li>
+    <li>Path: prove it → tag it → submit per CONTRIBUTING.md</li>
+    <li>Team-specific? → your champion's LOB edition instead</li>
+  </ul>
+  <div class="notes">This is the governance model (ADR 0001): the real library is contributed, capstones (CC 501) are the main promotion source. Deciding backbone-vs-LOB is itself the skill to teach here.</div>
+</section>
+<section class="slide lab-slide">
+  <div class="kicker">Lab · Module 6</div>
+  <h2>Hands-on: give your skill a life</h2>
+  <ul>
+    <li>Run the pre-commit checklist on your module-2 skill</li>
+    <li>Add the README line</li>
+    <li>Open the submission — or hand to your champion for the LOB overlay</li>
+    <li>The decision (shared vs team-specific) is the exercise</li>
+  </ul>
+  <div class="notes">~10 min. End with 2–3 volunteers saying what they built and where it's going — social proof drives the contribution culture.</div>
+</section>
+
+<section class="slide title-slide">
+  <div class="kicker">Wrap</div>
+  <h2>Where to go next</h2>
+  <ul>
+    <li><strong>CC 401</strong> — Agent Systems: subagents, workflows &amp; orchestration</li>
+    <li>Self-paced material for today's modules (backbone site)</li>
+    <li>Your champion / office hours for help</li>
+    <li>Shipped something useful? CONTRIBUTING.md → the library</li>
+  </ul>
+  <div class="notes">Today's artifacts per person: one shipped skill, one working hook, one MCP connection + scoping memo. CC 401 builds on all three. Collect the scoping memos.</div>
+</section>
+
+<div class="hud"><span id="pos"></span> · ←/→ · N notes · F fullscreen</div>
+<div class="pager" id="pager"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0;
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i)});
+    document.getElementById('pos').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('pager').style.width=(100*(i+1)/slides.length)+'%';
+    location.hash=i+1;
+  }
+  addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(i+1);
+    else if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1);
+    else if(e.key==='Home')go(0);
+    else if(e.key==='End')go(slides.length-1);
+    else if(e.key==='n'||e.key==='N')document.body.classList.toggle('show-notes');
+    else if(e.key==='f'||e.key==='F'){
+      document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+    }
+  });
+  addEventListener('click',function(e){
+    if(e.target.closest('a'))return;
+    go(e.clientX>innerWidth/2?i+1:i-1);
+  });
+  go(parseInt(location.hash.slice(1),10)-1||0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{COURSE_ID}} — {{COURSE_TITLE}}</title>
+<style>
+  :root{
+    --bg:#141210; --panel:#1e1b18; --ink:#e8e2da; --muted:#9a917f;
+    --clay:#c96f4a; --clay-soft:#e0956f; --line:#332e28; --ok:#7fb069;
+    --code:#26221d; --maxw:46rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.65 Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}
+  header.course{max-width:var(--maxw);margin:0 auto;padding:3rem 1.25rem 1rem}
+  .kicker{font:600 .8rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--clay)}
+  h1{font-size:2rem;line-height:1.2;margin:.5rem 0 .25rem}
+  .meta{color:var(--muted);font:.85rem/1.5 -apple-system,system-ui,sans-serif}
+  .layout{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem 5rem}
+  nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:1rem 1.25rem;margin:1.5rem 0 2.5rem;font-family:-apple-system,system-ui,sans-serif}
+  nav.toc h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .5rem}
+  nav.toc ol{margin:0;padding-left:1.4rem}
+  nav.toc li{margin:.35rem 0;font-size:.95rem}
+  nav.toc a{color:var(--ink);text-decoration:none}
+  nav.toc a:hover{color:var(--clay-soft)}
+  nav.toc .done a{color:var(--muted);text-decoration:line-through}
+  nav.toc .dur{color:var(--muted);font-size:.8rem;margin-left:.4rem}
+  .progressbar{height:6px;background:var(--line);border-radius:3px;margin:.75rem 0 0;overflow:hidden}
+  .progressbar>div{height:100%;width:0;background:var(--ok);border-radius:3px;transition:width .3s}
+  section.module{border-top:1px solid var(--line);padding-top:2.5rem;margin-top:2.5rem}
+  .module-head{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap}
+  .modnum{font:700 .8rem/1 -apple-system,system-ui,sans-serif;color:var(--clay);
+    letter-spacing:.1em}
+  h2.modtitle{font-size:1.45rem;margin:.2rem 0}
+  .module h3{font-size:1.12rem;margin:1.8rem 0 .5rem}
+  .module h4{font-size:1rem;margin:1.4rem 0 .4rem;color:var(--clay-soft)}
+  a{color:var(--clay-soft)}
+  code{font:.85em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);
+    padding:.12em .35em;border-radius:4px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;
+    padding:1rem;overflow-x:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;font:.9rem/1.5 -apple-system,system-ui,sans-serif}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left}
+  th{background:var(--panel)}
+  .objectives{background:var(--panel);border-left:3px solid var(--clay);
+    border-radius:0 10px 10px 0;padding:.9rem 1.15rem;margin:1rem 0;
+    font-family:-apple-system,system-ui,sans-serif;font-size:.92rem}
+  .objectives strong{display:block;font-size:.75rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.35rem}
+  .objectives ul{margin:.25rem 0 0;padding-left:1.2rem}
+  .lab{background:linear-gradient(180deg,var(--panel),transparent);
+    border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;margin:1.8rem 0}
+  .lab::before{content:"⌨ Lab";display:block;font:700 .78rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:.5rem}
+  .kcheck{border:1px dashed var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1.5rem 0}
+  .kcheck::before{content:"✓ Knowledge check";display:block;
+    font:700 .78rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.5rem}
+  .mark-done{margin:2rem 0 0;font:600 .85rem/1 -apple-system,system-ui,sans-serif;
+    background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;
+    padding:.55rem 1.1rem;cursor:pointer}
+  .mark-done.on{border-color:var(--ok);color:var(--ok)}
+  .edition-badge{display:inline-block;font:600 .7rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--clay-soft);
+    border-radius:4px;padding:.25em .5em;margin-left:.5rem;vertical-align:middle}
+  footer{max-width:var(--maxw);margin:0 auto;padding:2rem 1.25rem;color:var(--muted);
+    font:.8rem/1.5 -apple-system,system-ui,sans-serif;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="course">
+  <div class="kicker">{{EDITION}} · Self-paced</div>
+  <h1>{{COURSE_ID}} — {{COURSE_TITLE}}</h1>
+  <div class="meta">{{MODULE_COUNT}} modules · {{TOTAL_DURATION}} · v{{COURSE_VERSION}} · generated {{GENERATED_DATE}}</div>
+</header>
+
+<div class="layout">
+
+<nav class="toc" id="toc">
+  <h2>Modules</h2>
+  <ol>
+<!-- BB:NAV:BEGIN -->
+    <li data-mod="{{MODULE_ANCHOR}}"><a href="#{{MODULE_ANCHOR}}">{{MODULE_TITLE}}</a><span class="dur">{{MODULE_DURATION}}</span></li>
+<!-- BB:NAV:END -->
+  </ol>
+  <div class="progressbar"><div id="pbar"></div></div>
+</nav>
+
+<!-- BB:MODULE:BEGIN -->
+<section class="module" id="{{MODULE_ANCHOR}}">
+  <div class="module-head">
+    <span class="modnum">MODULE {{MODULE_NUM}} · {{MODULE_DURATION}}</span>
+  </div>
+  <h2 class="modtitle">{{MODULE_TITLE}}</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>{{MODULE_OBJECTIVES}}</ul>
+  </div>
+  {{MODULE_BODY}}
+  <button class="mark-done" data-mod="{{MODULE_ANCHOR}}">Mark module complete</button>
+</section>
+<!-- BB:MODULE:END -->
+
+</div>
+
+<footer>{{COURSE_ID}} · {{EDITION}} edition · v{{COURSE_VERSION}}. Progress is stored in your browser only.</footer>
+
+<script>
+(function(){
+  var KEY='bb-progress:{{COURSE_ID}}:{{EDITION}}';
+  var done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var btns=document.querySelectorAll('.mark-done');
+  var items=document.querySelectorAll('#toc li[data-mod]');
+  function paint(){
+    var n=0,t=0;
+    items.forEach(function(li){t++; var on=!!done[li.dataset.mod];
+      li.classList.toggle('done',on); if(on)n++;});
+    btns.forEach(function(b){var on=!!done[b.dataset.mod];
+      b.classList.toggle('on',on);
+      b.textContent=on?'✓ Completed — click to undo':'Mark module complete';});
+    document.getElementById('pbar').style.width=(t?100*n/t:0)+'%';
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    done[b.dataset.mod]=!done[b.dataset.mod];
+    if(!done[b.dataset.mod])delete done[b.dataset.mod];
+    localStorage.setItem(KEY,JSON.stringify(done)); paint();});});
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){
+    a.target='_blank'; a.rel='noopener';});
+  paint();
+})();
+</script>
+</body>
+</html>

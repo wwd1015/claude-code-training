@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CC 301 — Extending Claude Code: Skills, Hooks & MCP</title>
+<style>
+  :root{
+    --bg:#141210; --panel:#1e1b18; --ink:#e8e2da; --muted:#9a917f;
+    --clay:#c96f4a; --clay-soft:#e0956f; --line:#332e28; --ok:#7fb069;
+    --code:#26221d; --maxw:46rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.65 Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}
+  header.course{max-width:var(--maxw);margin:0 auto;padding:3rem 1.25rem 1rem}
+  .kicker{font:600 .8rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--clay)}
+  h1{font-size:2rem;line-height:1.2;margin:.5rem 0 .25rem}
+  .meta{color:var(--muted);font:.85rem/1.5 -apple-system,system-ui,sans-serif}
+  .layout{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem 5rem}
+  nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:1rem 1.25rem;margin:1.5rem 0 2.5rem;font-family:-apple-system,system-ui,sans-serif}
+  nav.toc h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .5rem}
+  nav.toc ol{margin:0;padding-left:1.4rem}
+  nav.toc li{margin:.35rem 0;font-size:.95rem}
+  nav.toc a{color:var(--ink);text-decoration:none}
+  nav.toc a:hover{color:var(--clay-soft)}
+  nav.toc .done a{color:var(--muted);text-decoration:line-through}
+  nav.toc .dur{color:var(--muted);font-size:.8rem;margin-left:.4rem}
+  .progressbar{height:6px;background:var(--line);border-radius:3px;margin:.75rem 0 0;overflow:hidden}
+  .progressbar>div{height:100%;width:0;background:var(--ok);border-radius:3px;transition:width .3s}
+  section.module{border-top:1px solid var(--line);padding-top:2.5rem;margin-top:2.5rem}
+  .module-head{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap}
+  .modnum{font:700 .8rem/1 -apple-system,system-ui,sans-serif;color:var(--clay);
+    letter-spacing:.1em}
+  h2.modtitle{font-size:1.45rem;margin:.2rem 0}
+  .module h3{font-size:1.12rem;margin:1.8rem 0 .5rem}
+  .module h4{font-size:1rem;margin:1.4rem 0 .4rem;color:var(--clay-soft)}
+  a{color:var(--clay-soft)}
+  code{font:.85em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);
+    padding:.12em .35em;border-radius:4px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;
+    padding:1rem;overflow-x:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;font:.9rem/1.5 -apple-system,system-ui,sans-serif}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left}
+  th{background:var(--panel)}
+  .objectives{background:var(--panel);border-left:3px solid var(--clay);
+    border-radius:0 10px 10px 0;padding:.9rem 1.15rem;margin:1rem 0;
+    font-family:-apple-system,system-ui,sans-serif;font-size:.92rem}
+  .objectives strong{display:block;font-size:.75rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.35rem}
+  .objectives ul{margin:.25rem 0 0;padding-left:1.2rem}
+  .lab{background:linear-gradient(180deg,var(--panel),transparent);
+    border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;margin:1.8rem 0}
+  .lab::before{content:"⌨ Lab";display:block;font:700 .78rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:.5rem}
+  .kcheck{border:1px dashed var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1.5rem 0}
+  .kcheck::before{content:"✓ Knowledge check";display:block;
+    font:700 .78rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.5rem}
+  .mark-done{margin:2rem 0 0;font:600 .85rem/1 -apple-system,system-ui,sans-serif;
+    background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;
+    padding:.55rem 1.1rem;cursor:pointer}
+  .mark-done.on{border-color:var(--ok);color:var(--ok)}
+  .edition-badge{display:inline-block;font:600 .7rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--clay-soft);
+    border-radius:4px;padding:.25em .5em;margin-left:.5rem;vertical-align:middle}
+  footer{max-width:var(--maxw);margin:0 auto;padding:2rem 1.25rem;color:var(--muted);
+    font:.8rem/1.5 -apple-system,system-ui,sans-serif;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="course">
+  <div class="kicker">Backbone · Self-paced</div>
+  <h1>CC 301 — Extending Claude Code: Skills, Hooks &amp; MCP</h1>
+  <div class="meta">6 modules · ~2 hrs 55 min · v1.0.0 · generated 2026-07-02</div>
+</header>
+
+<div class="layout">
+
+<nav class="toc" id="toc">
+  <h2>Modules</h2>
+  <ol>
+    <li data-mod="m301-01"><a href="#m301-01">Skill Creation I: Anatomy of a Skill</a><span class="dur">30 min</span></li>
+    <li data-mod="m301-02"><a href="#m301-02">Skill Creation II: Design Patterns &amp; Testing</a><span class="dur">30 min</span></li>
+    <li data-mod="m301-03"><a href="#m301-03">Hooks: Guards &amp; Automation</a><span class="dur">30 min</span></li>
+    <li data-mod="m301-04"><a href="#m301-04">MCP I: Concepts &amp; Connecting Servers</a><span class="dur">30 min</span></li>
+    <li data-mod="m301-05"><a href="#m301-05">MCP II: Your Data over MCP</a><span class="dur">30 min</span></li>
+    <li data-mod="m301-06"><a href="#m301-06">Packaging &amp; Sharing What You Build</a><span class="dur">25 min</span></li>
+  </ol>
+  <div class="progressbar"><div id="pbar"></div></div>
+</nav>
+
+<section class="module" id="m301-01">
+  <div class="module-head">
+    <span class="modnum">MODULE 1 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Skill Creation I: Anatomy of a Skill</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain what a skill is and when Claude Code loads one</li>
+      <li>Read and write the SKILL.md structure — frontmatter plus instructions</li>
+      <li>Decide when a task deserves a skill versus a one-off prompt</li>
+    </ul>
+  </div>
+
+  <h3>What a skill is</h3>
+  <p>A <strong>skill</strong> is a folder containing a <code>SKILL.md</code> file: reusable instructions that teach Claude Code a workflow you'd otherwise re-explain every session. Skills live at <code>.claude/skills/&lt;name&gt;/SKILL.md</code> in a project (shared with the repo) or <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> for just you. When your request matches a skill's description, Claude loads the instructions and follows them.</p>
+  <p>Think of it as the difference between telling a new teammate how to run the weekly report every single week, and writing the runbook once.</p>
+
+  <h3>The anatomy</h3>
+<pre><code>---
+name: data-dictionary
+description: &gt;
+  Profile a dataset and produce a standardized data dictionary.
+  Use when asked to "profile this data", "document this dataset",
+  or "make a data dictionary".
+---
+
+# data-dictionary
+
+## Steps
+1. Load the data; infer types, ranges, null rates per column.
+2. Flag columns needing human description; never invent meanings.
+3. Write dictionary.md using the table format below.
+...</code></pre>
+  <p>Two parts matter most:</p>
+  <ul>
+    <li><strong>Frontmatter drives discovery.</strong> <code>name</code> and <code>description</code> are all Claude sees before deciding to load the skill — the description must say <em>what it does</em> and <em>when to use it</em>, including the phrases people actually say.</li>
+    <li><strong>The body is loaded only when triggered.</strong> This is <em>progressive disclosure</em>: a hundred installed skills cost almost nothing until one is needed. Detail belongs in the body (or in extra files alongside SKILL.md), never crammed into the description.</li>
+  </ul>
+
+  <h3>Skill, or just a prompt?</h3>
+  <p>Make it a skill when: you've typed the same instructions twice; the workflow has steps or rules that must not drift; teammates should get identical behavior. Keep it a prompt when it's genuinely one-off. Slash commands (CC 201) are lightweight text shortcuts you invoke by name; skills carry full workflows and can be picked up by Claude automatically when relevant.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/skills">Skills docs</a> · <a href="https://anthropic.skilljar.com/introduction-to-agent-skills">Intro to Agent Skills course</a> · <a href="https://github.com/anthropics/skills">anthropics/skills examples</a></p>
+
+  <div class="lab">
+    <p>Read this repo's <a href="../../../skills/eda/SKILL.md"><code>skills/eda/SKILL.md</code></a>. Identify: the trigger phrases in its description, the steps that would drift without it, and one thing you'd change for your own data. Then stub your own: pick the recurring task from CC 101 module 1 and write just the frontmatter — name plus a description with your real trigger phrases.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What are the only two things Claude sees before deciding to load a skill?</li>
+      <li>Why is "progressive disclosure" the reason skill bodies can be long?</li>
+      <li>A teammate keeps getting different report formats from the same prompt — skill or slash command, and why?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m301-01">Mark module complete</button>
+</section>
+
+<section class="module" id="m301-02">
+  <div class="module-head">
+    <span class="modnum">MODULE 2 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Skill Creation II: Design Patterns &amp; Testing</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Structure a skill as phases with hard rules so results don't drift</li>
+      <li>Make a skill self-contained enough to survive being shared</li>
+      <li>Test a skill the same way you'd test code — known input, expected output</li>
+    </ul>
+  </div>
+
+  <h3>Workflow-shaped skills</h3>
+  <p>The skills that hold up in daily use read like runbooks, not essays:</p>
+  <ul>
+    <li><strong>Phases in order</strong> — "1. Inventory the inputs. 2. Validate. 3. Produce X. 4. Report." Claude follows numbered phases far more reliably than prose.</li>
+    <li><strong>Hard rules, stated as rules</strong> — a short "never do X / always do Y" list ("never modify raw data files", "always report row counts before and after"). These are the lines that stop drift.</li>
+    <li><strong>Output contracts</strong> — show the exact table/file format the skill must produce. An example beats a description.</li>
+    <li><strong>Escape hatches</strong> — tell the skill what to do when inputs are missing or ambiguous ("ask one question, then proceed"), or it will guess.</li>
+  </ul>
+  <p>Study the worked examples in this repo: <a href="../../../skills/eda/SKILL.md"><code>skills/eda/SKILL.md</code></a> (phased profiling with an output contract) and <a href="../../../skills/backtest-report/SKILL.md"><code>skills/backtest-report/SKILL.md</code></a> (a <code>/backtest-report</code> command with hard rules about what may not be recomputed).</p>
+
+  <h3>Self-contained or it breaks</h3>
+  <p>A shared skill runs on machines that aren't yours. Keep every instruction the skill needs inside SKILL.md or files in the same folder; refer to paths the skill can discover ("look for a <code>data/</code> directory") rather than paths only you have. If the skill depends on a tool being installed, say so at the top and tell Claude how to check.</p>
+
+  <h3>Testing a skill</h3>
+  <p>Treat SKILL.md like code: it isn't done until it passes.</p>
+  <ol>
+    <li><strong>Known input → expected output.</strong> Run the skill on a small fixture where you know the right answer; diff what you get.</li>
+    <li><strong>Trigger test.</strong> Ask for the task in your natural words (not the skill's name) — does it load? If not, the description is missing your phrasing.</li>
+    <li><strong>Fresh-session test.</strong> <code>/clear</code>, then run it again: skills must not rely on anything you said earlier in a conversation.</li>
+    <li><strong>Break it once.</strong> Feed a missing/odd input and check the escape hatch fires instead of a confident wrong answer.</li>
+  </ol>
+  <p>Iterate on the wording exactly as you would on failing code — the skill file is the program.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/skills">Skills docs</a> · <a href="https://anthropic.skilljar.com/introduction-to-agent-skills">Intro to Agent Skills course</a></p>
+
+  <div class="lab">
+    <p>Finish the skill you stubbed in module 1: add phases, at least two hard rules, and an output contract. Then run the four tests above against a small known input. Ship it to <code>.claude/skills/</code> in one of your real repos.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Name the four structural patterns of a durable skill.</li>
+      <li>Why must a shared skill avoid machine-specific paths?</li>
+      <li>Your skill works when you type its name but never triggers naturally — which test failed, and what do you fix?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m301-02">Mark module complete</button>
+</section>
+
+<section class="module" id="m301-03">
+  <div class="module-head">
+    <span class="modnum">MODULE 3 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Hooks: Guards &amp; Automation</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain what hooks are and where they fire in the agentic loop</li>
+      <li>Use a PreToolUse hook as a guard and a PostToolUse hook as automation</li>
+      <li>Choose hooks over instructions when a rule must hold every time</li>
+    </ul>
+  </div>
+
+  <h3>Deterministic enforcement</h3>
+  <p>Everything so far — CLAUDE.md, skills — is <em>asking nicely</em>: instructions the model reads and almost always follows. A <strong>hook</strong> is different: it's a shell command the harness itself runs at fixed points in the loop. The model can't skip it, forget it, or talk its way around it. When a rule genuinely must hold — data protection, mandatory checks — you want a hook, not a sentence.</p>
+
+  <h3>Where hooks fire</h3>
+  <p>Hooks attach to lifecycle events in <code>settings.json</code>. The two you'll use first:</p>
+  <ul>
+    <li><strong>PreToolUse</strong> — runs <em>before</em> a tool call executes; can inspect the call and <strong>block it</strong>. This is your guard rail.</li>
+    <li><strong>PostToolUse</strong> — runs <em>after</em> a tool call succeeds; can't block, but can react. This is your automation.</li>
+  </ul>
+  <p>Others exist (session start, prompt submit, on-stop) — see the docs when you need them.</p>
+
+  <h3>The two canonical patterns</h3>
+  <p><strong>Guard (PreToolUse):</strong> block edits that would touch sensitive data. This repo's <a href="../../../examples/hooks/guard-data.sh"><code>examples/hooks/guard-data.sh</code></a> refuses writes into protected data paths — the edit is stopped before it happens, every time, regardless of what the conversation said.</p>
+  <p><strong>Automation (PostToolUse):</strong> run checks after every edit. This repo's <a href="../../../examples/hooks/run-checks.sh"><code>examples/hooks/run-checks.sh</code></a> lints Python files after Claude writes them, so style feedback arrives immediately and Claude fixes its own output in the same session.</p>
+  <p>Wiring lives in <a href="../../../examples/hooks/settings.sample.json"><code>examples/hooks/settings.sample.json</code></a> and the walkthrough in <a href="../../../demos/05-hooks-automation.md">demo 05</a> — copy, adapt the paths, done.</p>
+
+  <h3>Instructions vs hooks — the decision rule</h3>
+  <table>
+    <thead><tr><th>The rule is...</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td>a preference ("prefer pandas idioms")</td><td>CLAUDE.md</td></tr>
+      <tr><td>a workflow ("this is how we build reports")</td><td>skill</td></tr>
+      <tr><td>a <em>must-never</em> / <em>must-always</em></td><td>hook</td></tr>
+    </tbody>
+  </table>
+  <p>Hooks run with your permissions on your machine — read a hook script before installing it, exactly as you would any code you didn't write.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/hooks">Hooks docs</a> · <a href="https://code.claude.com/docs/en/settings">Settings docs</a></p>
+
+  <div class="lab">
+    <p>Install the sample guard hook in a scratch repo (copy <code>examples/hooks/</code> and its <code>settings.sample.json</code> wiring). Ask Claude to edit a protected file and watch the block fire. Then adapt the guard to one path that actually matters in your work — or wire <code>run-checks.sh</code> to your linter — and confirm it fires on a real edit.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What can a PreToolUse hook do that a PostToolUse hook cannot?</li>
+      <li>Why is a hook stronger than the same rule written in CLAUDE.md?</li>
+      <li>"Never write to <code>prod_configs/</code>" — CLAUDE.md, skill, or hook? Why?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m301-03">Mark module complete</button>
+</section>
+
+<section class="module" id="m301-04">
+  <div class="module-head">
+    <span class="modnum">MODULE 4 · 30 min</span>
+  </div>
+  <h2 class="modtitle">MCP I: Concepts &amp; Connecting Servers</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain what MCP is and what a server provides (tools, resources)</li>
+      <li>Connect a server via .mcp.json and choose the right scope</li>
+      <li>Decide when MCP beats a shell command for reaching a system</li>
+    </ul>
+  </div>
+
+  <h3>What MCP is</h3>
+  <p>The <strong>Model Context Protocol (MCP)</strong> is an open standard for plugging external systems into Claude Code. An <strong>MCP server</strong> is a small program that exposes a system — a database, an API, an internal service — as typed <strong>tools</strong> Claude can call and <strong>resources</strong> it can read. Claude Code is the client; you decide which servers it may talk to.</p>
+  <p>Without MCP, Claude reaches other systems by running shell commands. With MCP, it gets a purpose-built, permission-scoped interface: a warehouse server exposes <code>run_query</code> and the schema catalog, not a general-purpose shell.</p>
+
+  <h3>Connecting a server</h3>
+  <p>Servers are declared in <code>.mcp.json</code> (or via <code>claude mcp add</code>). A minimal project-level example:</p>
+<pre><code>{
+  "mcpServers": {
+    "warehouse": {
+      "command": "npx",
+      "args": ["-y", "some-sql-mcp-server", "--db", "analytics.duckdb"]
+    }
+  }
+}</code></pre>
+  <p><strong>Scope matters:</strong></p>
+  <ul>
+    <li><strong>Project scope</strong> (<code>.mcp.json</code> in the repo) — shared with everyone who clones; right for team data sources.</li>
+    <li><strong>User scope</strong> (your own config) — follows you across projects; right for personal tooling.</li>
+  </ul>
+  <p>On first use, Claude Code asks before trusting a project's servers; MCP tool calls then flow through the same permission model as everything else (CC 101 module 4). Auth for remote servers is typically an OAuth flow or a token in an environment variable — never hard-code credentials into <code>.mcp.json</code>.</p>
+  <!-- verify: list org-approved MCP servers and the credential process here via intake -->
+
+  <h3>MCP or a shell command?</h3>
+  <table>
+    <thead><tr><th>Situation</th><th>Reach it via</th></tr></thead>
+    <tbody>
+      <tr><td>one-off: "how many rows in this CSV"</td><td>shell (it's already a file)</td></tr>
+      <tr><td>recurring, structured: "query the warehouse"</td><td>MCP server</td></tr>
+      <tr><td>needs auth / scoping / an API</td><td>MCP server</td></tr>
+      <tr><td>local script you already trust</td><td>shell</td></tr>
+    </tbody>
+  </table>
+  <p>Rule of thumb: if you'd write a wrapper library for it, wrap it as MCP; if you'd type it once, shell is fine.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/mcp">MCP docs</a> · <a href="https://code.claude.com/docs/en/mcp-quickstart">MCP quickstart</a> · <a href="https://anthropic.skilljar.com/introduction-to-model-context-protocol">Intro to MCP course</a> · <a href="https://github.com/modelcontextprotocol/servers">Reference servers</a></p>
+
+  <div class="lab">
+    <p>Connect one MCP server in a scratch repo — the DuckDB demo in <a href="../../../examples/mcp/"><code>examples/mcp/</code></a> works out of the box. Confirm: (1) Claude Code lists the server's tools, (2) a natural-language question routes through an MCP tool call (watch the permission prompt name the tool), (3) removing the <code>.mcp.json</code> entry removes the capability.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What two things does an MCP server expose to Claude?</li>
+      <li>When do you put a server in project scope vs user scope?</li>
+      <li>Your team pulls from the same internal API weekly — shell or MCP, and what's the auth rule?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m301-04">Mark module complete</button>
+</section>
+
+<section class="module" id="m301-05">
+  <div class="module-head">
+    <span class="modnum">MODULE 5 · 30 min</span>
+  </div>
+  <h2 class="modtitle">MCP II: Your Data over MCP</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Run the schema-first querying pattern against a database over MCP</li>
+      <li>Apply the safety defaults: read-only credentials, scoped access, result limits</li>
+      <li>Scope an MCP integration for one data source your team actually uses</li>
+    </ul>
+  </div>
+
+  <h3>The pattern that changes daily work</h3>
+  <p>Once a database is behind an MCP server, "query the warehouse" becomes a conversation: Claude reads the schema catalog, writes the SQL, runs it, inspects the result, and iterates — the same agentic loop from CC 101, now pointed at your data instead of your files.</p>
+  <p>The <strong>schema-first pattern</strong> (walkthrough: <a href="../../../demos/04-sql-over-mcp.md">demo 04 — SQL over MCP</a>, runnable setup in <a href="../../../examples/mcp/"><code>examples/mcp/</code></a>):</p>
+  <ol>
+    <li><strong>Orient</strong> — "what tables are available, and what's in <code>trades</code>?" Claude pulls schema before writing any SQL.</li>
+    <li><strong>Query in plain language</strong> — "daily volume by desk, last quarter, flag days over 2σ". Review the SQL it shows you.</li>
+    <li><strong>Iterate on results</strong> — "now join the reference table and re-cut by region". The result of one query informs the next, without you leaving the session.</li>
+    <li><strong>Land the artifact</strong> — "save the final query as <code>volume_report.sql</code> and the output as parquet". The session's end product is a file in your repo, reviewable and rerunnable.</li>
+  </ol>
+
+  <h3>Safety defaults (non-negotiable)</h3>
+  <ul>
+    <li><strong>Read-only credentials.</strong> The MCP server's database user should be unable to write, full stop. Agent mistakes then have a ceiling.</li>
+    <li><strong>Scope the surface.</strong> Expose the schemas/views the team needs, not the whole warehouse; views are also where row-level policy lives.</li>
+    <li><strong>Limit result sizes</strong> in the server config — a <code>SELECT *</code> on a billion-row table should truncate, not flood the session (context is finite; you learned why in CC 201).</li>
+    <li><strong>Your data-handling policy still applies</strong> (CC 101 module 4): the model sees returned rows. Sample or aggregate where policy requires.</li>
+  </ul>
+  <!-- verify: link the org data-handling policy and approved warehouse endpoints via intake -->
+
+  <div class="lab">
+    <p>Using the DuckDB demo (or a sandbox your team owns): run the four-step pattern end to end on a question you actually care about, landing a saved query + output file. Then write a five-line scoping memo for the real thing: which data source, which schemas/views, who issues the read-only credential, expected first three questions.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Why does Claude read the schema before writing SQL, and what goes wrong if it can't?</li>
+      <li>Name the three server-side safety defaults.</li>
+      <li>What's the "landed artifact" at the end of a good data session, and why does it matter for reproducibility?</li>
+    </ol>
+  </div>
+  <p><strong>Reuse (official):</strong> <a href="https://anthropic.skilljar.com/model-context-protocol-advanced-topics">MCP advanced topics course</a> · <a href="https://code.claude.com/docs/en/mcp">MCP docs</a></p>
+  <button class="mark-done" data-mod="m301-05">Mark module complete</button>
+</section>
+
+<section class="module" id="m301-06">
+  <div class="module-head">
+    <span class="modnum">MODULE 6 · 25 min</span>
+  </div>
+  <h2 class="modtitle">Packaging &amp; Sharing What You Build</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Share skills, commands, and hooks with your team through the project repo</li>
+      <li>Describe what plugins add on top of repo-level sharing</li>
+      <li>Use the contributed-library path to give your work a life beyond your team</li>
+    </ul>
+  </div>
+
+  <h3>The repo is the distribution channel</h3>
+  <p>Everything you built in this course ships by committing it:</p>
+  <ul>
+    <li><code>.claude/skills/&lt;name&gt;/SKILL.md</code> — skills, picked up by everyone who clones</li>
+    <li><code>.claude/commands/*.md</code> — slash commands (CC 201)</li>
+    <li><code>settings.json</code> + hook scripts — guards and automation</li>
+    <li><code>.mcp.json</code> — team data sources (credentials via env, never committed)</li>
+  </ul>
+  <p>A teammate clones the repo and has the whole toolkit — no install step. This is why project scope beats personal scope for anything a second person will use: <strong>the repo is the training material.</strong></p>
+  <p>Checklist before you commit a skill for others: passes the four tests from module 2 (known-input, trigger, fresh-session, break-it); no machine-specific paths; secrets via environment, never in the file; one <code>README</code> line saying what it's for.</p>
+
+  <h3>Plugins, briefly</h3>
+  <p>For distribution <em>across</em> repos and teams, Claude Code supports <strong>plugins</strong> — installable bundles of skills, commands, hooks, and MCP config, distributed through marketplaces. Know they exist; reach for them when the same toolkit must land in many unrelated repos. Until then, repo-level sharing is simpler and versioned with your code.</p>
+  <!-- verify: confirm current plugin/marketplace mechanism against https://code.claude.com/docs/en/skills before teaching this section -->
+
+  <h3>The contributed library</h3>
+  <p>Program-wide, the demo/skill library grows by contribution, not by central authorship (see <a href="../../../CONTRIBUTING.md">CONTRIBUTING.md</a>):</p>
+  <ul>
+    <li><strong>Seed</strong> examples are program-maintained references — like this repo's <code>skills/</code> and <code>demos/</code>.</li>
+    <li><strong>Contributed</strong> entries are team-authored, author-owned, promoted from real work (often capstones — see CC 501). Stale entries get archived, not silently fixed; the author's name stays on it.</li>
+  </ul>
+  <p>The promotion path for the skill you built in this course: prove it in your own repo → tag it with discipline/use-case front-matter → submit per CONTRIBUTING.md. Your LOB's champion can also fold it into your team's edition of this curriculum (<code>lob/</code> + <code>/lob-overlay</code>).</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/skills">Skills docs</a> · <a href="https://github.com/anthropics/skills">anthropics/skills</a></p>
+
+  <div class="lab">
+    <p>Take the skill you shipped in module 2's lab and make it shareable: run the pre-commit checklist above, add the README line, and open the submission (internal PR or CONTRIBUTING.md flow). If it's genuinely team-specific, hand it to your champion for the LOB overlay instead — deciding <em>which</em> is the exercise.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Why does committing <code>.claude/</code> content beat telling teammates to copy your config?</li>
+      <li>What problem do plugins solve that repo-level sharing doesn't?</li>
+      <li>What's the difference between a Seed and a Contributed library entry, and who fixes a stale Contributed one?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m301-06">Mark module complete</button>
+</section>
+
+</div>
+
+<footer>CC 301 · Backbone edition · v1.0.0. Progress is stored in your browser only.</footer>
+
+<script>
+(function(){
+  var KEY='bb-progress:CC 301:Backbone';
+  var done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var btns=document.querySelectorAll('.mark-done');
+  var items=document.querySelectorAll('#toc li[data-mod]');
+  function paint(){
+    var n=0,t=0;
+    items.forEach(function(li){t++; var on=!!done[li.dataset.mod];
+      li.classList.toggle('done',on); if(on)n++;});
+    btns.forEach(function(b){var on=!!done[b.dataset.mod];
+      b.classList.toggle('on',on);
+      b.textContent=on?'✓ Completed — click to undo':'Mark module complete';});
+    document.getElementById('pbar').style.width=(t?100*n/t:0)+'%';
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    done[b.dataset.mod]=!done[b.dataset.mod];
+    if(!done[b.dataset.mod])delete done[b.dataset.mod];
+    localStorage.setItem(KEY,JSON.stringify(done)); paint();});});
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){
+    a.target='_blank'; a.rel='noopener';});
+  paint();
+})();
+</script>
+</body>
+</html>

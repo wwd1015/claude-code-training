@@ -1,0 +1,26 @@
+id: "101"
+code: CC 101
+title: "Claude Code Foundations"
+version: 1.0.0
+formats: [self-paced]
+audience: >
+  Everyone. Data scientists and quants with strong Python/stats/notebook skills;
+  no software-engineering background assumed. Bridges terminal, git, and the
+  agentic mental model explicitly.
+prerequisites: none
+duration_total: "~2 hrs 10 min"
+outcome: >
+  Installed and authenticated; ran real sessions against a repo; can navigate,
+  explain, edit, and run code through Claude Code with the permission model
+  understood.
+modules:
+  - id: 101-01
+    file: modules/01-mental-model.md
+  - id: 101-02
+    file: modules/02-setup.md
+  - id: 101-03
+    file: modules/03-first-session.md
+  - id: 101-04
+    file: modules/04-permissions-safety.md
+  - id: 101-05
+    file: modules/05-everyday-workflows.md

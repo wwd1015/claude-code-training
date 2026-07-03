@@ -1,0 +1,21 @@
+# Provenance ledger — every source that has contributed to this course.
+# Maintained by /backbone-sync; do not hand-edit except to correct errors.
+sources:
+  - path: docs/curriculum.md (Track 2)
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/01-claude-md-memory.md, modules/02-settings-hierarchy.md, modules/03-permissions-in-depth.md, modules/04-slash-commands-output-styles.md]
+    notes: "initial seed from the repo's track-based curriculum (Make it yours: configuration)"
+  - path: templates/CLAUDE.research-repo.md
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/01-claude-md-memory.md]
+    notes: "referenced as the starting template for the CLAUDE.md lab"
+  - path: public Anthropic docs (memory, settings, security, common-workflows, best-practices, how-claude-code-works)
+    sha256: n/a (external)
+    ingested: 2026-07-02
+    disposition: merged
+    into: [all modules]
+    notes: "reuse-first links; URLs verified 2026-06-08 per docs/reading-lists.md"

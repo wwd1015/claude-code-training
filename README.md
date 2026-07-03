@@ -8,10 +8,32 @@ building skills, agents, hooks, and MCP integrations.
 build only a thin custom layer — quant-flavored demos, exercises, and templates. Every
 module points to an official course or doc as the source of truth.
 
+## The backbone system
+
+The curriculum is maintained as five numbered **backbone courses** (CC 101 → CC 501)
+in [`backbone/`](backbone/) — a centralized, versioned single source of truth with
+three delivery formats (self-paced site, instructor decks, capstone working groups)
+and per-team **LOB editions** layered on top. Two skills operate it:
+
+- **`/backbone-sync`** — drop source material into [`intake/`](intake/), and it
+  classifies, diffs, merges (with provenance), versions, and regenerates course outputs.
+- **`/lob-overlay`** — lets a team champion layer their own demos/use cases onto the
+  backbone and re-sync when the central version advances.
+
+**How to use it:** [`docs/backbone-user-guide.md`](docs/backbone-user-guide.md) —
+role-based walkthroughs for learners, instructors, LOB champions, and maintainers.
+**How it's designed:** [`BACKBONE.md`](BACKBONE.md).
+
 ## What's here
 
 | Path | What it is |
 |------|------------|
+| [`BACKBONE.md`](BACKBONE.md) · [`backbone/`](backbone/) | The versioned course catalog CC 101–501: canonical modules + generated outputs. |
+| [`docs/backbone-user-guide.md`](docs/backbone-user-guide.md) | **User guide** — how to take, teach, customize, and maintain the courses, by role. |
+| [`templates/formats/`](templates/formats/) | HTML templates (self-paced + deck) and the [template contract](templates/formats/TEMPLATE-CONTRACT.md). |
+| [`intake/`](intake/) | Drop folder for new source material → `/backbone-sync`. |
+| [`lob/`](lob/) | Line-of-business editions (backbone + team overlays) → `/lob-overlay`. |
+| [`.claude/skills/`](.claude/skills/) | The two operating skills: `backbone-sync`, `lob-overlay`. |
 | [`site/index.html`](site/index.html) | The **entry site** — the training portal (GitHub Pages). Open it locally or host it. |
 | [`docs/curriculum.md`](docs/curriculum.md) | Full curriculum: 5 tracks, structure, build roadmap, links to everything. |
 | [`docs/reading-lists.md`](docs/reading-lists.md) | The official Anthropic asset map (verified links) per module. |

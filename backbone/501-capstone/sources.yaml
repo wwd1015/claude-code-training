@@ -1,0 +1,21 @@
+# Provenance ledger — every source that has contributed to this course.
+# Maintained by /backbone-sync; do not hand-edit except to correct errors.
+sources:
+  - path: docs/curriculum.md (Track 4)
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/02-choosing-flagship-project.md, modules/05-measuring-impact.md]
+    notes: "initial seed: capstone = automate a real recurring task, demo it, feed the demo bank"
+  - path: docs/operating-model.md + docs/facilitator-guide.md + docs/adr/0002-federated-delivery-champions-and-self-serve.md
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/01-working-group-model.md, modules/04-build-sprints.md]
+    notes: "roles (Learner/Champion/expert), federated delivery, cadence and demo-day mechanics"
+  - path: docs/capstone-ideas.md + docs/metrics-template.md + CONTRIBUTING.md
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/02-choosing-flagship-project.md, modules/03-design-doc-review.md, modules/05-measuring-impact.md]
+    notes: "selection rubric seeds, demo-day framing, honest time-saved measurement, two-tier contribution governance"

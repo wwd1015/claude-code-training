@@ -1,0 +1,20 @@
+# LOB edition manifest — filled in by /lob-overlay init
+team: ""                 # e.g. "Rates Research"
+slug: ""                 # dir-safe, e.g. rates-research
+champion: ""             # name / handle of the LOB champion
+created: ""              # ISO date
+
+# Courses this team delivers, and the backbone versions this edition was
+# built against. /lob-overlay sync diffs these against backbone/MANIFEST.yaml.
+courses:
+  "101": { deliver: true,  base_version: "" }
+  "201": { deliver: true,  base_version: "" }
+  "301": { deliver: true,  base_version: "" }
+  "401": { deliver: false, base_version: "" }
+  "501": { deliver: false, base_version: "" }
+
+# Team context the skill uses to suggest overlay ideas (optional, freeform)
+context:
+  data_sources: []       # e.g. [internal warehouse X, vendor feed Y]
+  recurring_tasks: []    # e.g. [weekly risk report, model validation memos]
+  notes: ""

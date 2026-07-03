@@ -1,0 +1,25 @@
+id: "501"
+code: CC 501
+title: "Capstone Studio: Build Your Own Agent System"
+version: 1.0.0
+formats: [self-paced, working-group]
+audience: >
+  Teams ready to ship a real agent system: a working group of 3–6 people from
+  one department, convened by their Champion, supported (not run) by an expert.
+prerequisites: CC 401
+duration_total: "~2 hrs 20 min reading · self-directed project over ~4–6 weeks"
+outcome: >
+  A working group ships one flagship automation of a real recurring task —
+  designed, reviewed, built in sprints, measured for time saved, and promoted
+  to the contributed demo library.
+modules:
+  - id: 501-01
+    file: modules/01-working-group-model.md
+  - id: 501-02
+    file: modules/02-choosing-flagship-project.md
+  - id: 501-03
+    file: modules/03-design-doc-review.md
+  - id: 501-04
+    file: modules/04-build-sprints.md
+  - id: 501-05
+    file: modules/05-measuring-impact.md

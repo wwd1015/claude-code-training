@@ -1,0 +1,15 @@
+# Provenance ledger — every source that has contributed to this course.
+# Maintained by /backbone-sync; do not hand-edit except to correct errors.
+sources:
+  - path: docs/curriculum.md (Track 3c — building agents)
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/01-subagents.md, modules/04-agent-sdk.md]
+    notes: "initial seed from the repo's track-based curriculum; demo 03 (anomaly-triage agent) referenced as worked example"
+  - path: public Anthropic docs (sub-agents, agent-sdk/overview, cli-reference, common-workflows, best-practices, security) + Academy (introduction-to-subagents, claude-with-the-anthropic-api) + engineering blog (building-effective-agents, claude-code-best-practices)
+    sha256: n/a (external)
+    ingested: 2026-07-02
+    disposition: merged
+    into: [all modules]
+    notes: "reuse-first links; URLs verified 2026-06-08 per docs/reading-lists.md"

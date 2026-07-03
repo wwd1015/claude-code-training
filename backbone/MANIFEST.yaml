@@ -1,0 +1,79 @@
+# Backbone course registry — the single source of truth for course versions
+# and the routing rubric used by /backbone-sync to classify incoming material.
+# Skills read this file; humans edit only via /backbone-sync or deliberate review.
+
+backbone_version: 1        # bump on structural changes to the catalog itself
+
+courses:
+  "101":
+    dir: 101-foundations
+    title: "CC 101 — Claude Code Foundations"
+    version: 1.0.0
+    formats: [self-paced]
+    routing:
+      # topics that route incoming material INTO this course
+      - what Claude Code is / agentic mental model / agentic loop
+      - installation, authentication, terminal setup, environment setup
+      - first session, quickstart, basic prompting, plan mode basics
+      - permission modes and safety model (introductory)
+      - everyday workflows: navigate, explain, edit, run, basic git
+      - getting help, /help, docs orientation
+
+  "201":
+    dir: 201-customization
+    title: "CC 201 — Make It Yours: Configuration & Customization"
+    version: 1.0.0
+    formats: [self-paced]
+    routing:
+      - CLAUDE.md and memory (user/project/local hierarchy)
+      - settings.json, configuration hierarchy, environment variables
+      - permissions, allowlists, deny rules, permission modes (in depth)
+      - custom slash commands, output styles, statusline
+      - model selection, context management, /compact, /clear, cost basics
+      - team-shared configuration in a repo
+
+  "301":
+    dir: 301-extending
+    title: "CC 301 — Extending Claude Code: Skills, Hooks & MCP"
+    version: 1.0.0
+    formats: [self-paced, instructor-deck]
+    routing:
+      - skill creation, SKILL.md anatomy, skill design patterns, testing skills
+      - hooks: lifecycle events, PreToolUse/PostToolUse, guards, automation
+      - MCP concepts, connecting MCP servers, .mcp.json
+      - data sources over MCP (SQL/warehouse patterns)
+      - packaging and sharing: plugins, marketplaces
+
+  "401":
+    dir: 401-agent-systems
+    title: "CC 401 — Agent Systems: Subagents, Workflows & Orchestration"
+    version: 1.0.0
+    formats: [self-paced, instructor-deck]
+    routing:
+      - subagents: when and how, task decomposition
+      - multi-agent workflow design: fan-out, pipeline, verification patterns
+      - headless mode, CI, GitHub Actions, scheduled/cron agents
+      - Agent SDK, building custom agents
+      - best practices: context engineering, cost management, evaluation
+      - governance, observability, safety for agent systems
+
+  "501":
+    dir: 501-capstone
+    title: "CC 501 — Capstone Studio: Build Your Own Agent System"
+    version: 1.0.0
+    formats: [self-paced, working-group]
+    routing:
+      - capstone/flagship project selection, scoping rubrics
+      - working group operating model, champion and expert roles
+      - design docs, architecture reviews for agent systems
+      - build cadence, checkpoints, demo days
+      - measuring impact (time saved), promotion to contributed demo library
+      - showcase, recruitment of flagship projects
+
+# Classification guidance for /backbone-sync:
+# - Route by TOPIC first (rubric above), then by DEPTH: introductory treatment of an
+#   advanced topic still goes to the advanced course as intro material, not to 101.
+# - Material spanning courses is split at section level, each part routed separately.
+# - Team/LOB-specific material (names a department, internal system, or bespoke use
+#   case) is NOT merged into the backbone — flag it for the relevant LOB overlay.
+# - Unroutable material goes to intake/_unrouted/ with a note, never silently dropped.

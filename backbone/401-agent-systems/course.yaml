@@ -1,0 +1,29 @@
+id: "401"
+code: CC 401
+title: "Agent Systems: Subagents, Workflows & Orchestration"
+version: 1.0.0
+formats: [self-paced, instructor-deck]
+audience: >
+  Builders who finished CC 301. Data scientists and quants ready to move from
+  extending a single session to designing systems of agents that work while
+  they don't watch.
+prerequisites: CC 301
+duration_total: "~3 hrs 10 min"
+outcome: >
+  Can decompose real work into subagents, choose the right workflow shape,
+  run Claude Code headless in automation, know when the Agent SDK is the right
+  layer, and operate agent systems with cost, evaluation, and governance
+  discipline.
+modules:
+  - id: 401-01
+    file: modules/01-subagents.md
+  - id: 401-02
+    file: modules/02-workflow-design.md
+  - id: 401-03
+    file: modules/03-headless-automation.md
+  - id: 401-04
+    file: modules/04-agent-sdk.md
+  - id: 401-05
+    file: modules/05-best-practices.md
+  - id: 401-06
+    file: modules/06-governance-safety.md

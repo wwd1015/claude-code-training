@@ -1,0 +1,15 @@
+# Provenance ledger — every source that has contributed to this course.
+# Maintained by /backbone-sync; do not hand-edit except to correct errors.
+sources:
+  - path: docs/curriculum.md (Tracks 0–1)
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/01-mental-model.md, modules/02-setup.md, modules/03-first-session.md]
+    notes: "initial seed from the repo's track-based curriculum"
+  - path: public Anthropic docs (overview, quickstart, common-workflows, settings, security) + Academy (claude-code-101, claude-code-in-action)
+    sha256: n/a (external)
+    ingested: 2026-07-02
+    disposition: merged
+    into: [all modules]
+    notes: "reuse-first links; URLs verified 2026-06-08 per docs/reading-lists.md"

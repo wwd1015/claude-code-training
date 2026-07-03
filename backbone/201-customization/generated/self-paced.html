@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CC 201 — Make It Yours: Configuration & Customization</title>
+<style>
+  :root{
+    --bg:#141210; --panel:#1e1b18; --ink:#e8e2da; --muted:#9a917f;
+    --clay:#c96f4a; --clay-soft:#e0956f; --line:#332e28; --ok:#7fb069;
+    --code:#26221d; --maxw:46rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.65 Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}
+  header.course{max-width:var(--maxw);margin:0 auto;padding:3rem 1.25rem 1rem}
+  .kicker{font:600 .8rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--clay)}
+  h1{font-size:2rem;line-height:1.2;margin:.5rem 0 .25rem}
+  .meta{color:var(--muted);font:.85rem/1.5 -apple-system,system-ui,sans-serif}
+  .layout{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem 5rem}
+  nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:1rem 1.25rem;margin:1.5rem 0 2.5rem;font-family:-apple-system,system-ui,sans-serif}
+  nav.toc h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .5rem}
+  nav.toc ol{margin:0;padding-left:1.4rem}
+  nav.toc li{margin:.35rem 0;font-size:.95rem}
+  nav.toc a{color:var(--ink);text-decoration:none}
+  nav.toc a:hover{color:var(--clay-soft)}
+  nav.toc .done a{color:var(--muted);text-decoration:line-through}
+  nav.toc .dur{color:var(--muted);font-size:.8rem;margin-left:.4rem}
+  .progressbar{height:6px;background:var(--line);border-radius:3px;margin:.75rem 0 0;overflow:hidden}
+  .progressbar>div{height:100%;width:0;background:var(--ok);border-radius:3px;transition:width .3s}
+  section.module{border-top:1px solid var(--line);padding-top:2.5rem;margin-top:2.5rem}
+  .module-head{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap}
+  .modnum{font:700 .8rem/1 -apple-system,system-ui,sans-serif;color:var(--clay);
+    letter-spacing:.1em}
+  h2.modtitle{font-size:1.45rem;margin:.2rem 0}
+  .module h3{font-size:1.12rem;margin:1.8rem 0 .5rem}
+  .module h4{font-size:1rem;margin:1.4rem 0 .4rem;color:var(--clay-soft)}
+  a{color:var(--clay-soft)}
+  code{font:.85em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);
+    padding:.12em .35em;border-radius:4px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;
+    padding:1rem;overflow-x:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;font:.9rem/1.5 -apple-system,system-ui,sans-serif}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left}
+  th{background:var(--panel)}
+  .objectives{background:var(--panel);border-left:3px solid var(--clay);
+    border-radius:0 10px 10px 0;padding:.9rem 1.15rem;margin:1rem 0;
+    font-family:-apple-system,system-ui,sans-serif;font-size:.92rem}
+  .objectives strong{display:block;font-size:.75rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.35rem}
+  .objectives ul{margin:.25rem 0 0;padding-left:1.2rem}
+  .lab{background:linear-gradient(180deg,var(--panel),transparent);
+    border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;margin:1.8rem 0}
+  .lab::before{content:"⌨ Lab";display:block;font:700 .78rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:.5rem}
+  .kcheck{border:1px dashed var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1.5rem 0}
+  .kcheck::before{content:"✓ Knowledge check";display:block;
+    font:700 .78rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.5rem}
+  .mark-done{margin:2rem 0 0;font:600 .85rem/1 -apple-system,system-ui,sans-serif;
+    background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;
+    padding:.55rem 1.1rem;cursor:pointer}
+  .mark-done.on{border-color:var(--ok);color:var(--ok)}
+  .edition-badge{display:inline-block;font:600 .7rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--clay-soft);
+    border-radius:4px;padding:.25em .5em;margin-left:.5rem;vertical-align:middle}
+  footer{max-width:var(--maxw);margin:0 auto;padding:2rem 1.25rem;color:var(--muted);
+    font:.8rem/1.5 -apple-system,system-ui,sans-serif;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="course">
+  <div class="kicker">Backbone · Self-paced</div>
+  <h1>CC 201 — Make It Yours: Configuration &amp; Customization</h1>
+  <div class="meta">5 modules · ~2 hrs 20 min · v1.0.0 · generated 2026-07-02</div>
+</header>
+
+<div class="layout">
+
+<nav class="toc" id="toc">
+  <h2>Modules</h2>
+  <ol>
+    <li data-mod="claude-md-memory"><a href="#claude-md-memory">CLAUDE.md &amp; Memory</a><span class="dur">30 min</span></li>
+    <li data-mod="settings-hierarchy"><a href="#settings-hierarchy">Settings &amp; the Configuration Hierarchy</a><span class="dur">25 min</span></li>
+    <li data-mod="permissions-in-depth"><a href="#permissions-in-depth">Permissions in Depth</a><span class="dur">30 min</span></li>
+    <li data-mod="slash-commands-output-styles"><a href="#slash-commands-output-styles">Custom Slash Commands &amp; Output Styles</a><span class="dur">30 min</span></li>
+    <li data-mod="models-context-cost"><a href="#models-context-cost">Models, Context &amp; Cost</a><span class="dur">25 min</span></li>
+  </ol>
+  <div class="progressbar"><div id="pbar"></div></div>
+</nav>
+
+<section class="module" id="claude-md-memory">
+  <div class="module-head">
+    <span class="modnum">MODULE 1 · 30 min</span>
+  </div>
+  <h2 class="modtitle">CLAUDE.md &amp; Memory</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain what CLAUDE.md is and when Claude Code reads it</li>
+      <li>Choose the right scope (user vs project) for a given instruction</li>
+      <li>Write and iterate on a CLAUDE.md that actually changes behavior</li>
+    </ul>
+  </div>
+
+  <h3>The file Claude reads before you say anything</h3>
+  <p><code>CLAUDE.md</code> is standing instructions: a markdown file Claude Code loads at the
+  start of every session in that directory. Everything you find yourself
+  repeating — "we use pandas not polars", "run <code>make test</code> before declaring
+  done", "never touch <code>data/raw/</code>" — belongs there, said once.</p>
+  <p>Two scopes, one rule of thumb:</p>
+  <ul>
+    <li><strong>Project memory</strong> — <code>CLAUDE.md</code> at the repo root (committed, shared with
+    the team): conventions, key commands, layout, gotchas <em>of this repo</em>.</li>
+    <li><strong>User memory</strong> — <code>~/.claude/CLAUDE.md</code> (private, follows you everywhere):
+    <em>your</em> preferences, like "explain stats notation, skip Python basics".</li>
+  </ul>
+  <p>Claude reads both; the more specific scope wins when they disagree.</p>
+
+  <h3>What belongs in it (and what doesn't)</h3>
+  <p>Good CLAUDE.md content is what a sharp new collaborator would need on day one:</p>
+  <ul>
+    <li><strong>Commands</strong> — how to run tests, rebuild data, launch the notebook server.</li>
+    <li><strong>Conventions</strong> — naming, preferred libraries, style choices linters can't see.</li>
+    <li><strong>Gotchas</strong> — "the dates in <code>prices.parquet</code> are trade dates, not settlement".</li>
+    <li><strong>Boundaries</strong> — directories or files never to modify.</li>
+  </ul>
+  <p>What doesn't belong: anything derivable from the code itself (Claude can read),
+  long prose, or session-specific context. Short and true beats long and stale.</p>
+  <p>A worked starting point for research repos lives in this repo:
+  <a href="../../../templates/CLAUDE.research-repo.md">templates/CLAUDE.research-repo.md</a>.</p>
+
+  <h3>Iterating on it</h3>
+  <p>Treat CLAUDE.md as tuned, not written. When Claude does something you had to
+  correct, ask: "add an instruction to CLAUDE.md so this doesn't happen again"
+  — it will phrase the rule itself. Use <code>#</code> at the start of a message as a
+  shortcut to add a memory mid-session. Prune on the same trigger: instructions
+  that never fire are noise. <!-- verify: `#` memory shortcut against current docs --></p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/memory">Memory docs</a> ·
+  <a href="https://code.claude.com/docs/en/best-practices">Best practices</a></p>
+
+  <div class="lab">
+    <p>Pick the repo or notebook folder you touched most in CC 101. Ask Claude to
+    draft a <code>CLAUDE.md</code> for it, starting from the research-repo template. Cut the
+    draft to the ten lines a new collaborator would actually need. Start a fresh
+    session and verify the behavior changed (e.g., it runs your test command
+    without being told).</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Which scope — user or project — for "always show me effect sizes, not just p-values"? For "raw data is read-only"?</li>
+      <li>Name two things that do NOT belong in CLAUDE.md, and why.</li>
+      <li>What's the fastest way to capture a correction as a permanent instruction?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="claude-md-memory">Mark module complete</button>
+</section>
+
+<section class="module" id="settings-hierarchy">
+  <div class="module-head">
+    <span class="modnum">MODULE 2 · 25 min</span>
+  </div>
+  <h2 class="modtitle">Settings &amp; the Configuration Hierarchy</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Locate the three settings.json levels and state their precedence</li>
+      <li>Decide where a given setting belongs (user, project, or local)</li>
+      <li>Inspect and change configuration with /config</li>
+    </ul>
+  </div>
+
+  <h3>Three files, one hierarchy</h3>
+  <p>Claude Code reads settings from three places, most specific wins:</p>
+  <table>
+    <tr><th>Level</th><th>File</th><th>Committed?</th><th>For</th></tr>
+    <tr><td>User</td><td><code>~/.claude/settings.json</code></td><td>no (personal)</td><td>your defaults, everywhere</td></tr>
+    <tr><td>Project</td><td><code>.claude/settings.json</code></td><td>yes (shared)</td><td>team standards for this repo</td></tr>
+    <tr><td>Local</td><td><code>.claude/settings.local.json</code></td><td>no (gitignored)</td><td>your overrides for this repo</td></tr>
+  </table>
+  <p>The pattern to internalize mirrors CLAUDE.md scoping: <strong>team truths in the
+  project file, personal taste in the user file, machine-specific quirks in
+  local.</strong> Settings cover permissions (next module), environment variables,
+  model choice, hooks (CC 301), and more — the full schema is in the docs.</p>
+
+  <h3>Environment variables</h3>
+  <p>The <code>env</code> block in settings.json sets environment variables for every session
+  in that scope — the clean way to pin <code>PYTHONPATH</code>, data directories, or proxy
+  settings so you never debug "works in my terminal, not in Claude's" again.</p>
+
+  <h3>/config and friends</h3>
+  <p>Inside a session, <code>/config</code> shows and edits current configuration without
+  hunting for files. When behavior surprises you, the diagnostic question is
+  always: <em>which level is supplying this setting?</em> — check project and local
+  before assuming your user defaults apply.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/settings">Settings docs</a></p>
+
+  <div class="lab">
+    <p>In your working repo: (1) run <code>/config</code> and identify one setting at each
+    level; (2) add an <code>env</code> variable your analysis scripts need to the project
+    settings; (3) override it in <code>settings.local.json</code> and confirm which one a
+    fresh session sees (ask Claude to <code>echo</code> it).</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>A setting appears in all three files with different values — which wins?</li>
+      <li>Your team wants everyone's sessions to use the same data directory env var. Which file, and why that one?</li>
+      <li>Why does <code>settings.local.json</code> exist at all, given user settings are already personal?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="settings-hierarchy">Mark module complete</button>
+</section>
+
+<section class="module" id="permissions-in-depth">
+  <div class="module-head">
+    <span class="modnum">MODULE 3 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Permissions in Depth</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Read and write allow/deny permission rules in settings.json</li>
+      <li>Build a deliberate allowlist instead of an accidental one</li>
+      <li>Ship safe permission defaults to a whole team via project settings</li>
+    </ul>
+  </div>
+
+  <h3>From reflex clicks to written policy</h3>
+  <p>In CC 101 you approved actions one prompt at a time, and "don't ask again"
+  quietly built you an allowlist. This module makes that list deliberate.
+  Permissions live in settings.json (all three levels from module 2) as rules:</p>
+  <pre><code>{
+  "permissions": {
+    "allow": [
+      "Bash(pytest *)",
+      "Bash(python scripts/*)",
+      "Read(~/data/reference/**)"
+    ],
+    "deny": [
+      "Read(./secrets/**)",
+      "Bash(rm -rf *)"
+    ]
+  }
+}</code></pre>
+  <p>Rules name a tool and a pattern. <strong>Deny beats allow</strong> when both match — so
+  deny rules are your guardrails and allow rules are your convenience.
+  <!-- verify: exact rule syntax against current settings docs before teaching --></p>
+
+  <h3>Building the allowlist deliberately</h3>
+  <p>The workflow that works:</p>
+  <ol>
+    <li>Run a week in default mode; notice what you approve constantly.</li>
+    <li>Promote the <em>narrowest version</em> of each into <code>allow</code> — <code>pytest *</code>, not <code>Bash(*)</code>.</li>
+    <li>Add <code>deny</code> rules for the things that must never happen in this repo:
+    credentials paths, raw-data writes, destructive git.</li>
+  </ol>
+  <p>The asymmetry to respect: a too-narrow allow costs you one extra click; a
+  too-broad allow costs you an incident.</p>
+
+  <h3>Team defaults</h3>
+  <p>Because project <code>.claude/settings.json</code> is committed, a repo owner can ship
+  permission policy with the code: everyone who clones gets the same guardrails
+  and the same conveniences on day one. Personal loosening goes in
+  <code>settings.local.json</code> — never loosen the shared file to fix a private itch.
+  Permission <em>modes</em> (CC 101) still apply on top: modes set how much is asked,
+  rules set what's allowed at all.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/settings">Settings docs</a> ·
+  <a href="https://code.claude.com/docs/en/security">Security docs</a></p>
+
+  <div class="lab">
+    <p>For your own repo: (1) list the five approvals you grant most often and write
+    them as narrow allow rules in project settings; (2) add two deny rules
+    protecting what actually matters there (a data directory, an env file);
+    (3) verify both directions in a fresh session — an allowed command runs
+    without a prompt, a denied read is refused.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Allow says yes, deny says no, both match — what happens?</li>
+      <li>Why promote the <em>narrowest</em> pattern that covers a repeated approval?</li>
+      <li>Your teammate's clone should refuse to read <code>credentials/</code>. Which file does the rule go in, and why not <code>settings.local.json</code>?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="permissions-in-depth">Mark module complete</button>
+</section>
+
+<section class="module" id="slash-commands-output-styles">
+  <div class="module-head">
+    <span class="modnum">MODULE 4 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Custom Slash Commands &amp; Output Styles</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Create a custom slash command from a prompt you keep retyping</li>
+      <li>Parameterize commands with arguments</li>
+      <li>Adjust how Claude communicates with output styles</li>
+    </ul>
+  </div>
+
+  <h3>Prompts you keep retyping are programs</h3>
+  <p>A custom slash command is a markdown file whose body is a prompt. Drop it in
+  <code>.claude/commands/</code> (project, shared) or <code>~/.claude/commands/</code> (user,
+  personal) and its filename becomes the command:</p>
+  <pre><code>&lt;!-- .claude/commands/eda.md --&gt;
+Profile the dataset at $ARGUMENTS: shape, dtypes, missingness, outliers,
+and a five-line summary of what would surprise a new analyst.
+Save the report as markdown next to the data file.</code></pre>
+  <p>Now <code>/eda data/prices.parquet</code> runs your best prompt every time —
+  <code>$ARGUMENTS</code> receives whatever follows the command. Anything you've typed
+  twice with small variations is a candidate: a regression-diagnostics
+  checklist, a notebook-cleanup pass, a "summarize what changed since main".</p>
+  <p>This is the gateway to CC 301: when your command needs supporting files,
+  scripts, or multi-step logic, it graduates into a <strong>skill</strong>. Same instinct,
+  bigger container.</p>
+
+  <h3>Output styles</h3>
+  <p>Output styles change how Claude communicates — more explanation, less
+  narration, different formats — without touching what it can do. They're
+  useful when the default register is wrong for the audience: terse for
+  yourself, tutorial-mode when onboarding someone. The statusline is similarly
+  configurable if you want session state (model, cost, directory) visible at a
+  glance. <!-- verify: output-styles and statusline configuration against current docs --></p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a> ·
+  <a href="https://code.claude.com/docs/en/best-practices">Best practices</a></p>
+
+  <div class="lab">
+    <p>Find the prompt you've retyped most this month (check your history). Turn it
+    into a project slash command with one <code>$ARGUMENTS</code> slot. Run it on two
+    different targets and refine the wording until both outputs are right without
+    follow-up instructions.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Where does a slash command live if the whole team should get it on clone?</li>
+      <li>What does <code>$ARGUMENTS</code> do?</li>
+      <li>What's the signal that a slash command should graduate into a skill?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="slash-commands-output-styles">Mark module complete</button>
+</section>
+
+<section class="module" id="models-context-cost">
+  <div class="module-head">
+    <span class="modnum">MODULE 5 · 25 min</span>
+  </div>
+  <h2 class="modtitle">Models, Context &amp; Cost</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Match model choice to task difficulty</li>
+      <li>Manage the context window: /compact, /clear, and session scope</li>
+      <li>Build cost-awareness habits without becoming a token accountant</li>
+    </ul>
+  </div>
+
+  <h3>Choosing a model</h3>
+  <p>Claude Code can run different Claude models; switch with <code>/model</code> or set a
+  default in settings. The working heuristic:</p>
+  <ul>
+    <li><strong>Most capable model</strong> — architecture, tricky debugging, multi-step
+    refactors, anything you'd give your strongest colleague.</li>
+    <li><strong>Faster/cheaper model</strong> — mechanical edits, formatting, boilerplate,
+    first-draft docstrings.</li>
+  </ul>
+  <p>When unsure, start capable and downgrade the repetitive parts once the
+  pattern is established — the reverse (cheap model digs a hole, capable model
+  excavates it) costs more. <!-- verify: current model lineup and default before teaching --></p>
+
+  <h3>Context is a budget</h3>
+  <p>Everything the session reads and says occupies the <strong>context window</strong>. As it
+  fills, sessions get slower, costlier, and vaguer about early details. Three
+  controls, in order of preference:</p>
+  <ol>
+    <li><strong>Scope sessions tightly</strong> (CC 101 habit): one task, one session.</li>
+    <li><strong><code>/clear</code></strong> when switching tasks — a fresh start beats a fog of leftovers.</li>
+    <li><strong><code>/compact</code></strong> mid-task when context is large but you need continuity — it
+    summarizes the conversation so far and continues on the summary.</li>
+  </ol>
+  <p>The CLAUDE.md connection from module 1: standing instructions in CLAUDE.md
+  cost a few lines once per session; re-explaining them costs paragraphs every
+  session. Configuration <em>is</em> context management.</p>
+
+  <h3>Cost habits</h3>
+  <p>You don't need per-token bookkeeping; you need three habits: know roughly
+  what a normal session costs for your usage (<code>/cost</code> shows the session's
+  spend), notice outliers and ask why (usually a runaway loop or a giant file
+  read), and prefer scoped sessions — the same habit that improves quality
+  cuts cost. <!-- verify: /cost availability under your org's billing/subscription setup --></p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/best-practices">Best practices</a> ·
+  <a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a></p>
+
+  <div class="lab">
+    <p><em>Course capstone.</em> Put the whole course together on your primary repo:
+    (1) write or finish its <code>CLAUDE.md</code> (module 1 draft, now battle-tested);
+    (2) commit project settings with your allowlist and one env var; (3) ship one
+    custom slash command for a recurring task. Fresh session, run the command —
+    the goal is a session that needs zero re-explaining. That configured repo is
+    your entry ticket to CC 301.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Which tasks justify the most capable model, and which don't?</li>
+      <li><code>/compact</code> vs <code>/clear</code> — when is each the right call?</li>
+      <li>Name the three cost habits that don't require counting tokens.</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="models-context-cost">Mark module complete</button>
+</section>
+
+</div>
+
+<footer>CC 201 · Backbone edition · v1.0.0. Progress is stored in your browser only.</footer>
+
+<script>
+(function(){
+  var KEY='bb-progress:CC 201:Backbone';
+  var done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var btns=document.querySelectorAll('.mark-done');
+  var items=document.querySelectorAll('#toc li[data-mod]');
+  function paint(){
+    var n=0,t=0;
+    items.forEach(function(li){t++; var on=!!done[li.dataset.mod];
+      li.classList.toggle('done',on); if(on)n++;});
+    btns.forEach(function(b){var on=!!done[b.dataset.mod];
+      b.classList.toggle('on',on);
+      b.textContent=on?'✓ Completed — click to undo':'Mark module complete';});
+    document.getElementById('pbar').style.width=(t?100*n/t:0)+'%';
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    done[b.dataset.mod]=!done[b.dataset.mod];
+    if(!done[b.dataset.mod])delete done[b.dataset.mod];
+    localStorage.setItem(KEY,JSON.stringify(done)); paint();});});
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){
+    a.target='_blank'; a.rel='noopener';});
+  paint();
+})();
+</script>
+</body>
+</html>

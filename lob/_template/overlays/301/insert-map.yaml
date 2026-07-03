@@ -1,0 +1,11 @@
+# Anchors team content to backbone module IDs (never line numbers).
+# Positions: end-of-module | before-lab | after-section "<heading>" | replace-lab
+# (replace-lab is the ONLY replacement allowed — labs are the sanctioned
+#  customization point; backbone prose is supplemented, never replaced.)
+#
+# Example — delete and replace with real entries via /lob-overlay add:
+inserts: []
+#  - module: 301-01
+#    position: replace-lab
+#    file: demos/our-recurring-report-skill.md
+#    note: "team-native skill-creation lab using our weekly report"

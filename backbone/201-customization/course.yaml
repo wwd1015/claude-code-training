@@ -1,0 +1,26 @@
+id: "201"
+code: CC 201
+title: "Make It Yours: Configuration & Customization"
+version: 1.0.0
+formats: [self-paced]
+audience: >
+  Everyone who has finished CC 101. Data scientists and quants ready to stop
+  re-explaining their project every session and start shaping Claude Code to
+  their own repos and habits.
+prerequisites: CC 101
+duration_total: "~2 hrs 20 min"
+outcome: >
+  A personal CLAUDE.md and settings that fit your work; a deliberate
+  permission allowlist; at least one custom slash command; sane habits for
+  models, context, and cost.
+modules:
+  - id: 201-01
+    file: modules/01-claude-md-memory.md
+  - id: 201-02
+    file: modules/02-settings-hierarchy.md
+  - id: 201-03
+    file: modules/03-permissions-in-depth.md
+  - id: 201-04
+    file: modules/04-slash-commands-output-styles.md
+  - id: 201-05
+    file: modules/05-models-context-cost.md

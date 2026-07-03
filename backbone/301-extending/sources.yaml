@@ -1,0 +1,21 @@
+# Provenance ledger — every source that has contributed to this course.
+# Maintained by /backbone-sync; do not hand-edit except to correct errors.
+sources:
+  - path: docs/curriculum.md (Track 3a skills, 3b hooks & settings, 3d MCP)
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/01-skill-anatomy.md, modules/02-skill-patterns.md, modules/03-hooks.md, modules/04-mcp-concepts.md, modules/05-mcp-data.md]
+    notes: "initial seed from the repo's track-based curriculum"
+  - path: repo worked examples (skills/eda, skills/backtest-report, examples/hooks/, examples/mcp/, demos/04, demos/05) + CONTRIBUTING.md
+    sha256: seed
+    ingested: 2026-07-02
+    disposition: merged
+    into: [modules/02-skill-patterns.md, modules/03-hooks.md, modules/04-mcp-concepts.md, modules/05-mcp-data.md, modules/06-packaging-sharing.md]
+    notes: "labs point at the repo's runnable Seed examples"
+  - path: public Anthropic docs (skills, hooks, settings, mcp, mcp-quickstart) + Academy (intro-to-agent-skills, intro-to-mcp, mcp-advanced-topics) + github anthropics/skills, modelcontextprotocol/servers
+    sha256: n/a (external)
+    ingested: 2026-07-02
+    disposition: merged
+    into: [all modules]
+    notes: "reuse-first links; URLs verified 2026-06-08 per docs/reading-lists.md"

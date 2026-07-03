@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CC 401 — Agent Systems: Subagents, Workflows &amp; Orchestration</title>
+<style>
+  :root{
+    --bg:#141210; --panel:#1e1b18; --ink:#e8e2da; --muted:#9a917f;
+    --clay:#c96f4a; --clay-soft:#e0956f; --line:#332e28; --ok:#7fb069;
+    --code:#26221d; --maxw:46rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.65 Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}
+  header.course{max-width:var(--maxw);margin:0 auto;padding:3rem 1.25rem 1rem}
+  .kicker{font:600 .8rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--clay)}
+  h1{font-size:2rem;line-height:1.2;margin:.5rem 0 .25rem}
+  .meta{color:var(--muted);font:.85rem/1.5 -apple-system,system-ui,sans-serif}
+  .layout{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem 5rem}
+  nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:1rem 1.25rem;margin:1.5rem 0 2.5rem;font-family:-apple-system,system-ui,sans-serif}
+  nav.toc h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .5rem}
+  nav.toc ol{margin:0;padding-left:1.4rem}
+  nav.toc li{margin:.35rem 0;font-size:.95rem}
+  nav.toc a{color:var(--ink);text-decoration:none}
+  nav.toc a:hover{color:var(--clay-soft)}
+  nav.toc .done a{color:var(--muted);text-decoration:line-through}
+  nav.toc .dur{color:var(--muted);font-size:.8rem;margin-left:.4rem}
+  .progressbar{height:6px;background:var(--line);border-radius:3px;margin:.75rem 0 0;overflow:hidden}
+  .progressbar>div{height:100%;width:0;background:var(--ok);border-radius:3px;transition:width .3s}
+  section.module{border-top:1px solid var(--line);padding-top:2.5rem;margin-top:2.5rem}
+  .module-head{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap}
+  .modnum{font:700 .8rem/1 -apple-system,system-ui,sans-serif;color:var(--clay);
+    letter-spacing:.1em}
+  h2.modtitle{font-size:1.45rem;margin:.2rem 0}
+  .module h3{font-size:1.12rem;margin:1.8rem 0 .5rem}
+  .module h4{font-size:1rem;margin:1.4rem 0 .4rem;color:var(--clay-soft)}
+  a{color:var(--clay-soft)}
+  code{font:.85em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);
+    padding:.12em .35em;border-radius:4px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;
+    padding:1rem;overflow-x:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;font:.9rem/1.5 -apple-system,system-ui,sans-serif}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left}
+  th{background:var(--panel)}
+  .objectives{background:var(--panel);border-left:3px solid var(--clay);
+    border-radius:0 10px 10px 0;padding:.9rem 1.15rem;margin:1rem 0;
+    font-family:-apple-system,system-ui,sans-serif;font-size:.92rem}
+  .objectives strong{display:block;font-size:.75rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.35rem}
+  .objectives ul{margin:.25rem 0 0;padding-left:1.2rem}
+  .lab{background:linear-gradient(180deg,var(--panel),transparent);
+    border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;margin:1.8rem 0}
+  .lab::before{content:"⌨ Lab";display:block;font:700 .78rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:.5rem}
+  .kcheck{border:1px dashed var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1.5rem 0}
+  .kcheck::before{content:"✓ Knowledge check";display:block;
+    font:700 .78rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.5rem}
+  .mark-done{margin:2rem 0 0;font:600 .85rem/1 -apple-system,system-ui,sans-serif;
+    background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;
+    padding:.55rem 1.1rem;cursor:pointer}
+  .mark-done.on{border-color:var(--ok);color:var(--ok)}
+  .edition-badge{display:inline-block;font:600 .7rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--clay-soft);
+    border-radius:4px;padding:.25em .5em;margin-left:.5rem;vertical-align:middle}
+  footer{max-width:var(--maxw);margin:0 auto;padding:2rem 1.25rem;color:var(--muted);
+    font:.8rem/1.5 -apple-system,system-ui,sans-serif;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="course">
+  <div class="kicker">Backbone · Self-paced</div>
+  <h1>CC 401 — Agent Systems: Subagents, Workflows &amp; Orchestration</h1>
+  <div class="meta">6 modules · ~3 hrs 10 min · v1.0.0 · generated 2026-07-02</div>
+</header>
+
+<div class="layout">
+
+<nav class="toc" id="toc">
+  <h2>Modules</h2>
+  <ol>
+    <li data-mod="subagents"><a href="#subagents">Subagents: Delegation &amp; Decomposition</a><span class="dur">35 min</span></li>
+    <li data-mod="workflow-design"><a href="#workflow-design">Designing Multi-Agent Workflows</a><span class="dur">35 min</span></li>
+    <li data-mod="headless-automation"><a href="#headless-automation">Headless &amp; Automation</a><span class="dur">30 min</span></li>
+    <li data-mod="agent-sdk"><a href="#agent-sdk">The Agent SDK: Building Custom Agents</a><span class="dur">30 min</span></li>
+    <li data-mod="best-practices"><a href="#best-practices">Best Practices: Context, Cost &amp; Evaluation</a><span class="dur">35 min</span></li>
+    <li data-mod="governance-safety"><a href="#governance-safety">Governance &amp; Safety for Agent Systems</a><span class="dur">25 min</span></li>
+  </ol>
+  <div class="progressbar"><div id="pbar"></div></div>
+</nav>
+
+<section class="module" id="subagents">
+  <div class="module-head">
+    <span class="modnum">MODULE 1 · 35 min</span>
+  </div>
+  <h2 class="modtitle">Subagents: Delegation &amp; Decomposition</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain what a subagent is and what it does (and doesn't) share with your session</li>
+      <li>Define a reusable subagent in .claude/agents/ with a scoped prompt and toolset</li>
+      <li>Decide when to delegate to a subagent vs. do the work inline</li>
+    </ul>
+  </div>
+
+  <h3>What a subagent is</h3>
+  <p>A <strong>subagent</strong> is a separate Claude instance your main session launches to do a scoped task and report back. It gets its own context window, its own system prompt, and (optionally) its own restricted toolset. It does <em>not</em> see your conversation — only the task prompt it's given — and you see only its final report, not its tool-by-tool work.</p>
+  <p>That isolation is the point. Two consequences to internalize:</p>
+  <ul>
+    <li><strong>Context isolation</strong> — a subagent can read fifty files without polluting your session's context. You keep the conclusion, not the file dumps.</li>
+    <li><strong>Blind spots</strong> — it doesn't know what you and Claude discussed. Everything it needs must be in its task prompt or on disk.</li>
+  </ul>
+
+  <h3>Defining one</h3>
+  <p>Ad-hoc delegation happens automatically ("search the codebase for…" often spawns one). For repeatable roles, define a named subagent in <code>.claude/agents/&lt;name&gt;.md</code>: front-matter for name, description (when the main agent should pick it), and allowed tools; body is its system prompt. Project agents live in the repo and are shared with the team; personal ones live in <code>~/.claude/agents/</code>.</p>
+  <p>A worked example lives in this repo: <a href="../../../demos/03-anomaly-triage-agent.md">demo 03 — anomaly-triage agent</a> — a read-only subagent that investigates data anomalies and returns a structured triage report.</p>
+
+  <h3>Delegate or do it inline?</h3>
+  <table>
+    <tr><th>Delegate to subagents</th><th>Keep inline</th></tr>
+    <tr><td>independent pieces that can run in parallel</td><td>steps that each depend on the last</td></tr>
+    <tr><td>bulk reading/search where you need the conclusion</td><td>judgment calls needing conversation context</td></tr>
+    <tr><td>a role with different rules (read-only reviewer)</td><td>quick single-file edits</td></tr>
+    <tr><td>work that would flood your context window</td><td>anything faster to do than to explain</td></tr>
+  </table>
+  <p>The cost of delegation is the briefing: a subagent is only as good as its task prompt. If writing the prompt takes longer than the task, do it inline.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/sub-agents">Subagents docs</a> · <a href="https://anthropic.skilljar.com/introduction-to-subagents">Introduction to Subagents course</a></p>
+
+  <div class="lab">
+    <p>In a repo you know: (1) ask Claude to use a subagent to audit every data-loading path and report file names + formats + assumptions — watch your context stay clean; (2) define <code>.claude/agents/reviewer.md</code>, a read-only reviewer whose prompt forbids edits and demands findings as a numbered list; (3) invoke it on your latest change. Keep the reviewer — you'll wire it into a workflow next module.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What does a subagent share with your session, and what is it blind to?</li>
+      <li>Name two signals that a task should be delegated rather than done inline.</li>
+      <li>Why might you restrict a subagent's tools, and where is that configured?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="subagents">Mark module complete</button>
+</section>
+
+<section class="module" id="workflow-design">
+  <div class="module-head">
+    <span class="modnum">MODULE 2 · 35 min</span>
+  </div>
+  <h2 class="modtitle">Designing Multi-Agent Workflows</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Recognize the four core workflow shapes and what each is for</li>
+      <li>Decide which parts of a task fan out and which must stay sequential</li>
+      <li>Design for failure — agents that return nothing, or the wrong thing</li>
+    </ul>
+  </div>
+
+  <h3>The four shapes</h3>
+  <p>Most multi-agent designs are compositions of four shapes:</p>
+  <ol>
+    <li><strong>Fan-out / map</strong> — the same task over many independent items (review every notebook, profile every table). Wall-clock ≈ the slowest item, not the sum.</li>
+    <li><strong>Pipeline</strong> — each item flows through stages (extract → validate → summarize) with no barrier between items; item A can be in stage 3 while item B is in stage 1.</li>
+    <li><strong>Generate-then-verify</strong> — one agent produces, a second independently checks. The verifier gets <em>only</em> the artifact and the acceptance criteria — never the generator's reasoning — or it inherits the same blind spots. Make it adversarial: "try to refute this" outperforms "check this".</li>
+    <li><strong>Orchestrator + workers</strong> — a coordinator decomposes, dispatches, and synthesizes. Your main Claude Code session is already this; the design work is deciding what the workers are.</li>
+  </ol>
+
+  <h3>What fans out, what stays sequential</h3>
+  <p>Fan out when items are <strong>independent</strong> (no item needs another's output) and <strong>self-contained to brief</strong> (the prompt fits in a paragraph). Keep sequential when outputs chain, when a shared resource would conflict (two agents editing one file), or when early results should change later work — a discovery step that reshapes the plan belongs before the fan-out, not inside it.</p>
+  <p>The practical method: write the work as a list. Draw arrows for "needs the output of." Arrow-free groups fan out; chains become pipeline stages.</p>
+
+  <h3>Designing for failure</h3>
+  <p>At N agents, someone returns nothing useful. Decide <em>in the design</em>:</p>
+  <ul>
+    <li><strong>Empty result</strong> — is it "no findings" (fine) or "task failed" (retry once, then surface)? Force the distinction: require a structured answer ("return <code>NONE</code> if no issues") so silence is never ambiguous.</li>
+    <li><strong>Wrong result</strong> — verification (shape 3) is the systematic answer; spot-checking a sample is the cheap one. Match rigor to blast radius.</li>
+    <li><strong>Partial completion</strong> — synthesize what arrived and <em>name what's missing</em>; a report that silently covers 7 of 10 items reads as complete and isn't.</li>
+  </ul>
+  <p><strong>Reuse (official):</strong> <a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents (engineering)</a> · <a href="https://code.claude.com/docs/en/sub-agents">Subagents docs</a></p>
+
+  <div class="lab">
+    <p>Take a real recurring deliverable of yours with 3+ separable parts (a periodic report, a multi-dataset QA pass). On paper: list the pieces, draw the dependency arrows, choose shapes. Then run the fan-out part with subagents from your session, using your module-1 reviewer as a verify stage on the merged result. Compare against doing it in one linear session.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Which shape fits: "summarize each of 12 experiment logs, then rank the findings"?</li>
+      <li>Why should a verifier not see the generator's reasoning?</li>
+      <li>Your fan-out returns 9 of 10 reports. What does a well-designed synthesis step do?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="workflow-design">Mark module complete</button>
+</section>
+
+<section class="module" id="headless-automation">
+  <div class="module-head">
+    <span class="modnum">MODULE 3 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Headless &amp; Automation</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Run Claude Code non-interactively with claude -p and capture its output</li>
+      <li>Sketch where an agent fits in CI or a scheduled job</li>
+      <li>Apply the unwatched-agent discipline: explicit verification, bounded permissions</li>
+    </ul>
+  </div>
+
+  <h3>Print mode: the building block</h3>
+  <p><code>claude -p "your task"</code> runs one task with no interactive session and prints the result to stdout — which makes Claude Code scriptable like any Unix tool:</p>
+  <pre><code>claude -p "summarize what changed in this repo since yesterday and flag anything touching the pricing model" &gt; daily-brief.md</code></pre>
+  <p>Structured output (<code>--output-format json</code>) and piped input make it composable: cron jobs, Makefiles, shell scripts, notebook pre-flight checks. See the <a href="https://code.claude.com/docs/en/cli-reference">CLI reference</a> for flags (permission mode, allowed tools, model, output format).</p>
+
+  <h3>Where automation fits</h3>
+  <p>Common placements, in increasing ambition:</p>
+  <ul>
+    <li><strong>Scheduled chores</strong> — a nightly <code>claude -p</code> that QAs yesterday's data drop and writes a triage note.</li>
+    <li><strong>CI steps</strong> — on every pull request, an agent reviews the diff against a checklist, or regenerates docs the change invalidated. GitHub Actions can run Claude Code as a workflow step. <!-- verify: link the official GitHub Actions integration doc for our platform/runner setup --></li>
+    <li><strong>Event-driven</strong> — a failed pipeline triggers an agent that gathers logs and drafts the incident summary before a human arrives.</li>
+  </ul>
+
+  <h3>The unwatched-agent discipline</h3>
+  <p>Everything from CC 101–301 assumed a human watching. Remove the human and three practices stop being optional:</p>
+  <ol>
+    <li><strong>Verification is part of the task.</strong> The prompt must say how the agent checks its work (run the tests, re-run the query, diff the output), and the job must fail loudly when the check fails — an unwatched agent that "declares victory" is worse than no agent.</li>
+    <li><strong>Permissions are pinned down.</strong> Headless runs use explicit tool allowlists and the narrowest permission mode that works; never blanket bypass in a directory that can reach production.</li>
+    <li><strong>Output goes somewhere a human looks.</strong> A report nobody reads is a system nobody notices failing. Decide the landing place (PR comment, dashboard file, alert channel) as part of the design.</li>
+  </ol>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/cli-reference">CLI reference</a> · <a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a> · <a href="https://www.anthropic.com/engineering/claude-code-best-practices">Claude Code best practices (engineering)</a></p>
+
+  <div class="lab">
+    <p>Automate one chore end to end: write a <code>claude -p</code> one-liner that inspects something you check manually (data freshness, failing tests, stale TODOs) and writes a dated markdown report including its own verification evidence. Run it twice; confirm the second run's report is trustworthy without you watching it work. Bonus: put it in cron or your scheduler of choice.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What does <code>-p</code> change about how Claude Code runs?</li>
+      <li>Name the three disciplines that become mandatory when no human watches.</li>
+      <li>Why is "declares victory" the failure mode to design against in automation?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="headless-automation">Mark module complete</button>
+</section>
+
+<section class="module" id="agent-sdk">
+  <div class="module-head">
+    <span class="modnum">MODULE 4 · 30 min</span>
+  </div>
+  <h2 class="modtitle">The Agent SDK: Building Custom Agents</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain what the Agent SDK provides and how it relates to Claude Code</li>
+      <li>Treat system prompt, tools, and permissions as the three design surfaces</li>
+      <li>Choose the right layer: prompt, skill, subagent, headless CLI, or SDK</li>
+    </ul>
+  </div>
+
+  <h3>The same engine, programmable</h3>
+  <p>The <strong>Agent SDK</strong> exposes the agent engine that powers Claude Code — the agentic loop, tool execution, permission handling, context management — as a library you call from your own code. Instead of a person in a terminal, <em>your application</em> is the harness: it decides what the agent works on, which tools exist, and what happens with the results.</p>
+  <p>Read the <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a> first; the <a href="https://anthropic.skilljar.com/claude-with-the-anthropic-api">Claude with the Anthropic API course</a> covers the underlying API concepts (tool use, streaming) the SDK builds on.</p>
+
+  <h3>Three design surfaces</h3>
+  <p>Every custom agent is designed on the same three surfaces you've been using all curriculum — now programmatically:</p>
+  <ul>
+    <li><strong>System prompt</strong> — the agent's role, rules, and output contract. Everything you learned writing skills (CC 301) applies verbatim.</li>
+    <li><strong>Tools</strong> — you choose the set: built-ins (file ops, bash), MCP servers, or custom tools your application defines. The tool list <em>is</em> the capability boundary.</li>
+    <li><strong>Permissions</strong> — programmatic hooks decide what runs without asking, what requires confirmation, and what is forbidden — your CC 201 allowlist thinking, expressed in code.</li>
+  </ul>
+
+  <h3>Picking the right layer</h3>
+  <p>Work up this ladder; stop at the first rung that fits:</p>
+  <table>
+    <tr><th>Need</th><th>Layer</th></tr>
+    <tr><td>do a task once</td><td>prompt in a session</td></tr>
+    <tr><td>repeat a procedure reliably</td><td>skill (CC 301)</td></tr>
+    <tr><td>a scoped role with isolation</td><td>subagent (401-01)</td></tr>
+    <tr><td>run it on a schedule / in CI</td><td>headless CLI (401-03)</td></tr>
+    <tr><td>an agent inside your product or service, custom tools, own UI</td><td><strong>Agent SDK</strong></td></tr>
+  </table>
+  <p>The SDK is the right layer when the agent must live where Claude Code isn't: inside an internal web app, a service endpoint, a data platform. It's the wrong layer when a skill plus a cron'd <code>claude -p</code> would do — you'd be signing up to own deployment, monitoring, and upgrades for no added capability.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a> · <a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents (engineering)</a></p>
+
+  <div class="lab">
+    <p>No code required: pick one agent idea from your team's backlog and write a one-page SDK design — system prompt (rules + output contract), exact tool list, permission policy (auto / confirm / forbid), and the harness (what invokes it, where results land). Then justify in three sentences why it needs the SDK rather than a skill + headless CLI. Bring it to office hours or your 501 working group — this doubles as a capstone proposal.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What does the SDK provide that calling the raw API doesn't?</li>
+      <li>Name the three design surfaces and one decision you'd make on each.</li>
+      <li>Give one signal that a project genuinely needs the SDK layer — and one that it doesn't.</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="agent-sdk">Mark module complete</button>
+</section>
+
+<section class="module" id="best-practices">
+  <div class="module-head">
+    <span class="modnum">MODULE 5 · 35 min</span>
+  </div>
+  <h2 class="modtitle">Best Practices: Context, Cost &amp; Evaluation</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Manage what enters an agent's context window, and why it decides output quality</li>
+      <li>Identify the cost drivers of agent systems and apply the standard controls</li>
+      <li>Set up a lightweight evaluation loop: spot-checks, golden tasks, regression prompts</li>
+    </ul>
+  </div>
+
+  <h3>Context engineering</h3>
+  <p>An agent's output quality is a function of what's in its context window — not just the prompt you typed, but every file it read, every command output, every earlier turn. Engineering that, deliberately, is the highest-leverage skill at this level:</p>
+  <ul>
+    <li><strong>Feed conclusions, not raw material.</strong> Subagents exist so fifty files become one summary (401-01). The same applies to what <em>you</em> paste in.</li>
+    <li><strong>CLAUDE.md is standing context</strong> (CC 201) — keep it current and short; every stale line is noise the agent must overcome on every task.</li>
+    <li><strong>New task, new context.</strong> Long sessions accumulate irrelevant history; <code>/clear</code> beats coaxing a drifted session back on course.</li>
+    <li><strong>Put contracts in writing.</strong> Output format, definition of done, and verification steps in the prompt outperform iterating on vibes.</li>
+  </ul>
+
+  <h3>Cost</h3>
+  <p>Agent systems spend tokens the way pipelines spend compute. The drivers: context size (re-read on every turn), number of agents, iteration loops, and model choice. The standard controls:</p>
+  <ul>
+    <li>Match the model to the step — cheap/fast models for mechanical work (formatting, extraction), the strongest model for judgment steps (design, verification). Model per subagent is a design decision.</li>
+    <li>Cap fan-outs and loops in the design ("at most N items", "two retries"); unbounded loops are cost incidents waiting to happen.</li>
+    <li>Watch for the re-reading pattern: an agent that keeps re-opening the same large files needs a summary artifact, not a bigger budget.</li>
+  </ul>
+
+  <h3>Evaluation</h3>
+  <p>You can't improve — or trust — what you don't measure. Three tiers, adopt in order:</p>
+  <ol>
+    <li><strong>Spot-check protocol</strong> — a fixed sample rule ("review 2 of every 10 outputs, always including one edge case"), not ad-hoc glancing.</li>
+    <li><strong>Golden tasks</strong> — a small suite of representative tasks with known-good answers. Run it when you change prompts, skills, or models; it's the unit test suite of your agent system.</li>
+    <li><strong>Regression prompts</strong> — every production failure becomes a golden task, so the same failure can't return silently.</li>
+  </ol>
+  <p>Track one adoption metric from day one, even if crude: minutes saved per run, or reviewer-accepted rate. It's what justifies (or kills) the system later.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://www.anthropic.com/engineering/claude-code-best-practices">Claude Code best practices (engineering)</a> · <a href="https://code.claude.com/docs/en/best-practices">Best practices docs</a></p>
+
+  <div class="lab">
+    <p>For the automation you built in 401-03: (1) write three golden tasks with expected outputs; (2) run them and record results in <code>evals.md</code>; (3) change the prompt in a way you suspect is an improvement, rerun, and let the golden tasks arbitrate. Separately, estimate its monthly token cost and note the single biggest driver.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Why does context engineering dominate prompt wording at the system level?</li>
+      <li>Name three cost drivers and one control for each.</li>
+      <li>What turns a production failure into lasting protection?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="best-practices">Mark module complete</button>
+</section>
+
+<section class="module" id="governance-safety">
+  <div class="module-head">
+    <span class="modnum">MODULE 6 · 25 min</span>
+  </div>
+  <h2 class="modtitle">Governance &amp; Safety for Agent Systems</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Apply least-privilege thinking to agent permissions and credentials</li>
+      <li>Make agent actions observable and auditable after the fact</li>
+      <li>Place human review gates before irreversible actions</li>
+    </ul>
+  </div>
+
+  <h3>Least privilege, at scale</h3>
+  <p>CC 101's rule — start conservative, loosen as trust accrues — becomes policy when agents multiply:</p>
+  <ul>
+    <li><strong>Permissions per role, not per person.</strong> A reviewer subagent gets read-only tools; a doc generator gets write access to <code>docs/</code> and nothing else (tool allowlists + settings from CC 201/301 are the mechanism).</li>
+    <li><strong>Credentials scoped to the job.</strong> An agent querying the warehouse gets a read-only service account for the schemas it needs — never a human's personal credentials, which grant everything the human can do and audit as the human. <!-- verify: name the internal process for provisioning service accounts for agent use --></li>
+    <li><strong>Blast radius by placement.</strong> Run automation in checkouts and sandboxes that physically cannot reach production paths; the strongest permission rule is a directory that doesn't contain the dangerous thing.</li>
+  </ul>
+
+  <h3>Observability &amp; audit</h3>
+  <p>"What did the agent do, and why?" must be answerable after the fact:</p>
+  <ul>
+    <li>Keep the artifacts: headless runs write their reports, diffs, and verification evidence to files (401-03) — retain them like build logs.</li>
+    <li>Prefer changes through git: a commit trail of agent edits is a free audit log with rollback included.</li>
+    <li>Log the inputs too — which prompt/skill version ran. When output quality shifts, the first question is "what changed?"; version your prompts like code because they are.</li>
+  </ul>
+
+  <h3>Review gates</h3>
+  <p>Decide, in the design, which actions require a human between the agent and the world. The test is <strong>reversibility</strong>: editing a branch is reversible (gate: none needed); merging to main, sending external messages, writing to shared databases, deleting data are not (gate: human approval, or the agent's output is a <em>proposal</em> — a PR, a draft — that a human executes).</p>
+  <p>The pattern that scales: agents produce <strong>artifacts</strong>, humans (or gated pipelines) <strong>promote</strong> them. It keeps agent speed on the safe side of the line and human judgment exactly where it pays.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/security">Security</a> · <a href="https://code.claude.com/docs/en/settings">Settings/permissions docs</a></p>
+
+  <div class="lab">
+    <p>Audit the automation you built in 401-03 against the three sections: write its permission set and credential scope (tightening at least one thing), confirm you can reconstruct its last run from artifacts alone, and mark each action it takes as reversible or gate-required. Fix the gaps.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Why must an unattended agent never run on personal credentials?</li>
+      <li>What makes git the cheapest audit mechanism for agent systems?</li>
+      <li>State the reversibility test and give one example on each side of the line.</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="governance-safety">Mark module complete</button>
+</section>
+
+</div>
+
+<footer>CC 401 · Backbone edition · v1.0.0. Progress is stored in your browser only.</footer>
+
+<script>
+(function(){
+  var KEY='bb-progress:CC 401:Backbone';
+  var done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var btns=document.querySelectorAll('.mark-done');
+  var items=document.querySelectorAll('#toc li[data-mod]');
+  function paint(){
+    var n=0,t=0;
+    items.forEach(function(li){t++; var on=!!done[li.dataset.mod];
+      li.classList.toggle('done',on); if(on)n++;});
+    btns.forEach(function(b){var on=!!done[b.dataset.mod];
+      b.classList.toggle('on',on);
+      b.textContent=on?'✓ Completed — click to undo':'Mark module complete';});
+    document.getElementById('pbar').style.width=(t?100*n/t:0)+'%';
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    done[b.dataset.mod]=!done[b.dataset.mod];
+    if(!done[b.dataset.mod])delete done[b.dataset.mod];
+    localStorage.setItem(KEY,JSON.stringify(done)); paint();});});
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){
+    a.target='_blank'; a.rel='noopener';});
+  paint();
+})();
+</script>
+</body>
+</html>

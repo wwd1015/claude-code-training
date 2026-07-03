@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CC 501 — Capstone Studio: Build Your Own Agent System</title>
+<style>
+  :root{
+    --bg:#141210; --panel:#1e1b18; --ink:#e8e2da; --muted:#9a917f;
+    --clay:#c96f4a; --clay-soft:#e0956f; --line:#332e28; --ok:#7fb069;
+    --code:#26221d; --maxw:46rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.65 Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}
+  header.course{max-width:var(--maxw);margin:0 auto;padding:3rem 1.25rem 1rem}
+  .kicker{font:600 .8rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--clay)}
+  h1{font-size:2rem;line-height:1.2;margin:.5rem 0 .25rem}
+  .meta{color:var(--muted);font:.85rem/1.5 -apple-system,system-ui,sans-serif}
+  .layout{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem 5rem}
+  nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:1rem 1.25rem;margin:1.5rem 0 2.5rem;font-family:-apple-system,system-ui,sans-serif}
+  nav.toc h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .5rem}
+  nav.toc ol{margin:0;padding-left:1.4rem}
+  nav.toc li{margin:.35rem 0;font-size:.95rem}
+  nav.toc a{color:var(--ink);text-decoration:none}
+  nav.toc a:hover{color:var(--clay-soft)}
+  nav.toc .done a{color:var(--muted);text-decoration:line-through}
+  nav.toc .dur{color:var(--muted);font-size:.8rem;margin-left:.4rem}
+  .progressbar{height:6px;background:var(--line);border-radius:3px;margin:.75rem 0 0;overflow:hidden}
+  .progressbar>div{height:100%;width:0;background:var(--ok);border-radius:3px;transition:width .3s}
+  section.module{border-top:1px solid var(--line);padding-top:2.5rem;margin-top:2.5rem}
+  .module-head{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap}
+  .modnum{font:700 .8rem/1 -apple-system,system-ui,sans-serif;color:var(--clay);
+    letter-spacing:.1em}
+  h2.modtitle{font-size:1.45rem;margin:.2rem 0}
+  .module h3{font-size:1.12rem;margin:1.8rem 0 .5rem}
+  .module h4{font-size:1rem;margin:1.4rem 0 .4rem;color:var(--clay-soft)}
+  a{color:var(--clay-soft)}
+  code{font:.85em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);
+    padding:.12em .35em;border-radius:4px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;
+    padding:1rem;overflow-x:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;font:.9rem/1.5 -apple-system,system-ui,sans-serif}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left}
+  th{background:var(--panel)}
+  .objectives{background:var(--panel);border-left:3px solid var(--clay);
+    border-radius:0 10px 10px 0;padding:.9rem 1.15rem;margin:1rem 0;
+    font-family:-apple-system,system-ui,sans-serif;font-size:.92rem}
+  .objectives strong{display:block;font-size:.75rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.35rem}
+  .objectives ul{margin:.25rem 0 0;padding-left:1.2rem}
+  .lab{background:linear-gradient(180deg,var(--panel),transparent);
+    border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;margin:1.8rem 0}
+  .lab::before{content:"⌨ Lab";display:block;font:700 .78rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:.5rem}
+  .kcheck{border:1px dashed var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1.5rem 0}
+  .kcheck::before{content:"✓ Knowledge check";display:block;
+    font:700 .78rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.5rem}
+  .mark-done{margin:2rem 0 0;font:600 .85rem/1 -apple-system,system-ui,sans-serif;
+    background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;
+    padding:.55rem 1.1rem;cursor:pointer}
+  .mark-done.on{border-color:var(--ok);color:var(--ok)}
+  .edition-badge{display:inline-block;font:600 .7rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--clay-soft);
+    border-radius:4px;padding:.25em .5em;margin-left:.5rem;vertical-align:middle}
+  footer{max-width:var(--maxw);margin:0 auto;padding:2rem 1.25rem;color:var(--muted);
+    font:.8rem/1.5 -apple-system,system-ui,sans-serif;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="course">
+  <div class="kicker">Backbone · Self-paced</div>
+  <h1>CC 501 — Capstone Studio: Build Your Own Agent System</h1>
+  <div class="meta">5 modules · ~2 hrs 20 min reading · 4–6 wk project · v1.0.0 · generated 2026-07-02</div>
+</header>
+
+<div class="layout">
+
+<nav class="toc" id="toc">
+  <h2>Modules</h2>
+  <ol>
+    <li data-mod="working-group-model"><a href="#working-group-model">The Working-Group Model</a><span class="dur">20 min</span></li>
+    <li data-mod="choosing-flagship-project"><a href="#choosing-flagship-project">Choosing a Flagship Project</a><span class="dur">30 min</span></li>
+    <li data-mod="design-doc-review"><a href="#design-doc-review">Design Doc &amp; Architecture Review</a><span class="dur">40 min</span></li>
+    <li data-mod="build-sprints"><a href="#build-sprints">Build Sprints: Cadence, Checkpoints, Demos</a><span class="dur">25 min</span></li>
+    <li data-mod="measuring-impact"><a href="#measuring-impact">Measuring Impact &amp; Promotion to Flagship</a><span class="dur">25 min</span></li>
+  </ol>
+  <div class="progressbar"><div id="pbar"></div></div>
+</nav>
+
+<section class="module" id="working-group-model">
+  <div class="module-head">
+    <span class="modnum">MODULE 1 · 20 min</span>
+  </div>
+  <h2 class="modtitle">The Working-Group Model</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Describe the working-group format and how it differs from a cohort</li>
+      <li>Name the three roles (group, Champion, expert) and who does what</li>
+      <li>Set up a group's cadence from kickoff to demo day</li>
+    </ul>
+  </div>
+
+  <h3>What a working group is</h3>
+  <p>CC 501 is not a class. It's a <strong>working group</strong>: 3–6 people from one team who
+  already finished CC 401, delivering one real project together over ~4–6 weeks.
+  The group operates itself — the program supplies structure, review, and expert
+  help, not instruction. The output is a working agent system and a measured
+  time-saved number; the program's goal is that the best of these become
+  <strong>flagship projects</strong> that recruit the next wave.</p>
+
+  <h3>The three roles</h3>
+  <ul>
+    <li><strong>The group</strong> (Learners) — owns the project end to end: picks it, designs it,
+      builds it, demos it. Everyone builds; nobody audits.</li>
+    <li><strong>The Champion</strong> — your department's standing lead
+      (<a href="../../../docs/operating-model.md">operating model</a>): convenes the group,
+      keeps the cadence, clears local blockers, sponsors the final contribution.</li>
+    <li><strong>The expert</strong> — an experienced builder (central program owner or senior
+      Champion) who <strong>supports, not runs</strong>: one architecture review, on-call for
+      unblocking, and a demo-day reviewer. If the expert is writing your code, the
+      scope is wrong.</li>
+  </ul>
+
+  <h3>The cadence</h3>
+  <table>
+    <tr><th>Week</th><th>What</th><th>Module</th></tr>
+    <tr><td>0</td><td>Kickoff: pick the project</td><td>501-02</td></tr>
+    <tr><td>1</td><td>Design doc + architecture review with the expert</td><td>501-03</td></tr>
+    <tr><td>2–4</td><td>Build sprints, weekly increment demos within the group</td><td>501-04</td></tr>
+    <tr><td>5</td><td>Measure, write up, contribute</td><td>501-05</td></tr>
+    <tr><td>6</td><td>Demo day</td><td>501-05</td></tr>
+  </table>
+  <p>Compress or stretch a week either way; never skip the review or the measurement.</p>
+
+  <div class="lab">
+    <p>Convene the group: agree on members, confirm your Champion, and get an expert
+    committed for one review slot and demo day. Book the six calendar slots now —
+    the cadence is the mechanism; a group without dates on calendars is a mailing list.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What does the expert do — and what must the expert <em>not</em> do?</li>
+      <li>What two things does the program get out of a working group besides trained people?</li>
+      <li>Which two cadence steps are non-negotiable?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="working-group-model">Mark module complete</button>
+</section>
+
+<section class="module" id="choosing-flagship-project">
+  <div class="module-head">
+    <span class="modnum">MODULE 2 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Choosing a Flagship Project</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Apply the five-point selection rubric to candidate projects</li>
+      <li>Recognize the anti-patterns that sink capstones</li>
+      <li>Commit the group to one project with a named owner</li>
+    </ul>
+  </div>
+
+  <h3>The selection rubric</h3>
+  <p>Score each candidate 0–2 on five points; pick the highest total, break ties
+  toward the most <em>boring</em> option:</p>
+  <ol>
+    <li><strong>Recurring</strong> — the task happens weekly or more. Time saved on a one-off is zero.</li>
+    <li><strong>Painful</strong> — it costs real hours today. "Mildly annoying" won't sustain six weeks.</li>
+    <li><strong>Checkable</strong> — you can state an acceptance check ("output matches last
+      month's hand-built report") — the same discipline as CC 101 module 3.</li>
+    <li><strong>Data-ready</strong> — every input the system needs is accessible <em>today</em>. Waiting
+      on access requests kills more capstones than technology does.</li>
+    <li><strong>Owned</strong> — one named person on the group does this task now and wants it automated.</li>
+  </ol>
+  <p>Seed ideas — skills, fan-out agents, hooks, MCP integrations — are in
+  <a href="../../../docs/capstone-ideas.md">capstone-ideas.md</a>; start there rather than
+  from a blank page.</p>
+
+  <h3>Anti-patterns</h3>
+  <ul>
+    <li><strong>The moonshot</strong> — "an agent that does our whole research process." Pick the
+      narrowest wedge that saves an hour a week; flagship status comes from <em>working</em>.</li>
+    <li><strong>The one-off</strong> — a migration or backfill. Real, but the time saved doesn't recur.</li>
+    <li><strong>The orphan</strong> — nobody in the group does the task. You can't verify what you
+      don't do, and adoption dies at demo day.</li>
+    <li><strong>The permission swamp</strong> — needs data access nobody has. Rubric point 4 is a gate, not a score.</li>
+  </ul>
+
+  <h3>Scope to the window</h3>
+  <p>A good 501 project ships a working increment in week 2 (CC 401's workflow
+  patterns make this realistic). If your design needs everything built before
+  anything runs, cut scope until it doesn't.</p>
+
+  <div class="lab">
+    <p>Each member brings 2–3 candidates from their own recurring work. Score the
+    pool against the rubric as a group, discard anything with a 0 on points 1, 4,
+    or 5, and commit to one project, one owner, one written acceptance check.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Which rubric points are hard gates rather than scores, and why?</li>
+      <li>Why break ties toward the boring option?</li>
+      <li>What must be true by week 2, and what do you do if the design can't deliver it?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="choosing-flagship-project">Mark module complete</button>
+</section>
+
+<section class="module" id="design-doc-review">
+  <div class="module-head">
+    <span class="modnum">MODULE 3 · 40 min</span>
+  </div>
+  <h2 class="modtitle">Design Doc &amp; Architecture Review</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Write a one-page design doc for an agent system</li>
+      <li>Choose the right building-block layer (skill / hook / subagent / MCP / SDK)</li>
+      <li>Run a 30-minute architecture review with the expert against the checklist</li>
+    </ul>
+  </div>
+
+  <h3>One page, before any code</h3>
+  <p>The design doc is one page. If it doesn't fit, the scope is too big (back to
+  501-02). Its job is to force the four decisions that are expensive to change
+  later: the acceptance check, the architecture layer, the data touched, and the
+  failure behavior.</p>
+
+  <h3>Choosing the layer</h3>
+  <p>Recap of CC 301/401 as a decision guide — pick the <em>lowest</em> layer that does the job:</p>
+  <table>
+    <tr><th>If the automation is…</th><th>Build a…</th><th>Covered in</th></tr>
+    <tr><td>a repeatable procedure you'd type as instructions</td><td><strong>skill</strong> (<code>SKILL.md</code>)</td><td>CC 301</td></tr>
+    <tr><td>a guardrail or side effect on every edit/run</td><td><strong>hook</strong></td><td>CC 301</td></tr>
+    <tr><td>a tool/data source Claude should query</td><td><strong>MCP</strong> connection</td><td>CC 301</td></tr>
+    <tr><td>a task big enough to decompose or parallelize</td><td><strong>subagents / workflow</strong></td><td>CC 401</td></tr>
+    <tr><td>something running outside interactive sessions (CI, schedule, app)</td><td><strong>headless / Agent SDK</strong></td><td>CC 401</td></tr>
+  </table>
+  <p>Most flagship projects are a skill plus one of the others. If your design has
+  four layers, cut two.</p>
+
+  <h3>The design doc skeleton</h3>
+  <p>Copy this into your project repo as <code>DESIGN.md</code>:</p>
+  <pre><code># &lt;project name&gt; — design
+
+**Task automated:** &lt;the recurring task, who does it, hours/week it costs&gt;
+**Acceptance check:** &lt;how you'll know a run is correct — concrete and executable&gt;
+
+## Architecture
+&lt;layer(s) chosen and why — one short paragraph, use the table above&gt;
+&lt;sketch: input → steps → output&gt;
+
+## Data touched
+&lt;sources read, outputs written, and the permission model:
+ what may the system do WITHOUT asking?&gt;
+
+## Failure modes
+&lt;top 3 ways it produces wrong-but-plausible output, and the check that catches each&gt;
+
+## Out of scope
+&lt;what you are deliberately NOT building&gt;</code></pre>
+
+  <h3>The 30-minute review</h3>
+  <p>The expert reviews against this checklist — self-review it first:</p>
+  <ul>
+    <li>☐ Acceptance check is executable, not aspirational ("matches last month's report", not "is accurate")</li>
+    <li>☐ Layer choice is the lowest that works; each extra layer earns its place</li>
+    <li>☐ Every data source is accessible today; permission boundaries are written down</li>
+    <li>☐ Failure modes name <em>wrong-but-plausible</em> outputs, not just crashes — and each has a catch</li>
+    <li>☐ Week-2 increment is identified and demoable</li>
+    <li>☐ Out-of-scope list exists (the moonshot lives there)</li>
+  </ul>
+  <p>The review ends with one of: <strong>proceed</strong>, <strong>proceed with changes</strong> (noted in
+  the doc), or <strong>rescope</strong> (back to 501-02 — cheaper now than in week 4).</p>
+
+  <div class="lab">
+    <p>Write the design doc as a group — Claude Code is a good drafting partner
+    ("draft a DESIGN.md for automating &lt;task&gt; following this skeleton"), but the
+    acceptance check and failure modes must come from the humans who do the task.
+    Book and run the expert review; record the outcome in the doc.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>Why pick the lowest layer that works?</li>
+      <li>What makes an acceptance check "executable"? Give an example from your project.</li>
+      <li>What are the three possible outcomes of the review?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="design-doc-review">Mark module complete</button>
+</section>
+
+<section class="module" id="build-sprints">
+  <div class="module-head">
+    <span class="modnum">MODULE 4 · 25 min</span>
+  </div>
+  <h2 class="modtitle">Build Sprints: Cadence, Checkpoints, Demos</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Run 2–4 one-week sprints that each end in a working increment</li>
+      <li>Keep a decisions log that makes the writeup and handoff cheap</li>
+      <li>Know when to call the expert (and when not to)</li>
+    </ul>
+  </div>
+
+  <h3>One-week sprints, working increments</h3>
+  <p>Structure the build as 2–4 sprints of one week. The rule that keeps groups
+  honest: <strong>every sprint ends with a live run of something real</strong>, demoed inside
+  the group — not slides, not "it almost works." Sprint 1's increment is the
+  week-2 demoable slice from your design doc; later sprints widen it toward the
+  acceptance check.</p>
+  <p>A useful default split:</p>
+  <ul>
+    <li><strong>Sprint 1</strong> — thinnest end-to-end path: real input → automated step → real output, however narrow.</li>
+    <li><strong>Sprint 2</strong> — widen coverage; wire in the acceptance check so every run self-verifies.</li>
+    <li><strong>Sprint 3–4</strong> — failure-mode catches from the design doc; polish for someone-else-can-run-it.</li>
+  </ul>
+
+  <h3>The decisions log</h3>
+  <p>Keep a <code>LOG.md</code> next to <code>DESIGN.md</code>: date, decision, why, what you tried that
+  failed. Two minutes per entry. It becomes the writeup in 501-05, the handoff
+  when a group member rotates, and the honest record of what the acceptance
+  check caught. (Your CC 201 <code>CLAUDE.md</code> should tell Claude to append to it.)</p>
+
+  <h3>Checkpoints with the group</h3>
+  <p>The weekly demo is the checkpoint. Three questions after each one:</p>
+  <ol>
+    <li>Did the increment run live against the acceptance check?</li>
+    <li>What did the log record this week — any design-doc decision now wrong?</li>
+    <li>Is next week's increment still the right next slice?</li>
+  </ol>
+  <p>If the design doc changed, note it in the doc, not just the log — the doc is
+  what the expert reviewed.</p>
+
+  <h3>When to call the expert</h3>
+  <p><strong>Call</strong> when: blocked &gt; half a day on a Claude Code mechanism (permissions,
+  MCP auth, hook not firing); an architecture decision is being reversed; the
+  acceptance check keeps failing for reasons the group can't diagnose.
+  <strong>Don't call</strong> for: code review of working increments, scope debates (that's
+  the group's call), or anything the docs answer in ten minutes.</p>
+
+  <div class="lab">
+    <p>Run sprint 1. Hold the increment demo, answer the three checkpoint questions,
+    and make your first three <code>LOG.md</code> entries. If the end-to-end slice didn't
+    run live, the sprint isn't done — narrow it until it runs.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What qualifies as a sprint "increment"?</li>
+      <li>What goes in the log vs. back into the design doc?</li>
+      <li>Name two good reasons to call the expert and two bad ones.</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="build-sprints">Mark module complete</button>
+</section>
+
+<section class="module" id="measuring-impact">
+  <div class="module-head">
+    <span class="modnum">MODULE 5 · 25 min</span>
+  </div>
+  <h2 class="modtitle">Measuring Impact &amp; Promotion to Flagship</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Measure time saved honestly, before/after, on the real task</li>
+      <li>Contribute the project to the shared demo library</li>
+      <li>Run a demo day that recruits the next working group</li>
+    </ul>
+  </div>
+
+  <h3>Measure honestly</h3>
+  <p>The number that matters: <strong>hours per week saved on the real task</strong>, measured
+  before/after by the person who owns it — the same discipline as the
+  <a href="../../../docs/metrics-template.md">metrics template</a>. Rules:</p>
+  <ul>
+    <li><strong>Before</strong> is what the task actually cost (the owner knows; write it down
+      before the after-measurement biases it).</li>
+    <li><strong>After</strong> includes the new costs: kicking off runs, reviewing output,
+      fixing the occasional miss. Net, not gross.</li>
+    <li>Rough is fine; inflated is fatal — one audited, deflated claim costs the
+      program more credibility than ten modest true ones earn.</li>
+    <li>Also record: does the acceptance check still pass a month later? (That's the
+      T+30 active-use check the program tracks.)</li>
+  </ul>
+
+  <h3>Write it up and contribute</h3>
+  <p>Promote the project to the <strong>contributed demo library</strong> — the mechanism that
+  compounds capstones across departments (<a href="../../../CONTRIBUTING.md">CONTRIBUTING</a>):</p>
+  <ol>
+    <li>Short writeup in the demo format: objective · setup · live script · time saved.</li>
+    <li>Front-matter tags (<code>discipline</code>, <code>department</code>, <code>use_case</code>, <code>kind: contributed</code>)
+      so others can judge relevance.</li>
+    <li>No internal data or secrets committed — sanitize or seed.</li>
+    <li>Champion sponsors the PR (their four-point check); central does a light merge review.</li>
+  </ol>
+  <p>Contributed demos are <strong>author-owned</strong>: rough and niche is fine, and if it
+  goes stale it's archived, not fixed. Your <code>DESIGN.md</code> + <code>LOG.md</code> from 501-03/04
+  are most of the writeup already.</p>
+
+  <h3>Demo day: the recruiting engine</h3>
+  <p>Demo day is how flagship projects recruit the next groups. The framing that
+  works (<a href="../../../docs/capstone-ideas.md">capstone-ideas.md</a>):</p>
+  <ol>
+    <li>The task <strong>before</strong> — how long, how manual (30 seconds of pain everyone recognizes).</li>
+    <li>What you built — 10 seconds on the building block, not an architecture lecture.</li>
+    <li>A <strong>live run</strong>.</li>
+    <li>The honest time-saved number and the T+30 plan.</li>
+  </ol>
+  <p>Invite adjacent teams and their Champions. The question you want from the
+  audience is "could this work for our version of that task?" — that question is
+  the next working group forming.</p>
+
+  <div class="lab">
+    <p><strong>Course capstone.</strong> Close out: run the before/after measurement with the task owner; submit the
+    contribution PR with your Champion; hold demo day with at least one adjacent
+    team in the room. Report the time-saved number and T+30 date to your Champion
+    for the program roll-up.</p>
+  </div>
+
+  <div class="kcheck">
+    <ol>
+      <li>What must "after" include for the time-saved number to be honest?</li>
+      <li>Who owns a contributed demo, and what happens when it goes stale?</li>
+      <li>What are the four parts of the demo-day framing, and which one convinces skeptics?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="measuring-impact">Mark module complete</button>
+</section>
+
+</div>
+
+<footer>CC 501 · Backbone edition · v1.0.0. Progress is stored in your browser only.</footer>
+
+<script>
+(function(){
+  var KEY='bb-progress:CC 501:Backbone';
+  var done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var btns=document.querySelectorAll('.mark-done');
+  var items=document.querySelectorAll('#toc li[data-mod]');
+  function paint(){
+    var n=0,t=0;
+    items.forEach(function(li){t++; var on=!!done[li.dataset.mod];
+      li.classList.toggle('done',on); if(on)n++;});
+    btns.forEach(function(b){var on=!!done[b.dataset.mod];
+      b.classList.toggle('on',on);
+      b.textContent=on?'✓ Completed — click to undo':'Mark module complete';});
+    document.getElementById('pbar').style.width=(t?100*n/t:0)+'%';
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    done[b.dataset.mod]=!done[b.dataset.mod];
+    if(!done[b.dataset.mod])delete done[b.dataset.mod];
+    localStorage.setItem(KEY,JSON.stringify(done)); paint();});});
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){
+    a.target='_blank'; a.rel='noopener';});
+  paint();
+})();
+</script>
+</body>
+</html>

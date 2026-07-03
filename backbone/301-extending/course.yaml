@@ -1,0 +1,28 @@
+id: "301"
+code: CC 301
+title: "Extending Claude Code: Skills, Hooks & MCP"
+version: 1.0.0
+formats: [self-paced, instructor-deck]
+audience: >
+  Everyone who has finished CC 201 and wants Claude Code to know their
+  workflows, enforce their rules, and reach their data. No software-engineering
+  background assumed.
+prerequisites: CC 201
+duration_total: "~2 hrs 55 min"
+outcome: >
+  Shipped one working skill for a recurring task; added one hook to a repo;
+  connected an MCP server and queried a data source through it; knows the
+  path for sharing what they built.
+modules:
+  - id: 301-01
+    file: modules/01-skill-anatomy.md
+  - id: 301-02
+    file: modules/02-skill-patterns.md
+  - id: 301-03
+    file: modules/03-hooks.md
+  - id: 301-04
+    file: modules/04-mcp-concepts.md
+  - id: 301-05
+    file: modules/05-mcp-data.md
+  - id: 301-06
+    file: modules/06-packaging-sharing.md

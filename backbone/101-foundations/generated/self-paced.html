@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CC 101 — Claude Code Foundations</title>
+<style>
+  :root{
+    --bg:#141210; --panel:#1e1b18; --ink:#e8e2da; --muted:#9a917f;
+    --clay:#c96f4a; --clay-soft:#e0956f; --line:#332e28; --ok:#7fb069;
+    --code:#26221d; --maxw:46rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.65 Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}
+  header.course{max-width:var(--maxw);margin:0 auto;padding:3rem 1.25rem 1rem}
+  .kicker{font:600 .8rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--clay)}
+  h1{font-size:2rem;line-height:1.2;margin:.5rem 0 .25rem}
+  .meta{color:var(--muted);font:.85rem/1.5 -apple-system,system-ui,sans-serif}
+  .layout{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem 5rem}
+  nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:1rem 1.25rem;margin:1.5rem 0 2.5rem;font-family:-apple-system,system-ui,sans-serif}
+  nav.toc h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 .5rem}
+  nav.toc ol{margin:0;padding-left:1.4rem}
+  nav.toc li{margin:.35rem 0;font-size:.95rem}
+  nav.toc a{color:var(--ink);text-decoration:none}
+  nav.toc a:hover{color:var(--clay-soft)}
+  nav.toc .done a{color:var(--muted);text-decoration:line-through}
+  nav.toc .dur{color:var(--muted);font-size:.8rem;margin-left:.4rem}
+  .progressbar{height:6px;background:var(--line);border-radius:3px;margin:.75rem 0 0;overflow:hidden}
+  .progressbar>div{height:100%;width:0;background:var(--ok);border-radius:3px;transition:width .3s}
+  section.module{border-top:1px solid var(--line);padding-top:2.5rem;margin-top:2.5rem}
+  .module-head{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap}
+  .modnum{font:700 .8rem/1 -apple-system,system-ui,sans-serif;color:var(--clay);
+    letter-spacing:.1em}
+  h2.modtitle{font-size:1.45rem;margin:.2rem 0}
+  .module h3{font-size:1.12rem;margin:1.8rem 0 .5rem}
+  .module h4{font-size:1rem;margin:1.4rem 0 .4rem;color:var(--clay-soft)}
+  a{color:var(--clay-soft)}
+  code{font:.85em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);
+    padding:.12em .35em;border-radius:4px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;
+    padding:1rem;overflow-x:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;font:.9rem/1.5 -apple-system,system-ui,sans-serif}
+  th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left}
+  th{background:var(--panel)}
+  .objectives{background:var(--panel);border-left:3px solid var(--clay);
+    border-radius:0 10px 10px 0;padding:.9rem 1.15rem;margin:1rem 0;
+    font-family:-apple-system,system-ui,sans-serif;font-size:.92rem}
+  .objectives strong{display:block;font-size:.75rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.35rem}
+  .objectives ul{margin:.25rem 0 0;padding-left:1.2rem}
+  .lab{background:linear-gradient(180deg,var(--panel),transparent);
+    border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;margin:1.8rem 0}
+  .lab::before{content:"⌨ Lab";display:block;font:700 .78rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ok);margin-bottom:.5rem}
+  .kcheck{border:1px dashed var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1.5rem 0}
+  .kcheck::before{content:"✓ Knowledge check";display:block;
+    font:700 .78rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--clay);margin-bottom:.5rem}
+  .mark-done{margin:2rem 0 0;font:600 .85rem/1 -apple-system,system-ui,sans-serif;
+    background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;
+    padding:.55rem 1.1rem;cursor:pointer}
+  .mark-done.on{border-color:var(--ok);color:var(--ok)}
+  .edition-badge{display:inline-block;font:600 .7rem/1 -apple-system,system-ui,sans-serif;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--clay-soft);
+    border-radius:4px;padding:.25em .5em;margin-left:.5rem;vertical-align:middle}
+  footer{max-width:var(--maxw);margin:0 auto;padding:2rem 1.25rem;color:var(--muted);
+    font:.8rem/1.5 -apple-system,system-ui,sans-serif;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="course">
+  <div class="kicker">Backbone · Self-paced</div>
+  <h1>CC 101 — Claude Code Foundations</h1>
+  <div class="meta">5 modules · ~2 hrs 10 min · v1.0.0 · generated 2026-07-02</div>
+</header>
+
+<div class="layout">
+
+<nav class="toc" id="toc">
+  <h2>Modules</h2>
+  <ol>
+    <li data-mod="m01-mental-model"><a href="#m01-mental-model">What Claude Code Is (and Isn't): the Agentic Mental Model</a><span class="dur">20 min</span></li>
+    <li data-mod="m02-setup"><a href="#m02-setup">Install, Authenticate &amp; Set Up Your Environment</a><span class="dur">25 min</span></li>
+    <li data-mod="m03-first-session"><a href="#m03-first-session">Your First Real Session: Explore, Plan, Edit, Run</a><span class="dur">35 min</span></li>
+    <li data-mod="m04-permissions-safety"><a href="#m04-permissions-safety">The Permission &amp; Safety Model</a><span class="dur">20 min</span></li>
+    <li data-mod="m05-everyday-workflows"><a href="#m05-everyday-workflows">Everyday Workflows &amp; Getting Unstuck</a><span class="dur">30 min</span></li>
+  </ol>
+  <div class="progressbar"><div id="pbar"></div></div>
+</nav>
+
+<section class="module" id="m01-mental-model">
+  <div class="module-head">
+    <span class="modnum">MODULE 01 · 20 min</span>
+  </div>
+  <h2 class="modtitle">What Claude Code Is (and Isn't): the Agentic Mental Model</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain the agentic loop (ask → plan → act → verify) in your own words</li>
+      <li>Distinguish Claude Code from chat assistants and autocomplete tools</li>
+      <li>Predict what Claude Code can see and do in your project</li>
+    </ul>
+  </div>
+  <h3>A pair-researcher in your terminal</h3>
+  <p>Claude Code is an <strong>agent</strong>: you describe an outcome, and it plans, reads your files, runs commands, edits code, and checks its own work — in a loop — until the outcome is met or it needs your input. That's the difference from a chat window (which only talks) and from autocomplete (which only continues the line you're typing).</p>
+  <p>The loop to internalize:</p>
+  <ol>
+    <li><strong>Ask</strong> — you state a goal ("profile this dataset and write a data dictionary").</li>
+    <li><strong>Plan</strong> — it decides which files to read, what to run, what to change.</li>
+    <li><strong>Act</strong> — it uses tools: read/edit files, run shell commands, search the repo.</li>
+    <li><strong>Verify</strong> — it checks results (runs the tests, reruns the script, rereads output) and iterates.</li>
+  </ol>
+  <p>You stay in control at the <strong>act</strong> step: tool use goes through a permission model you configure (covered in module 4).</p>
+  <h3>What it can see and do</h3>
+  <ul>
+    <li>Your <strong>working directory</strong> and anything reachable from it: code, notebooks, data files, git history.</li>
+    <li>Your <strong>shell</strong>: it can run the same commands you can — <code>python</code>, <code>pytest</code>, <code>git</code>, <code>jupyter nbconvert</code>.</li>
+    <li>Not your screen, other apps, or anything outside the directory/permissions you give it.</li>
+  </ul>
+  <h3>What it's for (and not)</h3>
+  <p>Good fits: understanding an unfamiliar repo, refactoring a messy notebook, writing tests and docs, automating recurring analysis chores, git mechanics. Poor fits: tasks you can't describe an acceptance check for, and judgment calls that are yours to make — it's a collaborator, not an oracle.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/overview">Overview</a> · <a href="https://code.claude.com/docs/en/quickstart">Quickstart</a> · <a href="https://anthropic.skilljar.com/claude-code-101">Claude Code 101 course</a></p>
+  <div class="lab">
+    <p>No install needed yet. Pick one recurring task from your own work (a report, a data pull, a cleanup script). Write, in three sentences: the goal, what "done" looks like, and what you'd need to check to trust the result. Keep it — it becomes your working example for the rest of the curriculum.</p>
+  </div>
+  <div class="kcheck">
+    <ol>
+      <li>Name the four steps of the agentic loop and where you retain control.</li>
+      <li>True/false: Claude Code can read files outside the directory you started it in without asking.</li>
+      <li>What makes a task a poor fit for delegation to an agent?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m01-mental-model">Mark module complete</button>
+</section>
+
+<section class="module" id="m02-setup">
+  <div class="module-head">
+    <span class="modnum">MODULE 02 · 25 min</span>
+  </div>
+  <h2 class="modtitle">Install, Authenticate &amp; Set Up Your Environment</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Install Claude Code and authenticate with your organization's method</li>
+      <li>Start and exit a session; know where you are (directory = context)</li>
+      <li>Use enough terminal and git to work confidently</li>
+    </ul>
+  </div>
+  <h3>Install and authenticate</h3>
+  <p>Follow the official <a href="https://code.claude.com/docs/en/quickstart">Quickstart</a> and <a href="https://code.claude.com/docs/en/setup">Setup docs</a> for your platform. The short version: install the CLI, run <code>claude</code> in a terminal, complete the login flow.</p>
+  <p>Verify it works:</p>
+  <pre><code>cd path/to/any/repo
+claude
+&gt; what does this repository do?</code></pre>
+  <h3>The terminal bridge (for notebook-first people)</h3>
+  <p>You need very little:</p>
+  <ul>
+    <li><code>cd</code>, <code>ls</code>, <code>pwd</code> — move around; <strong>the directory you launch <code>claude</code> from is its world</strong>, so start it at the root of the project you care about.</li>
+    <li><code>Ctrl+C</code> interrupts; <code>/exit</code> or <code>Ctrl+D</code> leaves a session; <code>claude</code> resumes fresh, <code>claude --continue</code> picks up the last conversation.</li>
+    <li>Your shell profile, Python env, and credentials are the ones Claude Code inherits — if <code>python</code> works for you in that terminal, it works for Claude.</li>
+  </ul>
+  <h3>The git bridge</h3>
+  <p>You don't need to be a git expert — Claude Code handles the mechanics if you understand three ideas: a <strong>commit</strong> is a checkpoint, a <strong>branch</strong> is a parallel line of checkpoints, and <strong>nothing committed is ever lost</strong>. Practical habit: work in a repo (ask Claude to <code>git init</code> if needed) and let checkpoints make the agent's edits fearless — you can always ask it to show or undo what changed.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/quickstart">Quickstart</a> · <a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a></p>
+  <div class="lab">
+    <p>Install and authenticate. Then, in a terminal: clone or pick any repo you know, launch <code>claude</code> at its root, and ask three questions about the codebase. Exit, relaunch with <code>--continue</code>, and confirm it remembers the conversation.</p>
+  </div>
+  <div class="kcheck">
+    <ol>
+      <li>Why does the directory you launch from matter?</li>
+      <li>How do you resume your previous conversation?</li>
+      <li>What's the practical reason to work inside a git repo with an agent?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m02-setup">Mark module complete</button>
+</section>
+
+<section class="module" id="m03-first-session">
+  <div class="module-head">
+    <span class="modnum">MODULE 03 · 35 min</span>
+  </div>
+  <h2 class="modtitle">Your First Real Session: Explore, Plan, Edit, Run</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Use Claude Code to navigate and explain an unfamiliar repo</li>
+      <li>Use plan mode to review an approach before any file changes</li>
+      <li>Complete an edit → run → verify cycle end to end</li>
+    </ul>
+  </div>
+  <h3>Explore before you change</h3>
+  <p>Agents are excellent at building maps. Openers that work on any repo:</p>
+  <ul>
+    <li>"Give me a tour of this repo — what are the entry points and the data flow?"</li>
+    <li>"Where is &lt;metric/model/report&gt; computed? Walk me through it."</li>
+    <li>"What would break if I changed &lt;function&gt;? Find the callers."</li>
+  </ul>
+  <p>Ask follow-ups; it's a conversation, not a query language. Reference files naturally ("the loader in <code>data/io.py</code>") — or use <code>@</code> to attach a file path precisely.</p>
+  <h3>Plan mode: look before it leaps</h3>
+  <p>For anything non-trivial, use <strong>plan mode</strong> (Shift+Tab cycles modes): Claude researches and proposes a plan but changes nothing until you approve. This is the single best habit for building trust early — you see the intended edits as a reviewable plan, not as a surprise diff.</p>
+  <h3>The edit → run → verify cycle</h3>
+  <p>Effective instructions share three parts (remember your lab from module 1):</p>
+  <ol>
+    <li><strong>Goal</strong> — "add a docstring and type hints to every function in <code>analysis.py</code>"</li>
+    <li><strong>Constraints</strong> — "don't change behavior; keep the existing naming style"</li>
+    <li><strong>Verification</strong> — "run the tests / rerun the script and confirm identical output"</li>
+  </ol>
+  <p>Always give the third part. An agent that knows how to check its work will check its work; one that doesn't will declare victory.</p>
+  <h3>Iterating</h3>
+  <ul>
+    <li>Interrupt any time (<code>Esc</code>) to redirect; you don't have to let a wrong plan finish.</li>
+    <li>"Show me what you changed" → it summarizes the diff.</li>
+    <li>Wrong direction? Ask it to revert: git checkpoints (module 2) make this cheap.</li>
+  </ul>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a> · <a href="https://anthropic.skilljar.com/claude-code-in-action">Claude Code in Action</a></p>
+  <div class="lab">
+    <p>On one of your own notebooks or scripts: (1) ask for a tour of what it does; (2) in plan mode, request a cleanup (docstrings, dead-code removal, or extracting a function) and read the plan critically before approving; (3) have it run the result and confirm the output is unchanged. Time yourself against doing it by hand.</p>
+  </div>
+  <div class="kcheck">
+    <ol>
+      <li>What does plan mode change about the agentic loop?</li>
+      <li>What are the three parts of an effective instruction?</li>
+      <li>You approved a change and regret it — what are two ways to recover?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m03-first-session">Mark module complete</button>
+</section>
+
+<section class="module" id="m04-permissions-safety">
+  <div class="module-head">
+    <span class="modnum">MODULE 04 · 20 min</span>
+  </div>
+  <h2 class="modtitle">The Permission &amp; Safety Model</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Explain when Claude Code asks before acting and why</li>
+      <li>Choose an appropriate permission mode for a given task</li>
+      <li>Apply your organization's data-handling rules inside sessions</li>
+    </ul>
+  </div>
+  <h3>Asking before acting</h3>
+  <p>By default, Claude Code asks before doing anything with side effects: editing files, running most shell commands, fetching from the web. Reading files and searching the repo generally don't require approval. Each prompt offers "yes once" / "yes, don't ask again for this" — approvals accumulate into an allowlist you'll manage deliberately in CC 201.</p>
+  <h3>Permission modes</h3>
+  <p>Cycle modes with Shift+Tab; pick per task, not per personality:</p>
+  <table>
+    <thead>
+      <tr><th>Mode</th><th>Behavior</th><th>Use when</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>default</td><td>asks for anything with side effects</td><td>unfamiliar repo, high-stakes files</td></tr>
+      <tr><td>plan</td><td>research only, proposes a plan, changes nothing</td><td>design/review before acting</td></tr>
+      <tr><td>accept edits</td><td>file edits auto-approved; commands still ask</td><td>you trust the direction, tight loop</td></tr>
+      <tr><td>bypass / auto</td><td>no prompts</td><td>sandboxes and throwaway dirs only</td></tr>
+    </tbody>
+  </table>
+  <p>The habit that scales: <strong>start conservative, loosen as trust accrues</strong> — the reverse is how accidents happen.</p>
+  <h3>Data handling</h3>
+  <p>The permission model governs <em>actions</em>; you still govern <em>data</em>. Two rules that apply everywhere:</p>
+  <ul>
+    <li>Know your organization's policy on what data may enter a session (the model sees file contents it reads). Point Claude at schemas and samples rather than full sensitive extracts when policy requires.</li>
+    <li>Anything the agent is allowed to run, it may run — don't grant blanket shell approval in a directory containing credentials or production configs.</li>
+  </ul>
+  <p>Your org's specific policy belongs in your team's LOB edition of this course.</p>
+  <p><strong>Reuse (official):</strong> <a href="https://code.claude.com/docs/en/settings">Settings/permissions docs</a> · <a href="https://code.claude.com/docs/en/security">Security</a></p>
+  <div class="lab">
+    <p>In a scratch repo: run the same small refactor once in default mode and once in accept-edits mode, and note the difference in prompts. Then try plan mode on a bigger ask and reject the plan — confirm nothing changed.</p>
+  </div>
+  <div class="kcheck">
+    <ol>
+      <li>Which actions require approval by default, and which don't?</li>
+      <li>When is bypass/auto mode appropriate?</li>
+      <li>Approving a command "don't ask again" does what, exactly?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m04-permissions-safety">Mark module complete</button>
+</section>
+
+<section class="module" id="m05-everyday-workflows">
+  <div class="module-head">
+    <span class="modnum">MODULE 05 · 30 min</span>
+  </div>
+  <h2 class="modtitle">Everyday Workflows &amp; Getting Unstuck</h2>
+  <div class="objectives"><strong>You will be able to</strong>
+    <ul>
+      <li>Apply the core daily patterns: explain, search, refactor, test, commit</li>
+      <li>Manage a session: context, /clear, interrupting, resuming</li>
+      <li>Know where to get help and what to try when results disappoint</li>
+    </ul>
+  </div>
+  <h3>The daily patterns</h3>
+  <p>Five workflows cover most days; all are elaborations of module 3's cycle:</p>
+  <ol>
+    <li><strong>Explain</strong> — "walk me through how X works" on any unfamiliar code or notebook.</li>
+    <li><strong>Search</strong> — "find every place we compute Y" beats grep because it follows meaning, not strings.</li>
+    <li><strong>Refactor</strong> — goal + constraints + verification; plan mode for big ones.</li>
+    <li><strong>Test &amp; document</strong> — "write tests for the edge cases in Z", "add a README for this folder".</li>
+    <li><strong>Git chores</strong> — "commit this with a sensible message", "what changed since yesterday?", "make a branch for this experiment".</li>
+  </ol>
+  <h3>Session hygiene</h3>
+  <ul>
+    <li>A session's <strong>context</strong> fills up as it reads files and talks. Long sessions drift; <code>/clear</code> starts fresh (new task = new context is a good default).</li>
+    <li>One task per session beats one mega-session; resume with <code>--continue</code> when it really is the same task.</li>
+    <li>Interrupt early (<code>Esc</code>) when you see it going sideways — steering beats redoing.</li>
+  </ul>
+  <h3>When results disappoint</h3>
+  <p>Work the checklist before blaming the model:</p>
+  <ol>
+    <li>Did you give a verification step? (No check → no self-correction.)</li>
+    <li>Was the goal one sentence or one essay? Split compound asks.</li>
+    <li>Did it have the context — right directory, right files mentioned?</li>
+    <li>Ask <em>it</em> to diagnose: "you missed X — why, and what would have helped?"</li>
+  </ol>
+  <h3>Where to get help</h3>
+  <p><code>/help</code> in a session · <a href="https://code.claude.com/docs/en/overview">docs</a> · <a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a> · your department's champion · office hours.</p>
+  <div class="lab">
+    <p><strong>Course capstone.</strong> Take the recurring task you wrote down in module 1 and do it end-to-end with Claude Code: explore → plan-mode proposal → execute with a verification step → commit the result. Record minutes saved vs. by hand; bring the number (and the pain points) to your next cohort session or office hours.</p>
+  </div>
+  <div class="kcheck">
+    <ol>
+      <li>When should you <code>/clear</code> vs <code>--continue</code>?</li>
+      <li>Give the four-item checklist for disappointing results.</li>
+      <li>Which daily pattern will save you the most time this month — and what's the verification step for it?</li>
+    </ol>
+  </div>
+  <button class="mark-done" data-mod="m05-everyday-workflows">Mark module complete</button>
+</section>
+
+</div>
+
+<footer>CC 101 · Backbone edition · v1.0.0. Progress is stored in your browser only.</footer>
+
+<script>
+(function(){
+  var KEY='bb-progress:CC 101:Backbone';
+  var done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var btns=document.querySelectorAll('.mark-done');
+  var items=document.querySelectorAll('#toc li[data-mod]');
+  function paint(){
+    var n=0,t=0;
+    items.forEach(function(li){t++; var on=!!done[li.dataset.mod];
+      li.classList.toggle('done',on); if(on)n++;});
+    btns.forEach(function(b){var on=!!done[b.dataset.mod];
+      b.classList.toggle('on',on);
+      b.textContent=on?'✓ Completed — click to undo':'Mark module complete';});
+    document.getElementById('pbar').style.width=(t?100*n/t:0)+'%';
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    done[b.dataset.mod]=!done[b.dataset.mod];
+    if(!done[b.dataset.mod])delete done[b.dataset.mod];
+    localStorage.setItem(KEY,JSON.stringify(done)); paint();});});
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){
+    a.target='_blank'; a.rel='noopener';});
+  paint();
+})();
+</script>
+</body>
+</html>
