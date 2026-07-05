@@ -49,6 +49,13 @@ backbone files, so central updates flow cleanly.
 | **Instructor-led training** | 301, 401 (primarily) | `generated/deck.html` per course | Champions / central experts |
 | **Working groups** | 501 | Capstone briefs + review cadence | Teams themselves, expert support; goal is recruiting flagship projects |
 
+**One site.** Every generated output is published as a copy under `site/courses/`
+(`101.html`, `301-deck.html`, …) so the entry site (`site/index.html`) is the single
+access point — locally via `open site/index.html` and hosted via GitHub Pages, which
+publishes the `site/` folder only. `/backbone-sync` refreshes the copies whenever it
+regenerates; they are build artifacts, never hand-edited. LOB editions are not
+published centrally.
+
 ## Directory layout
 
 ```
@@ -62,6 +69,9 @@ backbone/
     generated/             # rendered outputs (self-paced.html, deck.html) — never hand-edit
   201-customization/ … 501-capstone/   # same shape
 templates/formats/         # HTML templates + TEMPLATE-CONTRACT.md
+site/
+  index.html               # the entry site — links every course
+  courses/                 # published copies of generated outputs — never hand-edit
 intake/                    # drop folder for new source material to ingest
 lob/                       # LOB editions (one dir per team) + _template scaffold
 .claude/skills/
@@ -97,7 +107,8 @@ advances — re-syncs the edition, re-applying overlays and flagging conflicts.
 
 ## Ground rules
 
-1. **Generated files are never hand-edited.** Fix the module or the template, regenerate.
+1. **Generated files are never hand-edited** — that includes the published copies in
+   `site/courses/`. Fix the module or the template, regenerate, republish.
 2. **Backbone content must be universally applicable.** Team-specific material belongs in an LOB overlay.
 3. **Every merged fact keeps provenance** (`sources.yaml`) so internal material can be audited or pulled later.
 4. **Reuse first** (unchanged from the curriculum): official Anthropic material carries the conceptual load; modules link out rather than paraphrase at length.

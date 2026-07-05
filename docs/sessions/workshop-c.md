@@ -1,4 +1,4 @@
-# Workshop C — Agents + integrations (Track 3c, 3d)
+# Workshop C — Agents + integrations (CC 401 subagents + CC 301 MCP)
 
 **Length:** 90 min · **Format:** live
 **Pre-work:** [Introduction to Subagents](https://anthropic.skilljar.com/introduction-to-subagents) +
@@ -37,3 +37,6 @@
 ## Facilitator prep
 - `cd demos/setup && python gen_series.py && pip install duckdb && python gen_warehouse.py`.
 - Pre-install a DuckDB MCP server and confirm `claude mcp add` works before the room is watching.
+- Teach from the [CC 401 instructor deck](../../site/courses/401-deck.html); assign
+  [CC 401](../../site/courses/401.html) as follow-up and point builders at the capstone course
+  ([CC 501](../../site/courses/501.html)).

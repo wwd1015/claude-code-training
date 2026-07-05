@@ -1,4 +1,4 @@
-# Workshop A — Fundamentals (Tracks 0–1)
+# Workshop A — Fundamentals (CC 101)
 
 **Audience:** data scientists & quants, first real session · **Length:** 90 min · **Format:** live
 **Pre-work (sent before):** [Claude Code 101](https://anthropic.skilljar.com/claude-code-101) +
@@ -44,3 +44,4 @@
 ## Facilitator prep
 - Pre-generate demo data: `cd demos/setup && pip install -r requirements.txt && python gen_sample_dataset.py`.
 - Have a throwaway repo ready in case someone has nothing of their own to open.
+- Assign the [CC 101 self-paced course](../../site/courses/101.html) as follow-up — same labs, full text.

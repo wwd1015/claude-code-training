@@ -16,11 +16,11 @@ library, and Champion enablement — and **delivery is decentralized**. See
    in big departments, Champion-/volunteer-led elsewhere.
 
 ## Cohort shape (when a department runs one, 2–3 weeks)
-- **Week 0 (self-paced):** Track 0 + Track 1 official pre-work (Claude Code 101, Quickstart).
-- **Live Workshop A:** Tracks 0–1 recap + an anchor demo (pick the quant or DS variant for the cohort).
-- **Live Workshop B:** Track 2 (CLAUDE.md, slash commands, settings) + Track 3a/3b (Skills, hooks).
-- **Live Workshop C:** Track 3c/3d (subagents, MCP).
-- **Capstone demo day:** each Learner demos a real task they automated — the best become Contributed demos.
+- **Week 0 (self-paced):** CC 101 pre-work (Claude Code 101, Quickstart).
+- **Live Workshop A:** CC 101 recap + an anchor demo (pick the quant or DS variant for the cohort).
+- **Live Workshop B:** CC 201 (CLAUDE.md, slash commands, settings) + CC 301 skills & hooks.
+- **Live Workshop C:** CC 401 subagents + CC 301 MCP.
+- **Capstone demo day (CC 501):** each Learner demos a real task they automated — the best become Contributed demos.
 
 ## Office hours
 Weekly drop-in to unblock real work, run by the department **Champion**. This is where adoption

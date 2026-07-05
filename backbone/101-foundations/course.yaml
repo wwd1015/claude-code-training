@@ -8,7 +8,7 @@ audience: >
   no software-engineering background assumed. Bridges terminal, git, and the
   agentic mental model explicitly.
 prerequisites: none
-duration_total: "~2 hrs 10 min"
+duration_total: "~2 hrs 50 min"
 outcome: >
   Installed and authenticated; ran real sessions against a repo; can navigate,
   explain, edit, and run code through Claude Code with the permission model

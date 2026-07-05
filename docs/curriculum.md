@@ -1,4 +1,11 @@
-# Curriculum
+# Curriculum (track-based source material)
+
+> **This is source material, not the delivery vehicle.** The curriculum learners take is
+> the versioned backbone courses CC 101–501 (see [`BACKBONE.md`](../BACKBONE.md)), accessed
+> through the [entry site](../site/index.html). This document is the track-based design the
+> backbone draws from — don't extend it; route new content into `backbone/` modules via
+> `/backbone-sync`. Track ↔ course map: T0+1 → CC 101 · T2 → CC 201 · T3 → CC 301+401 ·
+> T4 → CC 501.
 
 **Audience:** internal data scientists & quants (strong Python/stats/notebooks; not engineers)
 **Delivery:** hybrid — self-paced official pre-work + live demo/workshop + office hours

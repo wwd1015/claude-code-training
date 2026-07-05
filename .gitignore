@@ -23,7 +23,8 @@ data/
 .env.*
 *.local
 
-# Editor
+# Editor / tooling caches
 .vscode/
 .idea/
 .gstack/
+.ruff_cache/

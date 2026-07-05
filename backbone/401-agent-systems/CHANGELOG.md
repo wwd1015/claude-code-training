@@ -7,3 +7,6 @@ governance & safety). Sourced from docs/curriculum.md Track 3c, public
 Anthropic docs/Academy/engineering blog. Org-specific gaps marked
 `<!-- verify -->` (GitHub Actions integration doc, service-account
 provisioning process).
+Each module carries a worked example, best-practices and common-pitfalls
+sections, and discipline notes (quant vs data scientist), drawn from public
+Anthropic best-practices guidance.

@@ -1,8 +1,13 @@
 # Contributing
 
 The Demo library grows from real work: a DSQ automates a recurring task (a Capstone) and the
-good ones become **Contributed demos** for their department's niche. Seed demos (`demos/01–05`)
+good ones become **Contributed demos** for their department's niche. Seed demos (`demos/01–06`)
 are program-maintained references; Contributed demos are owned by their author/department.
+
+**Contributing to the courses themselves** (the backbone, CC 101–501) works differently:
+drop material into `intake/` and run `/backbone-sync` — see
+[`docs/backbone-user-guide.md`](docs/backbone-user-guide.md) §4. Never edit
+`backbone/*/generated/` or `site/courses/` by hand.
 
 ## Governance — how a contribution gets in
 
@@ -47,5 +52,6 @@ See [`CLAUDE.md`](CLAUDE.md): direct, concrete, builder-not-consultant. Name the
 file, the course. No to-do-app examples.
 
 ## The entry site
-`site/index.html` is a single self-contained file (no build step). Keep it that way. Deep links
-in the site point to GitHub blob URLs because Pages publishes only `site/`.
+`site/index.html` is a single self-contained file (no build step). Keep it that way. Course
+links are relative (`courses/101.html` — published copies live inside `site/`); links to repo
+docs point to GitHub blob URLs because Pages publishes only `site/`.

@@ -7,3 +7,6 @@ Sourced from docs/curriculum.md Track 2, templates/CLAUDE.research-repo.md,
 and public Anthropic docs. Facts recalled from memory rather than a provided
 source are marked `<!-- verify -->` (permission rule syntax, `#` memory
 shortcut, output-styles/statusline config, model lineup, /cost availability).
+Each module carries a worked example, best-practices and common-pitfalls
+sections, and discipline notes (quant vs data scientist), drawn from public
+Anthropic best-practices guidance.

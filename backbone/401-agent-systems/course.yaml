@@ -8,7 +8,7 @@ audience: >
   extending a single session to designing systems of agents that work while
   they don't watch.
 prerequisites: CC 301
-duration_total: "~3 hrs 10 min"
+duration_total: "~4 hrs 10 min"
 outcome: >
   Can decompose real work into subagents, choose the right workflow shape,
   run Claude Code headless in automation, know when the Agent SDK is the right

@@ -31,17 +31,39 @@ independently of role — segmentation is two-axis (discipline × department), n
 ### Program & demos
 
 **Spine**:
-The single, discipline-agnostic core the program teaches — the five Tracks plus the Claude Code
-competencies (skill creation, hooks, subagents, MCP). Every DSQ applies the same Spine to their
-own niche; the program does **not** fork per discipline. The user also calls this "the framework".
+The single, discipline-agnostic core the program teaches — the Claude Code competencies
+(skill creation, hooks, subagents, MCP) and the path through them. Every DSQ applies the same
+Spine to their own niche; the program does **not** fork per discipline. The user also calls
+this "the framework". The Spine is maintained as the five Courses of the Backbone.
 _Avoid_: "framework" in the software-library sense; "platform".
+
+**Backbone**:
+The versioned, centrally-maintained curriculum implementation of the Spine: five **Courses**
+(CC 101–501) under `backbone/`, each with canonical modules, provenance, a changelog, and
+generated outputs. Operated with `/backbone-sync`. Design: `BACKBONE.md`.
+_Avoid_: using "backbone" for the official Anthropic material (that's the *source of truth*
+the modules link out to).
+
+**Course**:
+One of the five numbered catalog entries (CC 101 Foundations, CC 201 Make It Yours, CC 301
+Skills·Hooks·MCP, CC 401 Agent Systems, CC 501 Capstone Studio). The unit of versioning and
+delivery. The track-based design in `docs/curriculum.md` is source material for the Courses
+(T0+1→101, T2→201, T3→301+401, T4→501).
+_Avoid_: Track numbering in learner-facing material; speak in course codes.
+
+**LOB edition**:
+A team's derivative of the backbone — backbone modules plus the team's overlays (demos, use
+cases, policies) anchored to module IDs, generated under `lob/<team>/`. Never edits backbone
+files; re-syncs when the backbone version advances. Operated with `/lob-overlay` by a
+**Champion**.
+_Avoid_: "fork" — an edition tracks the backbone, a fork abandons it.
 
 **Demo**:
 A facilitator-ready, DSQ-native worked example pairing one Claude Code competency with a
 discipline use case (e.g. skill-creation × regression-diagnostics). Two kinds:
 
 **Seed demo**:
-A reference Demo authored in this repo to illustrate the Spine (the current `demos/01–05`). Not
+A reference Demo authored in this repo to illustrate the Spine (the current `demos/01–06`). Not
 canonical curriculum — an example to reference, expected to be supplemented and outnumbered by
 Contributed demos. **Program-maintained:** central keeps Seeds current.
 _Avoid_: treating Seed demos as "the curriculum".
@@ -101,9 +123,9 @@ A time-boxed group that works through the **Spine** together. Instructor-led in 
 
 ## Flagged ambiguities
 
-- **Seed-demo skew:** the Seed demos lean **Data Scientist** (EDA, anomaly detection, backtest);
-  none are econometric/regression-oriented yet. Balance with at least one **Quant** seed demo and
-  grow the rest via Contributed demos.
+- **Seed-demo balance:** most Seed demos are discipline-neutral or **Data Scientist**-leaning;
+  Demo 06 (`demos/06-regression-diagnostics.md` — VIF, heteroskedasticity, stationarity)
+  anchors the **Quant** side. Keep both disciplines represented as the library grows.
 
 ## Example dialogue
 

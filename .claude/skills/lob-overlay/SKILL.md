@@ -47,8 +47,9 @@ Infer from the request; default to **status** if unclear.
 ### init — create a new LOB workspace
 1. Ask for (or take from the request): team name, champion, which courses they
    deliver, any known team use cases.
-2. Copy `lob/_template/` → `lob/<team-slug>/`, fill `lob.yaml`, and pin
-   `base_versions` from the current `backbone/MANIFEST.yaml`.
+2. Copy `lob/_template/` → `lob/<team-slug>/`, fill `lob.yaml`, and pin each
+   delivered course's `base_version` (under `courses:`) from the current
+   `backbone/MANIFEST.yaml`.
 3. Suggest 2–3 concrete overlay ideas based on what they told you about the
    team (e.g. their data sources → a 301 MCP demo; their recurring reports → a
    skill-creation lab).
@@ -73,17 +74,20 @@ Infer from the request; default to **status** if unclear.
    team name in the title block ("CC 301 — <Team> Edition").
 3. If a team template exists (`lob/<team>/templates/`), it wins over the
    central one; verify it declares the contract markers.
+4. LOB editions are **not** published to `site/courses/` — that folder carries
+   backbone outputs only. Point the team at `lob/<team>/generated/` directly
+   (or the team hosts its own copy).
 
 ### sync — catch up with a backbone update
-1. Compare `lob.yaml: base_versions` against current `backbone/MANIFEST.yaml`
-   versions. Nothing changed → report "up to date", stop.
+1. Compare each course's `base_version` in `lob.yaml` against the current
+   `backbone/MANIFEST.yaml` versions. Nothing changed → report "up to date", stop.
 2. For each drifted course, read the backbone `CHANGELOG.md` entries between
    the pinned and current versions and classify the impact on each overlay:
    - **clean** — anchors intact (MINOR/PATCH bumps usually) → re-apply.
    - **moved** — anchor module renumbered/renamed (MAJOR) → propose new anchor.
    - **conflict** — backbone now covers what the overlay adds, or contradicts
      it → show both side by side; champion decides keep / drop / rewrite.
-3. Apply resolutions, update `base_versions` to current, regenerate the
+3. Apply resolutions, update each `base_version` to current, regenerate the
    edition, and write a short entry to `lob/<team>/SYNC-LOG.md` (date, versions
    crossed, resolutions).
 

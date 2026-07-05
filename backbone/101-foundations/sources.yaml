@@ -13,3 +13,9 @@ sources:
     disposition: merged
     into: [all modules]
     notes: "reuse-first links; URLs verified 2026-06-08 per docs/reading-lists.md"
+  - path: public Anthropic best-practices guidance (docs/en/best-practices + engineering blog)
+    sha256: n/a (external)
+    ingested: 2026-07-02
+    disposition: merged
+    into: [all modules]
+    notes: "worked examples, best-practices and common-pitfalls sections"

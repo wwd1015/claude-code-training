@@ -36,3 +36,6 @@ data dictionary — the same pass you'd otherwise retype every time.
 ```
 /eda data/sample.parquet
 ```
+
+See it taught live: [Demo 01 — EDA + data dictionary](../../demos/01-eda-data-dictionary.md).
+Quant counterpart: [/regression-diagnostics](../regression-diagnostics/SKILL.md).

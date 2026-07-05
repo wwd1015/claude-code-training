@@ -6,13 +6,13 @@ For DS/quants getting started. Deeper: [Troubleshooting](https://code.claude.com
 ## Getting started
 **Do I need to be good at git or the terminal?**
 No. You need to be comfortable running a Python script. Claude handles most git for you —
-ask it to "create a branch and commit this with a sensible message." Track 1 covers the basics.
+ask it to "create a branch and commit this with a sensible message." CC 101 covers the basics.
 
 **Where do I run it?** In a terminal, inside the repo/folder you want to work on: `claude`.
 
 **It asked me to approve something — is that normal?**
 Yes. By default Claude asks before running commands or editing files. Read it, approve if it's
-what you wanted. Repeated prompts for safe commands? Add an allowlist (Track 2 /
+what you wanted. Repeated prompts for safe commands? Add an allowlist (CC 201 /
 [Settings](https://code.claude.com/docs/en/settings)).
 
 ## Working with it
@@ -29,7 +29,7 @@ Scope your ask: "only touch `src/features.py`." For a hard boundary, the `/freez
 a PreToolUse [hook](../examples/hooks/) can block edits outside a directory.
 
 **How do I make it stop re-explaining my repo every session?**
-Add a `CLAUDE.md` (Track 2). Use the [research-repo template](../templates/CLAUDE.research-repo.md).
+Add a `CLAUDE.md` (CC 201). Use the [research-repo template](../templates/CLAUDE.research-repo.md).
 
 **My notebook is huge — will it fit?**
 Big notebooks can blow the context window. Point it at the relevant cells/files, or have it

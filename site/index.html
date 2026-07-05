@@ -79,6 +79,7 @@
   .track h3{margin:0;font-size:18px;letter-spacing:-.01em}
   .track h3 .num{color:var(--clay);font-family:var(--mono);margin-right:8px}
   .track p{margin:0;color:var(--muted);font-size:14.5px}
+  .track .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
   .track .meta{display:flex;gap:14px;font-size:12.5px;color:var(--faint);margin-top:auto;padding-top:6px}
 
   /* module grid */
@@ -147,9 +148,9 @@
     <button class="menu-btn" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
     <nav id="nav">
       <a href="#start">Start</a>
-      <a href="#tracks">Tracks</a>
-      <a href="#advanced">Advanced</a>
-      <a href="#material">Material</a>
+      <a href="#courses">Courses</a>
+      <a href="#advanced">Building blocks</a>
+      <a href="#material">Official material</a>
       <a href="#demos">Demos</a>
       <a href="#resources">Resources</a>
       <a href="#checklist">Checklist</a>
@@ -161,12 +162,13 @@
   <div class="wrap">
     <div class="tag">Internal enablement · Data Science &amp; Quant</div>
     <h1>Claude Code, for people who<br><em>live in notebooks.</em></h1>
-    <p class="lead">A hybrid, hands-on program that takes you from first install to building your
-      own skills, agents, hooks, and data integrations — using your real research work as the
-      training set. Built on the official Anthropic curriculum, so you learn the canonical way.</p>
+    <p class="lead">Five self-paced courses — CC&nbsp;101 to CC&nbsp;501 — that take you from first
+      install to building your own skills, agents, hooks, and data integrations, using your real
+      research work as the training set. Built on the official Anthropic curriculum, so you learn
+      the canonical way.</p>
     <div class="ctas">
-      <a class="cta" href="#start">Start here →</a>
-      <a class="cta ghost" href="https://github.com/wwd1015/claude-code-training/blob/main/docs/curriculum.md">Full curriculum</a>
+      <a class="cta" href="courses/101.html">Start CC 101 →</a>
+      <a class="cta ghost" href="#courses">Browse the catalog</a>
     </div>
   </div>
 </div>
@@ -186,9 +188,10 @@
       </div>
       <div class="step">
         <div class="n">02</div>
-        <h3>Take Claude Code 101</h3>
-        <p>The official self-paced course:
-           <a href="https://anthropic.skilljar.com/claude-code-101">Claude Code 101</a>.</p>
+        <h3>Take CC 101 — Foundations</h3>
+        <p><a href="courses/101.html">Our self-paced course</a> — it wraps the official
+           <a href="https://anthropic.skilljar.com/claude-code-101">Claude Code 101</a> and adds
+           the labs on your own work.</p>
       </div>
       <div class="step">
         <div class="n">03</div>
@@ -199,47 +202,58 @@
   </div>
 </section>
 
-<section id="tracks">
+<section id="courses">
   <div class="wrap">
-    <div class="tag">The path</div>
-    <h2>Five tracks, multiple entry points</h2>
-    <p class="sub">Beginners finish Track 1. Power users jump to Track 3. Every module is
-      <span class="mono">reuse → demo → apply</span>: official pre-work, a live demo, then you do
-      it on your own work.</p>
+    <div class="tag">The catalog</div>
+    <h2>Five courses, one path</h2>
+    <p class="sub">The curriculum is a versioned catalog, CC&nbsp;101 → CC&nbsp;501. Each course is a
+      single self-paced page — read a module, do its lab on your own work, mark it complete.
+      Beginners start at 101; power users jump to 301. Your team may also have its own
+      <b>LOB edition</b> with team demos layered in — ask your champion.</p>
     <div class="tracks">
       <div class="track">
-        <div class="top"><h3><span class="num">0</span>Orientation</h3><span class="lvl">all</span></div>
-        <p>The agentic loop, install, the permission/safety model. "A pair-researcher in your
-           terminal — not autocomplete."</p>
-        <div class="meta"><span>Self-paced</span><span>~30 min</span></div>
+        <div class="top"><h3><span class="num">CC 101</span>Foundations</h3><span class="lvl">everyone</span></div>
+        <p>The agentic mental model, install &amp; auth, your first real session, the
+           permission/safety model, everyday workflows. "A pair-researcher in your terminal —
+           not autocomplete."</p>
+        <div class="links"><a class="pill course" href="courses/101.html">start course →</a></div>
+        <div class="meta"><span>Self-paced</span><span>5 modules</span><span>no prereqs</span></div>
       </div>
       <div class="track">
-        <div class="top"><h3><span class="num">1</span>Daily-driver fundamentals</h3><span class="lvl">onboarding</span></div>
-        <p>Navigate a repo, explain code, edit files, run notebooks, plan mode, basic git.
-           Demo: EDA + data dictionary on an unfamiliar dataset.</p>
-        <div class="meta"><span>Self-paced + live</span><span>~2 hrs</span></div>
+        <div class="top"><h3><span class="num">CC 201</span>Make It Yours</h3><span class="lvl">intermediate</span></div>
+        <p>CLAUDE.md &amp; memory, the settings hierarchy, permissions in depth, custom slash
+           commands, model &amp; context management. Build a research-repo CLAUDE.md and an
+           <span class="mono">/eda</span> command.</p>
+        <div class="links"><a class="pill course" href="courses/201.html">start course →</a></div>
+        <div class="meta"><span>Self-paced</span><span>5 modules</span><span>after 101</span></div>
       </div>
       <div class="track">
-        <div class="top"><h3><span class="num">2</span>Make it yours</h3><span class="lvl">intermediate</span></div>
-        <p>CLAUDE.md memory, settings, custom slash commands, permissions. Build a research-repo
-           CLAUDE.md and an <span class="mono">/eda</span> command.</p>
-        <div class="meta"><span>Hybrid</span><span>~2 hrs</span></div>
+        <div class="top"><h3><span class="num">CC 301</span>Skills, Hooks &amp; MCP</h3><span class="lvl">builder</span></div>
+        <p>Author reusable skills, automate with hooks, and connect your data over MCP —
+           the extension surface of Claude Code. Also taught live in cohorts.</p>
+        <div class="links"><a class="pill course" href="courses/301.html">start course →</a>
+          <a class="pill" href="courses/301-deck.html">instructor deck</a></div>
+        <div class="meta"><span>Self-paced + deck</span><span>6 modules</span><span>after 201</span></div>
       </div>
       <div class="track">
-        <div class="top"><h3><span class="num">3</span>Advanced builder</h3><span class="lvl">advanced</span></div>
-        <p>Skills, hooks, subagents, and MCP — the four building blocks. See the modules below.</p>
-        <div class="meta"><span>Live + office hours</span><span>~3–4 hrs</span></div>
+        <div class="top"><h3><span class="num">CC 401</span>Agent Systems</h3><span class="lvl">builder</span></div>
+        <p>Subagents, multi-agent workflow design, headless &amp; scheduled runs, the Agent SDK,
+           and governance for agent systems.</p>
+        <div class="links"><a class="pill course" href="courses/401.html">start course →</a>
+          <a class="pill" href="courses/401-deck.html">instructor deck</a></div>
+        <div class="meta"><span>Self-paced + deck</span><span>6 modules</span><span>after 301</span></div>
       </div>
       <div class="track">
-        <div class="top"><h3><span class="num">4</span>Capstone</h3><span class="lvl">all</span></div>
-        <p>Automate one real recurring task with Claude Code and demo it. Your capstone becomes
-           the demo bank for the next cohort.</p>
-        <div class="meta"><span>Project</span><span>self-directed</span></div>
+        <div class="top"><h3><span class="num">CC 501</span>Capstone Studio</h3><span class="lvl">team</span></div>
+        <p>Automate one real recurring task and demo it. Run as a working group — the course page
+           is the group's handbook. Your capstone becomes a contributed demo for the next cohort.</p>
+        <div class="links"><a class="pill course" href="courses/501.html">open handbook →</a></div>
+        <div class="meta"><span>Working group</span><span>5 modules</span><span>after 401</span></div>
       </div>
       <div class="track" style="border-style:dashed">
         <div class="top"><h3><span class="num">+</span>Office hours</h3><span class="lvl">weekly</span></div>
-        <p>Drop-in to unblock your real work. The live sessions teach; office hours convert it
-           into daily habit.</p>
+        <p>Drop-in to unblock your real work. The courses teach; office hours convert it into
+           daily habit. Ask your department champion for the schedule.</p>
         <div class="meta"><span>Ongoing</span></div>
       </div>
     </div>
@@ -248,10 +262,12 @@
 
 <section id="advanced">
   <div class="wrap">
-    <div class="tag">Track 3 · build anything</div>
+    <div class="tag">CC 301 + 401 · build anything</div>
     <h2>The four building blocks</h2>
-    <p class="sub">Each has a dedicated official Anthropic course (the pre-work) plus a
-      quant-flavored demo you'll build live.</p>
+    <p class="sub">Skills, hooks, subagents, MCP — taught in depth in
+      <a href="courses/301.html">CC&nbsp;301</a> and <a href="courses/401.html">CC&nbsp;401</a>.
+      Each has a dedicated official Anthropic course (the pre-work) plus a quant-flavored demo
+      you'll build live.</p>
     <div class="mods">
       <div class="mod">
         <h3>Skill creation</h3>
@@ -303,23 +319,23 @@
       <div>
         <h4>Courses (Anthropic Academy)</h4>
         <ul>
-          <li><a href="https://anthropic.skilljar.com/claude-code-101">Claude Code 101</a><span>T0</span></li>
-          <li><a href="https://anthropic.skilljar.com/claude-code-in-action">Claude Code in Action</a><span>T1</span></li>
-          <li><a href="https://anthropic.skilljar.com/introduction-to-agent-skills">Introduction to Agent Skills</a><span>T3a</span></li>
-          <li><a href="https://anthropic.skilljar.com/introduction-to-subagents">Introduction to Subagents</a><span>T3c</span></li>
-          <li><a href="https://anthropic.skilljar.com/introduction-to-model-context-protocol">Introduction to MCP</a><span>T3d</span></li>
-          <li><a href="https://anthropic.skilljar.com/model-context-protocol-advanced-topics">MCP: Advanced Topics</a><span>T3d</span></li>
+          <li><a href="https://anthropic.skilljar.com/claude-code-101">Claude Code 101</a><span>CC 101</span></li>
+          <li><a href="https://anthropic.skilljar.com/claude-code-in-action">Claude Code in Action</a><span>CC 101</span></li>
+          <li><a href="https://anthropic.skilljar.com/introduction-to-agent-skills">Introduction to Agent Skills</a><span>CC 301</span></li>
+          <li><a href="https://anthropic.skilljar.com/introduction-to-subagents">Introduction to Subagents</a><span>CC 401</span></li>
+          <li><a href="https://anthropic.skilljar.com/introduction-to-model-context-protocol">Introduction to MCP</a><span>CC 301</span></li>
+          <li><a href="https://anthropic.skilljar.com/model-context-protocol-advanced-topics">MCP: Advanced Topics</a><span>CC 301</span></li>
         </ul>
       </div>
       <div>
         <h4>Docs (code.claude.com)</h4>
         <ul>
-          <li><a href="https://code.claude.com/docs/en/quickstart">Quickstart</a><span>T0</span></li>
-          <li><a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a><span>T1</span></li>
-          <li><a href="https://code.claude.com/docs/en/memory">Memory / CLAUDE.md</a><span>T2</span></li>
-          <li><a href="https://code.claude.com/docs/en/settings">Settings</a><span>T2</span></li>
-          <li><a href="https://code.claude.com/docs/en/best-practices">Best practices</a><span>T2</span></li>
-          <li><a href="https://code.claude.com/docs/en/sub-agents">Sub-agents</a><span>T3c</span></li>
+          <li><a href="https://code.claude.com/docs/en/quickstart">Quickstart</a><span>CC 101</span></li>
+          <li><a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a><span>CC 101</span></li>
+          <li><a href="https://code.claude.com/docs/en/memory">Memory / CLAUDE.md</a><span>CC 201</span></li>
+          <li><a href="https://code.claude.com/docs/en/settings">Settings</a><span>CC 201</span></li>
+          <li><a href="https://code.claude.com/docs/en/best-practices">Best practices</a><span>CC 201</span></li>
+          <li><a href="https://code.claude.com/docs/en/sub-agents">Sub-agents</a><span>CC 401</span></li>
         </ul>
       </div>
     </div>
@@ -336,32 +352,32 @@
       <a href="https://github.com/wwd1015/claude-code-training/blob/main/demos/INDEX.md">demo library →</a></p>
     <div class="demos">
       <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/01-eda-data-dictionary.md">
-        <div class="k">demo 01 · track 1</div>
+        <div class="k">demo 01 · CC 101</div>
         <h3>EDA + data dictionary</h3>
         <p>Turn an unfamiliar dataset into a documented, profiled, reproducible one.</p>
       </a>
       <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/02-backtest-report-skill.md">
-        <div class="k">demo 02 · track 3a</div>
+        <div class="k">demo 02 · CC 301 skills</div>
         <h3>Build a /backtest-report skill</h3>
         <p>Author a reusable skill live: metrics, equity curve, monthly heatmap.</p>
       </a>
       <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/03-anomaly-triage-agent.md">
-        <div class="k">demo 03 · track 3c</div>
+        <div class="k">demo 03 · CC 401 subagents</div>
         <h3>Anomaly-triage subagent</h3>
         <p>Fan out over hundreds of series; only anomalies bubble up.</p>
       </a>
       <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/04-sql-over-mcp.md">
-        <div class="k">demo 04 · track 3d</div>
+        <div class="k">demo 04 · CC 301 mcp</div>
         <h3>Answer a data question over MCP</h3>
         <p>NL → query → result → chart, without leaving the terminal.</p>
       </a>
       <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/05-hooks-automation.md">
-        <div class="k">demo 05 · track 3b</div>
+        <div class="k">demo 05 · CC 301 hooks</div>
         <h3>Hooks: auto-lint + guard your data</h3>
         <p>Enforce lint-on-edit and block writes to <span class="mono">data/</span> automatically.</p>
       </a>
       <a class="demo" href="https://github.com/wwd1015/claude-code-training/blob/main/demos/06-regression-diagnostics.md">
-        <div class="k">demo 06 · track 3a · quant</div>
+        <div class="k">demo 06 · CC 301 skills · quant</div>
         <h3>Build a /regression-diagnostics skill</h3>
         <p>VIF, heteroskedasticity, stationarity — the quant counterpart to <span class="mono">/eda</span>.</p>
       </a>
@@ -382,6 +398,8 @@
       <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/data-handling.md"><span class="k">safety</span><span class="t">Data handling for quants</span></a>
       <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/capstone-ideas.md"><span class="k">capstones</span><span class="t">Project ideas bank</span></a>
       <a href="https://github.com/wwd1015/claude-code-training/blob/main/examples"><span class="k">examples</span><span class="t">Hooks &amp; MCP configs</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/skills"><span class="k">skills</span><span class="t">Starter skills to install</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/backbone-user-guide.md"><span class="k">user guide</span><span class="t">How the course system works</span></a>
     </div>
   </div>
 </section>
@@ -390,22 +408,22 @@
   <div class="wrap">
     <div class="tag">Track your progress</div>
     <h2>Your path checklist</h2>
-    <p class="sub">Ticks are saved in your browser. Work top to bottom, or jump to Track 3 if
-      you're already fluent.</p>
+    <p class="sub">Ticks are saved in your browser. Work top to bottom, or jump to CC 301 if
+      you're already fluent. Each course page also tracks per-module progress.</p>
     <p class="progress" id="progress">0 of 12 done</p>
     <div class="check" id="checks">
-      <label><input type="checkbox" data-k="install"><span><span class="t">Install &amp; authenticate Claude Code</span><span class="s">track 0</span></span></label>
-      <label><input type="checkbox" data-k="cc101"><span><span class="t">Finish Claude Code 101</span><span class="s">track 0</span></span></label>
-      <label><input type="checkbox" data-k="firsttask"><span><span class="t">Explain one of your own notebooks</span><span class="s">track 1</span></span></label>
-      <label><input type="checkbox" data-k="eda"><span><span class="t">Run an EDA pass + data dictionary</span><span class="s">track 1</span></span></label>
-      <label><input type="checkbox" data-k="cwf"><span><span class="t">Read Common workflows</span><span class="s">track 1</span></span></label>
-      <label><input type="checkbox" data-k="claudemd"><span><span class="t">Write a CLAUDE.md for one repo</span><span class="s">track 2</span></span></label>
-      <label><input type="checkbox" data-k="slash"><span><span class="t">Build one custom slash command</span><span class="s">track 2</span></span></label>
-      <label><input type="checkbox" data-k="skill"><span><span class="t">Author your first skill</span><span class="s">track 3a</span></span></label>
-      <label><input type="checkbox" data-k="hook"><span><span class="t">Add a pytest/ruff hook</span><span class="s">track 3b</span></span></label>
-      <label><input type="checkbox" data-k="agent"><span><span class="t">Build a fan-out subagent</span><span class="s">track 3c</span></span></label>
-      <label><input type="checkbox" data-k="mcp"><span><span class="t">Connect a data source over MCP</span><span class="s">track 3d</span></span></label>
-      <label><input type="checkbox" data-k="capstone"><span><span class="t">Ship + demo your capstone</span><span class="s">track 4</span></span></label>
+      <label><input type="checkbox" data-k="install"><span><span class="t">Install &amp; authenticate Claude Code</span><span class="s">CC 101</span></span></label>
+      <label><input type="checkbox" data-k="cc101"><span><span class="t">Complete CC 101 — Foundations</span><span class="s">CC 101</span></span></label>
+      <label><input type="checkbox" data-k="firsttask"><span><span class="t">Explain one of your own notebooks</span><span class="s">CC 101</span></span></label>
+      <label><input type="checkbox" data-k="eda"><span><span class="t">Run an EDA pass + data dictionary</span><span class="s">CC 101</span></span></label>
+      <label><input type="checkbox" data-k="claudemd"><span><span class="t">Write a CLAUDE.md for one repo</span><span class="s">CC 201</span></span></label>
+      <label><input type="checkbox" data-k="slash"><span><span class="t">Build one custom slash command</span><span class="s">CC 201</span></span></label>
+      <label><input type="checkbox" data-k="skill"><span><span class="t">Author your first skill</span><span class="s">CC 301</span></span></label>
+      <label><input type="checkbox" data-k="hook"><span><span class="t">Add a pytest/ruff hook</span><span class="s">CC 301</span></span></label>
+      <label><input type="checkbox" data-k="mcp"><span><span class="t">Connect a data source over MCP</span><span class="s">CC 301</span></span></label>
+      <label><input type="checkbox" data-k="agent"><span><span class="t">Build a fan-out subagent</span><span class="s">CC 401</span></span></label>
+      <label><input type="checkbox" data-k="headless"><span><span class="t">Run one headless / scheduled job</span><span class="s">CC 401</span></span></label>
+      <label><input type="checkbox" data-k="capstone"><span><span class="t">Ship + demo your capstone</span><span class="s">CC 501</span></span></label>
     </div>
   </div>
 </section>
@@ -415,13 +433,20 @@
     <div class="tag">For champions &amp; facilitators</div>
     <h2>Champion &amp; facilitator kit</h2>
     <p class="sub">Delivery is federated: most Learners adopt <b>self-serve</b>, and a department
-      <b>champion</b> sustains it and runs cohorts. Slide-by-slide outlines for the sessions, plus
-      the operating model. Demo data generators live in <span class="mono">demos/setup/</span>.</p>
+      <b>champion</b> sustains it and runs cohorts. Teach CC 301/401 from the instructor decks;
+      the workshop outlines and operating model back them up. Demo data generators live in
+      <span class="mono">demos/setup/</span>. To build a team edition (your demos layered on the
+      central courses), see the
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/backbone-user-guide.md">user guide</a>.</p>
     <div class="kit">
-      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/workshop-a.md"><span class="k">workshop A</span><span class="t">Fundamentals (Tracks 0–1)</span></a>
+      <a href="courses/301-deck.html"><span class="k">deck · CC 301</span><span class="t">Skills, Hooks &amp; MCP</span></a>
+      <a href="courses/401-deck.html"><span class="k">deck · CC 401</span><span class="t">Agent Systems</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/facilitator-guide.md"><span class="k">runbook</span><span class="t">Cohort guide + comms</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/capstone-demo-day.md"><span class="k">demo day</span><span class="t">Capstone demos</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/workshop-a.md"><span class="k">workshop A</span><span class="t">Fundamentals (CC 101)</span></a>
       <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/workshop-b.md"><span class="k">workshop B</span><span class="t">Config + first builds</span></a>
       <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/workshop-c.md"><span class="k">workshop C</span><span class="t">Agents + integrations</span></a>
-      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/sessions/capstone-demo-day.md"><span class="k">demo day</span><span class="t">Capstone demos</span></a>
+      <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/operating-model.md"><span class="k">ops</span><span class="t">Operating model</span></a>
     </div>
   </div>
 </section>
@@ -430,17 +455,18 @@
   <div class="wrap">
     <p class="principle">The principle: <b>reuse first.</b> Every module names an official
       Anthropic course or doc as the source of truth. We build only the thin layer that makes it
-      land for quants — the demos on your data, the exercises on your work.</p>
+      land for quants — the demos on your data, the exercises on your work. The courses are
+      versioned and centrally maintained; teams layer their own editions on top.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     Claude Code Training · internal enablement for data scientists &amp; quants ·
-    <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/curriculum.md">curriculum</a> ·
+    <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/backbone-user-guide.md">user guide</a> ·
+    <a href="https://github.com/wwd1015/claude-code-training/blob/main/BACKBONE.md">how it's built</a> ·
     <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/reading-lists.md">reading lists</a> ·
     <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/operating-model.md">operating model</a> ·
-    <a href="https://github.com/wwd1015/claude-code-training/blob/main/docs/facilitator-guide.md">facilitator guide</a> ·
     <a href="https://github.com/wwd1015/claude-code-training/blob/main/README.md">repo</a>
   </div>
 </footer>

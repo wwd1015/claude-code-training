@@ -19,3 +19,9 @@ sources:
     disposition: merged
     into: [modules/02-choosing-flagship-project.md, modules/03-design-doc-review.md, modules/05-measuring-impact.md]
     notes: "selection rubric seeds, demo-day framing, honest time-saved measurement, two-tier contribution governance"
+  - path: public Anthropic best-practices guidance (docs/en/best-practices + engineering blog)
+    sha256: n/a (external)
+    ingested: 2026-07-02
+    disposition: merged
+    into: [all modules]
+    notes: "worked examples, best-practices and common-pitfalls sections"

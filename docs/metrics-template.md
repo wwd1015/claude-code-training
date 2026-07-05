@@ -21,8 +21,8 @@ visibility?**
 > health (B). The tables below are the supporting dashboard, not the steering metric.
 
 ## Per-participant log
-| Person | Track reached | Artifacts shipped (skill/agent/hook/MCP) | Recurring task automated | Est. time saved/wk | Active at T+30? |
-|--------|---------------|------------------------------------------|--------------------------|--------------------|-----------------|
+| Person | Course reached (CC 101–501) | Artifacts shipped (skill/agent/hook/MCP) | Recurring task automated | Est. time saved/wk | Active at T+30? |
+|--------|-----------------------------|------------------------------------------|--------------------------|--------------------|-----------------|
 | | | | | | |
 
 > "Time saved/wk" is self-reported, before/after — rough is fine. "Active at T+30" = still using
@@ -32,7 +32,7 @@ visibility?**
 | Metric | Value |
 |--------|-------|
 | Participants | |
-| Completion rate (reached Track 3+) | |
+| Completion rate (reached CC 301+) | |
 | Total artifacts shipped | |
 | Median time saved/wk | |
 | 30-day active-use rate | |

@@ -21,6 +21,9 @@ Filter by `discipline` to assemble a cohort: **quant** cohorts get the quant + b
 **ds** cohorts get the ds + both demos. Same Spine, swappable anchors (see
 [ADR 0001](../docs/adr/0001-single-spine-contributed-demo-library.md)).
 
+The `track:` values are a stable tag vocabulary; they map to backbone courses as
+`1-fundamentals` → CC 101, `2-config` → CC 201, `3a/3b/3d` → CC 301, `3c` → CC 401.
+
 ## Seed demos
 
 | # | Title | Track | Discipline | Use case |

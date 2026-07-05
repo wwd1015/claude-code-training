@@ -8,7 +8,7 @@ audience: >
   workflows, enforce their rules, and reach their data. No software-engineering
   background assumed.
 prerequisites: CC 201
-duration_total: "~2 hrs 55 min"
+duration_total: "~4 hrs"
 outcome: >
   Shipped one working skill for a recurring task; added one hook to a repo;
   connected an MCP server and queried a data source through it; knows the

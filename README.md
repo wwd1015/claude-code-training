@@ -34,35 +34,40 @@ role-based walkthroughs for learners, instructors, LOB champions, and maintainer
 | [`intake/`](intake/) | Drop folder for new source material → `/backbone-sync`. |
 | [`lob/`](lob/) | Line-of-business editions (backbone + team overlays) → `/lob-overlay`. |
 | [`.claude/skills/`](.claude/skills/) | The two operating skills: `backbone-sync`, `lob-overlay`. |
-| [`site/index.html`](site/index.html) | The **entry site** — the training portal (GitHub Pages). Open it locally or host it. |
+| [`site/index.html`](site/index.html) | The **entry site** — the single access point for all courses (locally and on GitHub Pages). |
+| [`site/courses/`](site/courses/) | Published copies of the generated course pages (build artifacts — never hand-edit). |
 | [`docs/curriculum.md`](docs/curriculum.md) | Full curriculum: 5 tracks, structure, build roadmap, links to everything. |
 | [`docs/reading-lists.md`](docs/reading-lists.md) | The official Anthropic asset map (verified links) per module. |
 | [`docs/sessions/`](docs/sessions/) | Facilitator slide outlines: 3 workshops + capstone demo day. |
 | [`docs/facilitator-guide.md`](docs/facilitator-guide.md) | Cohort runbook + comms templates. |
 | [`docs/cheatsheet.md`](docs/cheatsheet.md) · [`glossary.md`](docs/glossary.md) · [`faq.md`](docs/faq.md) · [`data-handling.md`](docs/data-handling.md) | Learner reference. |
 | [`docs/operating-model.md`](docs/operating-model.md) · [`metrics-template.md`](docs/metrics-template.md) · [`capstone-ideas.md`](docs/capstone-ideas.md) | Program ops, ROI tracking, project ideas. |
-| [`demos/`](demos/) | 5 facilitator-ready demo scripts + [`demos/setup/`](demos/setup/) runnable seeded data generators. |
+| [`demos/`](demos/) | 6 facilitator-ready demo scripts + [`demos/setup/`](demos/setup/) runnable seeded data generators. |
 | [`examples/`](examples/) | Copy-paste [hooks](examples/hooks/) and [MCP](examples/mcp/) configs. |
 | [`templates/`](templates/) | Drop-in `CLAUDE.md` template for research repos. |
-| [`skills/`](skills/) | Starter skills to install today: `/eda`, `/backtest-report`, `/triage-data`. |
+| [`skills/`](skills/) | Starter skills to install today: `/eda`, `/backtest-report`, `/regression-diagnostics`, `/triage-data` ([guide](skills/README.md)). |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to add demos, skills, and capstones. |
 
 ## Start here (as a learner)
 
-1. Install Claude Code and authenticate — [Quickstart](https://code.claude.com/docs/en/quickstart).
-2. Take [Claude Code 101](https://anthropic.skilljar.com/claude-code-101) (self-paced).
-3. Do your first real task: open one of your own notebooks and ask Claude Code to explain it.
+1. Open the [entry site](site/index.html) (`open site/index.html`, or the hosted
+   GitHub Pages URL) — every course is one click away.
+2. Install Claude Code and authenticate — [Quickstart](https://code.claude.com/docs/en/quickstart).
+3. Take [CC 101 — Foundations](site/courses/101.html), then follow the catalog
+   101 → 201 → 301 → 401 → 501.
 
-Then follow the tracks on the [entry site](site/index.html).
+## Viewing / hosting the site
 
-## Viewing / hosting the entry site
-
-The site is a single self-contained `site/index.html` (no build step, no dependencies).
+The entry site plus all course pages are self-contained HTML under `site/`
+(no build step, no dependencies).
 
 - **Locally:** `open site/index.html`
 - **GitHub Pages:** push to GitHub, then enable Pages → Source: **GitHub Actions**.
   The included workflow ([`.github/workflows/pages.yml`](.github/workflows/pages.yml))
   publishes the `site/` folder on every push to `main`.
+- The course pages in `site/courses/` are published copies of
+  `backbone/*/generated/*.html`, refreshed by `/backbone-sync` — edit modules,
+  not these files.
 
 ## Contributing
 

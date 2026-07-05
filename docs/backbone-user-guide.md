@@ -22,16 +22,24 @@ them in plain English — the phrasings below are examples, not exact syntax.
 
 ### Where the courses are
 
-Each course is a single self-contained HTML page — open it in any browser,
-no server or install needed:
+**One place: the entry site.** Open `site/index.html` (locally with
+`open site/index.html`, or the GitHub Pages URL if the repo is hosted) and
+every course is one click away — the site links the published copies in
+`site/courses/`:
 
 ```
-backbone/101-foundations/generated/self-paced.html
-backbone/201-customization/generated/self-paced.html
-backbone/301-extending/generated/self-paced.html
-backbone/401-agent-systems/generated/self-paced.html
-backbone/501-capstone/generated/self-paced.html
+site/index.html            ← start here
+site/courses/101.html      CC 101 — Foundations
+site/courses/201.html      CC 201 — Make It Yours
+site/courses/301.html      CC 301 — Skills, Hooks & MCP   (+ 301-deck.html)
+site/courses/401.html      CC 401 — Agent Systems         (+ 401-deck.html)
+site/courses/501.html      CC 501 — Capstone Studio
 ```
+
+Each course is a single self-contained HTML page — any browser, no server or
+install needed. (The canonical rendered outputs live in
+`backbone/<course>/generated/`; the `site/courses/` files are identical
+published copies.)
 
 If your team has its own edition, use `lob/<your-team>/generated/` instead —
 same courses, plus your team's demos and use cases.
@@ -193,6 +201,9 @@ in `sources.yaml`.
 
 - **Rebuild outputs only** (after a template tweak, no new content):
   > "/backbone-sync regenerate all"
+
+  This also refreshes the published copies in `site/courses/` so the entry
+  site serves the new version.
 - **Health check** (versions, pending intake, stale outputs):
   > "/backbone-sync status"
 - **Use a different output template**: replace or add a template under
@@ -206,8 +217,8 @@ in `sources.yaml`.
 
 ### 4.3 Rules that keep the system healthy
 
-1. **Never hand-edit `generated/`** — it gets overwritten. Fix the module or
-   the template, then regenerate.
+1. **Never hand-edit `generated/` or `site/courses/`** — both get overwritten.
+   Fix the module or the template, then regenerate (which republishes).
 2. **Backbone = universal only.** If it names a team, a department, or an
    internal system, it belongs in an LOB overlay (or gets an anonymized,
    generalized version in the backbone).
@@ -255,4 +266,5 @@ checklist are all in its modules.
 | Backbone modules & versions | maintainer | `/backbone-sync` |
 | Format templates | maintainer | edit + `regenerate` |
 | Team overlays & editions | LOB champion | `/lob-overlay` |
-| `generated/` (anywhere) | nobody | always regenerated |
+| `generated/` + `site/courses/` | nobody | always regenerated |
+| Entry site (`site/index.html`) | maintainer | edit by hand (it's not generated) |

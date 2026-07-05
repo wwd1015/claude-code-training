@@ -8,3 +8,6 @@ examples/hooks/, examples/mcp/, demos 04–05), and public Anthropic
 docs/Academy links. Org-specific gaps marked `<!-- verify -->` (approved MCP
 servers/credential process, data-handling policy links, plugin mechanism
 currency).
+Each module carries a worked example, best-practices and common-pitfalls
+sections, and discipline notes (quant vs data scientist), drawn from public
+Anthropic best-practices guidance.

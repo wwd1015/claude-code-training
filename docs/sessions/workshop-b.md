@@ -1,4 +1,4 @@
-# Workshop B — Configuration + first builds (Track 2, 3a, 3b)
+# Workshop B — Configuration + first builds (CC 201 + CC 301 skills & hooks)
 
 **Length:** 90 min · **Format:** live
 **Pre-work:** [Memory](https://code.claude.com/docs/en/memory) +
@@ -38,3 +38,5 @@
 ## Facilitator prep
 - `cd demos/setup && python gen_backtest_results.py`.
 - Have the `skills/eda` and `skills/backtest-report` folders open to show real SKILL.md files.
+- Teach from the [CC 301 instructor deck](../../site/courses/301-deck.html) for the skills/hooks
+  half; assign [CC 201](../../site/courses/201.html) + [CC 301](../../site/courses/301.html) as follow-up.
